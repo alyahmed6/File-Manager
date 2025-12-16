@@ -17,7 +17,7 @@ const modules = [
   {
     number: 3,
     title: "Ethereum & Smart Contracts",
-    description: "Learn about Ethereum, smart contracts, DApps, and the broader ecosystem.",
+    description: "Learn about Ethereum, smart contracts, dapps, and the broader ecosystem.",
     duration: "~1h",
   },
   {
