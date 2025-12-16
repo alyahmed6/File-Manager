@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Award, BookOpen, Calendar, Users, Shield, TrendingUp } from "lucide-react";
+import whoThisCourseIsFor from "@assets/who_this_course_is_for_1765909582513.png";
 
 const features = [
   {
@@ -62,6 +63,15 @@ export default function CourseSection() {
               </CardContent>
             </Card>
           ))}
+        </div>
+
+        <div className="mt-12 flex justify-center">
+          <img 
+            src={whoThisCourseIsFor} 
+            alt="Who this course is for: Students & beginners, Non-technical users, First-time crypto investors, Anyone confused by crypto jargon, Professionals looking to upskill" 
+            className="max-w-full md:max-w-lg rounded-xl shadow-lg"
+            data-testid="img-who-this-course-is-for"
+          />
         </div>
 
         <div className="mt-12 text-center">
