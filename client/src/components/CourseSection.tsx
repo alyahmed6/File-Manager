@@ -43,10 +43,7 @@ export default function CourseSection() {
           <p className="text-xl md:text-2xl font-semibold text-primary mb-2">
             Learn First, Earn Later
           </p>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
-            Cut through the noise of fake crypto gurus. Our comprehensive curriculum is designed 
-            by industry professionals to give you real knowledge and practical skills.
-          </p>
+          <p className="text-muted-foreground max-w-2xl mx-auto">Cut through the noise of fake crypto gurus. Our comprehensive curriculum is designed to give you real knowledge and practical skills.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
