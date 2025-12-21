@@ -30,7 +30,7 @@ export default function Header() {
 
   return (
     <header 
-      className="sticky top-0 z-50 w-full bg-transparent transition-transform duration-300 ease-out"
+      className="sticky top-0 z-50 w-full bg-gradient-to-br from-primary/10 via-background to-accent/5 transition-transform duration-300 ease-out"
       style={{
         transform: isHeaderVisible ? "translateY(0)" : "translateY(-100%)",
       }}
@@ -79,7 +79,7 @@ export default function Header() {
       </div>
 
       {mobileMenuOpen && (
-        <div className="md:hidden border-t border-border bg-background">
+        <div className="md:hidden bg-gradient-to-br from-primary/10 via-background to-accent/5">
           <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
             {navItems.map((item) => (
               <button
