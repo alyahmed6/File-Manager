@@ -5,7 +5,7 @@ import { useState } from "react";
 import { useHeaderVisibility } from "@/hooks/useHeaderVisibility";
 
 const navItems = [
-  { label: "Course", href: "#course" },
+  { label: "Overview", href: "#overview" },
   { label: "Curriculum", href: "#curriculum" },
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },

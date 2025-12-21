@@ -43,6 +43,11 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Course</h4>
             <ul className="space-y-2 text-sm text-sidebar-foreground/70">
               <li>
+                <button onClick={() => scrollToSection("#overview")} className="hover:text-sidebar-foreground transition-colors" data-testid="link-footer-overview">
+                  Overview
+                </button>
+              </li>
+              <li>
                 <button onClick={() => scrollToSection("#curriculum")} className="hover:text-sidebar-foreground transition-colors" data-testid="link-footer-curriculum">
                   Curriculum
                 </button>
