@@ -25,6 +25,10 @@ export default function HeroSection() {
               </span>
             </h1>
             
+            <h2 className="text-xl md:text-2xl font-semibold text-foreground" data-testid="text-hero-subheading">
+              From zero to confident in 8 weeks
+            </h2>
+            
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0" data-testid="text-hero-description">
               Learn blockchain fundamentals, Bitcoin, Ethereum, wallets, crypto exchanges 
               and more within 2 months through downloadable videos on our Discord server.
