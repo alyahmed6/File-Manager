@@ -45,7 +45,7 @@ export default function Header() {
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-bold leading-tight" data-testid="text-brand-name">The Blockchain Pulse</span>
-            <span className="text-xs text-muted-foreground leading-tight">Bridging Financial Intelligence</span>
+            <span className="hidden md:block text-xs text-muted-foreground leading-tight">Bridging Financial Intelligence</span>
           </div>
         </Link>
 
@@ -64,7 +64,7 @@ export default function Header() {
 
         <div className="flex items-center gap-2">
           <Link href="/register">
-            <Button data-testid="button-header-register">Get Early Access</Button>
+            <Button size="sm" className="md:h-9 md:px-4" data-testid="button-header-register">Get Early Access</Button>
           </Link>
           <Button
             variant="ghost"
