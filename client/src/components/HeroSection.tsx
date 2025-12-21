@@ -40,9 +40,6 @@ export default function HeroSection() {
                   Get Early Access
                 </Button>
               </Link>
-              <Button variant="outline" size="lg" className="w-full sm:w-auto gap-2" data-testid="button-hero-learn-more">
-                <Play className="h-4 w-4" /> How It Works
-              </Button>
             </div>
             
             <div className="flex flex-wrap items-center gap-6 justify-center lg:justify-start pt-4">
