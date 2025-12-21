@@ -41,9 +41,7 @@ export default function CourseSection() {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="text-course-heading">Why Choose Us</h2>
-          <p className="text-xl md:text-2xl font-semibold text-primary mb-2">
-            Learn First, Earn Later
-          </p>
+          <p className="text-xl md:text-2xl font-semibold text-primary mb-2">Learn First. Understand Clearly. Earn Responsibly.</p>
           <p className="text-muted-foreground max-w-2xl mx-auto">Cut through the noise of fake crypto gurus. Our comprehensive curriculum is designed to give you real knowledge and practical skills.</p>
         </div>
 
