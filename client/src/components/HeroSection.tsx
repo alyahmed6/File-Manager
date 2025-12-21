@@ -30,8 +30,7 @@ export default function HeroSection() {
             </h2>
             
             <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0" data-testid="text-hero-description">
-              Learn blockchain fundamentals, Bitcoin, Ethereum, wallets, crypto exchanges 
-              and more within 2 months through downloadable videos on our Discord server.
+              Learn how crypto actually works — Bitcoin, Ethereum, wallets, exchanges, and real-world use cases, explained simply for beginners.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
