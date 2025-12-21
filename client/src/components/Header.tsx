@@ -2,6 +2,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
+import { useHeaderVisibility } from "@/hooks/useHeaderVisibility";
 
 const navItems = [
   { label: "Course", href: "#course" },
@@ -13,6 +14,7 @@ const navItems = [
 export default function Header() {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const isHeaderVisible = useHeaderVisibility();
 
   const scrollToSection = (href: string) => {
     if (location !== "/" && href.startsWith("#")) {
@@ -27,7 +29,13 @@ export default function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header 
+      className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 transition-transform duration-300 ease-out"
+      style={{
+        transform: isHeaderVisible ? "translateY(0)" : "translateY(-100%)",
+      }}
+      data-testid="header-sticky"
+    >
       <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
         <Link href="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
