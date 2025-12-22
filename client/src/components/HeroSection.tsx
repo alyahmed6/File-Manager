@@ -88,10 +88,6 @@ export default function HeroSection() {
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Non-technical users</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                     <span className="text-sm text-foreground">Crypto investors</span>
                   </li>
                   <li className="flex items-start gap-3">
@@ -105,6 +101,10 @@ export default function HeroSection() {
                   <li className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
                     <span className="text-sm text-foreground">Tech journalists</span>
+                  </li>
+                  <li className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                    <span className="text-sm text-foreground">Non-technical users</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
