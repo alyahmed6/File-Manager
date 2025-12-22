@@ -38,7 +38,7 @@ const features = [
     icon: Shield,
     title: "SECP Registered",
     description:
-      "Offered by an SECP-registered company for transparency and credibility.",
+      "Course offered by a Securities and Exchange Commission registered company.",
   },
   {
     icon: BarChart3,
