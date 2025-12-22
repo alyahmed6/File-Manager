@@ -4,7 +4,7 @@ import { Play, Users, Clock, Award } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/5 py-16 md:py-24">
+    <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/5 py-8 md:py-12">
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMzYmI1ZTgiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyem0wLTRWMjhoLTEydjJoMTJ6bTAtNFYyNGgtMTJ2Mmgxem0wLTRWMjBoLTEydjJoMTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
 
       <div className="container mx-auto px-4">
@@ -24,7 +24,7 @@ export default function HeroSection() {
             >
               Master Crypto &{" "}
               <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-                — web3 Blockchain
+                Blockchain (Web3)
               </span>
             </h1>
 
