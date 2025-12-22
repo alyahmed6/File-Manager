@@ -8,8 +8,8 @@ export default function HeroSection() {
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMzYmI1ZTgiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyem0wLTRWMjhoLTEydjJoMTJ6bTAtNFYyNGgtMTJ2Mmgxem0wLTRWMjBoLTEydjJoMTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
 
       <div className="container mx-auto px-4">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
-          <div className="flex-1 space-y-6 text-center lg:text-left">
+        <div className="space-y-12">
+          <div className="flex flex-col items-center lg:items-start gap-6 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 rounded-full bg-primary/10 px-4 py-1.5 text-sm font-medium text-primary">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75"></span>
@@ -36,7 +36,7 @@ export default function HeroSection() {
             </h2>
 
             <p
-              className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto lg:mx-0"
+              className="text-lg md:text-xl text-muted-foreground max-w-xl"
               data-testid="text-hero-description"
             >
               Learn how crypto actually works — Bitcoin, Ethereum, wallets,
@@ -44,7 +44,7 @@ export default function HeroSection() {
               beginners.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center gap-4 justify-center lg:justify-start">
+            <div className="flex flex-col sm:flex-row items-center gap-4">
               <Link href="/register">
                 <Button
                   size="lg"
@@ -72,51 +72,44 @@ export default function HeroSection() {
             </div>
           </div>
 
-          <div className="flex-1 w-full max-w-lg">
-            <div className="relative rounded-xl overflow-hidden bg-card border border-border shadow-lg p-8">
-              <div className="bg-gradient-to-br from-primary/20 to-accent/20">
-                <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNDAiIGhlaWdodD0iNDAiIHZpZXdCb3g9IjAgMCA0MCA0MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMzYmI1ZTgiIGZpbGwtb3BhY2l0eT0iMC4xIj48cGF0aCBkPSJNMjAgMjBjMC01LjUyMyA0LjQ3Ny0xMCAxMC0xMHMxMCA0LjQ3NyAxMCAxMC00LjQ3NyAxMC0xMCAxMC0xMC00LjQ3Ny0xMC0xMHoiLz48L2c+PC9nPjwvc3ZnPg==')] opacity-30" />
-              </div>
-              <div className="space-y-4">
-                <h3 className="text-xl font-bold" data-testid="text-who-this-course">
-                  Who this course is for
-                </h3>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Students and beginners</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Crypto investors</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Freelancers</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Content creators</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Tech journalists</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Non-technical users</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Anyone confused by crypto jargon</span>
-                  </li>
-                  <li className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Professionals looking to upskill</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
+          <div className="max-w-2xl">
+            <h3 className="text-2xl font-bold mb-6" data-testid="text-who-this-course">
+              Who this course is for
+            </h3>
+            <ul className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                <span className="text-sm text-foreground">Students and beginners</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                <span className="text-sm text-foreground">Crypto investors</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                <span className="text-sm text-foreground">Freelancers</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                <span className="text-sm text-foreground">Content creators</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                <span className="text-sm text-foreground">Tech journalists</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                <span className="text-sm text-foreground">Non-technical users</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                <span className="text-sm text-foreground">Anyone confused by crypto jargon</span>
+              </li>
+              <li className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
+                <span className="text-sm text-foreground">Professionals looking to upskill</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
