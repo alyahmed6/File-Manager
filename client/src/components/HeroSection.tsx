@@ -84,35 +84,35 @@ export default function HeroSection() {
                 <ul className="space-y-3">
                   <li className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Students and beginners</span>
+                    <span className="text-base md:text-sm text-foreground">Students and beginners</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Crypto investors</span>
+                    <span className="text-base md:text-sm text-foreground">Crypto investors</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Freelancers</span>
+                    <span className="text-base md:text-sm text-foreground">Freelancers</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Content creators</span>
+                    <span className="text-base md:text-sm text-foreground">Content creators</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Tech journalists</span>
+                    <span className="text-base md:text-sm text-foreground">Tech journalists</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Non-technical users</span>
+                    <span className="text-base md:text-sm text-foreground">Non-technical users</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Anyone confused by crypto jargon</span>
+                    <span className="text-base md:text-sm text-foreground">Anyone confused by crypto jargon</span>
                   </li>
                   <li className="flex items-start gap-3">
                     <CheckCircle className="h-5 w-5 text-primary shrink-0 mt-0.5" />
-                    <span className="text-sm text-foreground">Professionals looking to upskill</span>
+                    <span className="text-base md:text-sm text-foreground">Professionals looking to upskill</span>
                   </li>
                 </ul>
               </div>
