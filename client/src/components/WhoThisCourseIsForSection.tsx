@@ -1,3 +1,5 @@
+import { Link } from "wouter";
+import { Button } from "@/components/ui/button";
 import { 
   GraduationCap, 
   TrendingUp, 
@@ -93,6 +95,21 @@ export default function WhoThisCourseIsForSection() {
               </p>
             </div>
           ))}
+        </div>
+
+        <div className="text-center mt-12">
+          <p className="text-lg md:text-xl text-muted-foreground mb-6">
+            Ready to start learning crypto the right way?
+          </p>
+          <Link href="/register">
+            <Button
+              size="lg"
+              className="bg-accent hover:bg-accent/90 text-accent-foreground border border-accent"
+              data-testid="button-who-course-cta"
+            >
+              Join the Early Access Waitlist
+            </Button>
+          </Link>
         </div>
       </div>
     </section>
