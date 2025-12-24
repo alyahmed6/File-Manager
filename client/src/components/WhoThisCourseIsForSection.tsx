@@ -1,4 +1,3 @@
-import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { 
   GraduationCap, 
@@ -101,7 +100,7 @@ export default function WhoThisCourseIsForSection() {
           <p className="text-lg md:text-xl text-muted-foreground mb-6">
             Ready to start learning crypto the right way?
           </p>
-          <Link href="/register">
+          <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
             <Button
               size="lg"
               className="bg-accent hover:bg-accent/90 text-accent-foreground border border-accent"
@@ -109,7 +108,7 @@ export default function WhoThisCourseIsForSection() {
             >
               Join the Early Access Waitlist
             </Button>
-          </Link>
+          </a>
         </div>
       </div>
     </section>

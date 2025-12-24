@@ -53,9 +53,9 @@ export default function Footer() {
                 </button>
               </li>
               <li>
-                <Link href="/register" className="hover:text-sidebar-foreground transition-colors" data-testid="link-footer-register">
+                <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer" className="hover:text-sidebar-foreground transition-colors" data-testid="link-footer-register">
                   Register
-                </Link>
+                </a>
               </li>
               <li>
                 <button onClick={() => scrollToSection("#faq")} className="hover:text-sidebar-foreground transition-colors" data-testid="link-footer-faq">

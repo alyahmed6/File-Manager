@@ -1,4 +1,3 @@
-import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Users, Clock, Award } from "lucide-react";
 
@@ -44,7 +43,7 @@ export default function HeroSection() {
           </p>
 
           <div className="flex items-center justify-center pt-2">
-            <Link href="/register">
+            <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
               <Button
                 size="lg"
                 className="bg-accent hover:bg-accent/90 text-accent-foreground border border-accent"
@@ -52,7 +51,7 @@ export default function HeroSection() {
               >
                 Get Early Access
               </Button>
-            </Link>
+            </a>
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-6 pt-4">

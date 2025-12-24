@@ -1,4 +1,3 @@
-import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Check } from "lucide-react";
 
@@ -47,7 +46,7 @@ export default function PricingSection() {
           </div>
           
           <div className="text-center">
-            <Link href="/register">
+            <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
               <Button 
                 className="bg-accent hover:bg-accent/90 text-accent-foreground border border-accent" 
                 size="lg" 
@@ -55,7 +54,7 @@ export default function PricingSection() {
               >
                 Join the Early Access Waitlist
               </Button>
-            </Link>
+            </a>
           </div>
         </div>
       </div>
