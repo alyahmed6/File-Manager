@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { MobileScrollReveal } from "@/components/MobileScrollReveal";
 import { Clock, BookOpen, CheckCircle2 } from "lucide-react";
 
 const modules = [
@@ -77,26 +78,28 @@ export default function CurriculumSection() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
-          {modules.map((module) => (
-            <Card key={module.number} className="hover-elevate transition-all duration-300" data-testid={`card-module-${module.number}`}>
-              <CardContent className="p-4 md:p-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-bold text-lg">
-                    {module.number}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
-                      <h3 className="font-semibold">{module.title}</h3>
-                      <div className="flex items-center gap-1 text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full shrink-0">
-                        <Clock className="h-3 w-3" />
-                        <span>{module.duration}</span>
-                      </div>
+          {modules.map((module, index) => (
+            <MobileScrollReveal key={module.number} delay={index * 0.06}>
+              <Card className="hover-elevate transition-all duration-300 h-full" data-testid={`card-module-${module.number}`}>
+                <CardContent className="p-4 md:p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-bold text-lg">
+                      {module.number}
                     </div>
-                    <p className="text-sm text-muted-foreground">{module.description}</p>
+                    <div className="flex-1 min-w-0">
+                      <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
+                        <h3 className="font-semibold">{module.title}</h3>
+                        <div className="flex items-center gap-1 text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full shrink-0">
+                          <Clock className="h-3 w-3" />
+                          <span>{module.duration}</span>
+                        </div>
+                      </div>
+                      <p className="text-sm text-muted-foreground">{module.description}</p>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </MobileScrollReveal>
           ))}
         </div>
 
