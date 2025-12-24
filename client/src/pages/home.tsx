@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
+import WhoThisCourseIsForSection from "@/components/WhoThisCourseIsForSection";
 import CourseSection from "@/components/CourseSection";
 import CurriculumSection from "@/components/CurriculumSection";
 import PricingSection from "@/components/PricingSection";
@@ -12,6 +13,7 @@ export default function Home() {
       <Header />
       <main className="flex-1">
         <HeroSection />
+        <WhoThisCourseIsForSection />
         <CourseSection />
         <CurriculumSection />
         <PricingSection />
