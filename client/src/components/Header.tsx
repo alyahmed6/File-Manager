@@ -43,7 +43,17 @@ export default function Header() {
       data-testid="header-sticky"
     >
       <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
-        <Link href="/" className="flex items-center gap-2">
+        <button 
+          onClick={() => {
+            if (location === "/") {
+              window.scrollTo({ top: 0, behavior: "smooth" });
+            } else {
+              window.location.href = "/";
+            }
+          }}
+          className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+          data-testid="button-logo-home"
+        >
           <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
             <svg viewBox="0 0 24 24" className="h-5 w-5 text-primary-foreground" fill="currentColor">
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
@@ -53,7 +63,7 @@ export default function Header() {
             <span className="text-sm font-bold leading-tight" data-testid="text-brand-name">The Blockchain Pulse</span>
             <span className="hidden md:block text-xs text-muted-foreground leading-tight">Bridging Financial Intelligence</span>
           </div>
-        </Link>
+        </button>
 
         <nav className="hidden md:flex items-center gap-6">
           {navItems.map((item) => (

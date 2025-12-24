@@ -1,4 +1,4 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { SiDiscord, SiInstagram, SiLinkedin, SiFacebook } from "react-icons/si";
 import { Shield } from "lucide-react";
 
@@ -11,10 +11,20 @@ const socialLinks = [
 ];
 
 export default function Footer() {
+  const [location] = useLocation();
+
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleLogoClick = () => {
+    if (location === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      window.location.href = "/";
     }
   };
 
@@ -23,7 +33,11 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
-            <div className="flex items-center gap-2 mb-4">
+            <button 
+              onClick={handleLogoClick}
+              className="flex items-center gap-2 mb-4 hover:opacity-80 transition-opacity text-left"
+              data-testid="button-footer-logo-home"
+            >
               <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
                 <svg viewBox="0 0 24 24" className="h-5 w-5 text-primary-foreground" fill="currentColor">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
@@ -33,7 +47,7 @@ export default function Footer() {
                 <span className="text-sm font-bold leading-tight">The Blockchain Pulse</span>
                 <span className="text-xs text-muted-foreground leading-tight">Bridging Financial Intelligence With Blockchain</span>
               </div>
-            </div>
+            </button>
             <p className="text-sm text-muted-foreground">
               Empowering the next generation of blockchain enthusiasts with comprehensive, practical education.
             </p>
