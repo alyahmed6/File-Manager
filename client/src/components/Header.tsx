@@ -6,7 +6,7 @@ import { useHeaderVisibility } from "@/hooks/useHeaderVisibility";
 
 const navItems = [
   { label: "About Us", href: "/about-us" },
-  { label: "Overview", href: "#overview" },
+  { label: "Overview", href: "#course" },
   { label: "Curriculum", href: "#curriculum" },
   { label: "Pricing", href: "#pricing" },
   { label: "FAQ", href: "#faq" },
