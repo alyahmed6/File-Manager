@@ -19,7 +19,7 @@ export default function Footer() {
   };
 
   return (
-    <footer className="bg-sidebar text-sidebar-foreground py-12">
+    <footer className="bg-background text-foreground py-12">
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
@@ -31,34 +31,34 @@ export default function Footer() {
               </div>
               <div className="flex flex-col">
                 <span className="text-sm font-bold leading-tight">The Blockchain Pulse</span>
-                <span className="text-xs text-sidebar-foreground/70 leading-tight">Bridging Financial Intelligence With Blockchain</span>
+                <span className="text-xs text-muted-foreground leading-tight">Bridging Financial Intelligence With Blockchain</span>
               </div>
             </div>
-            <p className="text-sm text-sidebar-foreground/70">
+            <p className="text-sm text-muted-foreground">
               Empowering the next generation of blockchain enthusiasts with comprehensive, practical education.
             </p>
           </div>
 
           <div>
             <h4 className="font-semibold mb-4">Course</h4>
-            <ul className="space-y-2 text-sm text-sidebar-foreground/70">
+            <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <button onClick={() => scrollToSection("#overview")} className="hover:text-sidebar-foreground transition-colors" data-testid="link-footer-overview">
+                <button onClick={() => scrollToSection("#overview")} className="hover:text-foreground transition-colors" data-testid="link-footer-overview">
                   Overview
                 </button>
               </li>
               <li>
-                <button onClick={() => scrollToSection("#curriculum")} className="hover:text-sidebar-foreground transition-colors" data-testid="link-footer-curriculum">
+                <button onClick={() => scrollToSection("#curriculum")} className="hover:text-foreground transition-colors" data-testid="link-footer-curriculum">
                   Curriculum
                 </button>
               </li>
               <li>
-                <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer" className="hover:text-sidebar-foreground transition-colors" data-testid="link-footer-register">
+                <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors" data-testid="link-footer-register">
                   Register
                 </a>
               </li>
               <li>
-                <button onClick={() => scrollToSection("#faq")} className="hover:text-sidebar-foreground transition-colors" data-testid="link-footer-faq">
+                <button onClick={() => scrollToSection("#faq")} className="hover:text-foreground transition-colors" data-testid="link-footer-faq">
                   FAQ
                 </button>
               </li>
@@ -67,14 +67,14 @@ export default function Footer() {
 
           <div>
             <h4 className="font-semibold mb-4">Support</h4>
-            <ul className="space-y-2 text-sm text-sidebar-foreground/70">
+            <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <a href="mailto:support@theblockchainpulse.org" className="hover:text-sidebar-foreground transition-colors" data-testid="link-footer-help">
+                <a href="mailto:support@theblockchainpulse.org" className="hover:text-foreground transition-colors" data-testid="link-footer-help">
                   Help Center
                 </a>
               </li>
               <li>
-                <a href="https://x.com/theblockchainpulse" target="_blank" rel="noopener noreferrer" className="hover:text-sidebar-foreground transition-colors" data-testid="link-footer-contact">
+                <a href="https://x.com/theblockchainpulse" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors" data-testid="link-footer-contact">
                   Contact Us
                 </a>
               </li>
@@ -83,14 +83,14 @@ export default function Footer() {
 
           <div>
             <h4 className="font-semibold mb-4">Legal</h4>
-            <ul className="space-y-2 text-sm text-sidebar-foreground/70">
+            <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link href="/privacy-policy" className="hover:text-sidebar-foreground transition-colors" data-testid="link-footer-privacy">
+                <Link href="/privacy-policy" className="hover:text-foreground transition-colors" data-testid="link-footer-privacy">
                   Privacy Policy
                 </Link>
               </li>
               <li>
-                <Link href="/terms-of-service" className="hover:text-sidebar-foreground transition-colors" data-testid="link-footer-terms">
+                <Link href="/terms-of-service" className="hover:text-foreground transition-colors" data-testid="link-footer-terms">
                   Terms of Service
                 </Link>
               </li>
@@ -98,7 +98,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="border-t border-sidebar-border pt-8">
+        <div className="border-t border-border pt-8">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex flex-wrap items-center gap-4">
               {socialLinks.map((social, index) => (
@@ -107,7 +107,7 @@ export default function Footer() {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-md bg-sidebar-accent px-3 py-2 text-sm text-sidebar-foreground hover:bg-sidebar-accent/80 transition-colors"
+                  className="flex items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm text-accent-foreground hover:bg-accent/80 transition-colors"
                   data-testid={`link-social-${social.label.toLowerCase().replace(/[^a-z]/g, "")}`}
                 >
                   {social.icon === "X" ? (
@@ -123,7 +123,7 @@ export default function Footer() {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-6 text-sm text-sidebar-foreground/70">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-6 text-sm text-muted-foreground">
             <p>&copy; 2025 The Blockchain Pulse. All rights reserved.</p>
             <div className="flex items-center gap-2">
               <Shield className="h-4 w-4" />
