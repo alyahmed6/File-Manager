@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useHeaderVisibility } from "@/hooks/useHeaderVisibility";
 
 const navItems = [
+  { label: "About Us", href: "/about-us" },
   { label: "Overview", href: "#overview" },
   { label: "Curriculum", href: "#curriculum" },
   { label: "Pricing", href: "#pricing" },
@@ -16,7 +17,12 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isHeaderVisible = useHeaderVisibility();
 
-  const scrollToSection = (href: string) => {
+  const handleNavigation = (href: string) => {
+    if (href.startsWith("/")) {
+      // Internal page link
+      window.location.href = href;
+      return;
+    }
     if (location !== "/" && href.startsWith("#")) {
       window.location.href = "/" + href;
       return;
@@ -53,7 +59,7 @@ export default function Header() {
           {navItems.map((item) => (
             <button
               key={item.label}
-              onClick={() => scrollToSection(item.href)}
+              onClick={() => handleNavigation(item.href)}
               className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
               data-testid={`link-nav-${item.label.toLowerCase()}`}
             >
@@ -84,7 +90,7 @@ export default function Header() {
             {navItems.map((item) => (
               <button
                 key={item.label}
-                onClick={() => scrollToSection(item.href)}
+                onClick={() => handleNavigation(item.href)}
                 className="text-sm font-medium text-muted-foreground py-2 text-left hover:text-foreground"
                 data-testid={`link-mobile-nav-${item.label.toLowerCase()}`}
               >
