@@ -1,4 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
+import { MobileScrollReveal } from "@/components/MobileScrollReveal";
 import {
   Award,
   BookOpen,
@@ -70,25 +71,26 @@ export default function CourseSection() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (
-            <Card
-              key={index}
-              className="hover-elevate transition-all duration-300"
-              data-testid={`card-feature-${index}`}
-            >
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
-                    <feature.icon className="h-6 w-6 text-primary" />
+            <MobileScrollReveal key={index} delay={index * 0.08}>
+              <Card
+                className="hover-elevate transition-all duration-300 h-full"
+                data-testid={`card-feature-${index}`}
+              >
+                <CardContent className="p-6">
+                  <div className="flex items-start gap-4">
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+                      <feature.icon className="h-6 w-6 text-primary" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold mb-1">{feature.title}</h3>
+                      <p className="text-sm text-muted-foreground">
+                        {feature.description}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold mb-1">{feature.title}</h3>
-                    <p className="text-sm text-muted-foreground">
-                      {feature.description}
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
+            </MobileScrollReveal>
           ))}
         </div>
 

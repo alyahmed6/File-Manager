@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { MobileScrollReveal } from "@/components/MobileScrollReveal";
 import { Check } from "lucide-react";
 
 const benefits = [
@@ -36,12 +37,14 @@ export default function PricingSection() {
           
           <div className="space-y-3 mb-8">
             {benefits.map((benefit, index) => (
-              <div key={index} className="flex items-center gap-3" data-testid={`text-benefit-${index}`}>
-                <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                  <Check className="h-3 w-3 text-primary" />
+              <MobileScrollReveal key={index} delay={index * 0.08}>
+                <div className="flex items-center gap-3" data-testid={`text-benefit-${index}`}>
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
+                    <Check className="h-3 w-3 text-primary" />
+                  </div>
+                  <span className="text-sm md:text-base">{benefit}</span>
                 </div>
-                <span className="text-sm md:text-base">{benefit}</span>
-              </div>
+              </MobileScrollReveal>
             ))}
           </div>
           

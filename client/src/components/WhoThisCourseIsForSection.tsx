@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { MobileScrollReveal } from "@/components/MobileScrollReveal";
 import { 
   GraduationCap, 
   TrendingUp, 
@@ -80,19 +81,20 @@ export default function WhoThisCourseIsForSection() {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 max-w-7xl mx-auto">
           {audiences.map((audience, index) => (
-            <div
-              key={index}
-              className="flex flex-col items-center text-center p-4 rounded-lg bg-card/50 border border-border/50 hover-elevate transition-all duration-200"
-              data-testid={`card-audience-${index}`}
-            >
-              <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 mb-3">
-                <audience.icon className="h-5 w-5 text-primary" />
+            <MobileScrollReveal key={index} delay={index * 0.06}>
+              <div
+                className="flex flex-col items-center text-center p-4 rounded-lg bg-card/50 border border-border/50 hover-elevate transition-all duration-200 h-full"
+                data-testid={`card-audience-${index}`}
+              >
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 mb-3">
+                  <audience.icon className="h-5 w-5 text-primary" />
+                </div>
+                <h3 className="font-semibold text-sm mb-1">{audience.title}</h3>
+                <p className="text-xs text-muted-foreground leading-relaxed">
+                  {audience.description}
+                </p>
               </div>
-              <h3 className="font-semibold text-sm mb-1">{audience.title}</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed">
-                {audience.description}
-              </p>
-            </div>
+            </MobileScrollReveal>
           ))}
         </div>
 
