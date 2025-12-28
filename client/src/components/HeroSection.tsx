@@ -1,7 +1,14 @@
 import { Button } from "@/components/ui/button";
-import { Users, Clock, Award } from "lucide-react";
+import { Check } from "lucide-react";
 
 export default function HeroSection() {
+  const features = [
+    "Downloadable videos",
+    "Certification included",
+    "Live Q&A",
+    "10 easy modules"
+  ];
+
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/5 pt-4 md:pt-6 pb-12 md:pb-20">
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMzYmI1ZTgiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyem0wLTRWMjhoLTEydjJoMTJ6bTAtNFYyNGgtMTJ2Mmgxem0wLTRWMjBoLTEydjJoMTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
@@ -54,19 +61,13 @@ export default function HeroSection() {
             </a>
           </div>
 
-          <div className="flex flex-wrap items-center justify-center gap-6 pt-4">
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Clock className="h-4 w-4 text-primary" />
-              <span>2 Months Duration</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Users className="h-4 w-4 text-primary" />
-              <span>Discord Community</span>
-            </div>
-            <div className="flex items-center gap-2 text-sm text-muted-foreground">
-              <Award className="h-4 w-4 text-primary" />
-              <span>Certification Included</span>
-            </div>
+          <div className="grid grid-cols-2 gap-x-8 gap-y-4 pt-4 max-w-md mx-auto">
+            {features.map((feature, index) => (
+              <div key={index} className="flex items-center gap-2 text-sm text-muted-foreground justify-start">
+                <Check className="h-4 w-4 text-[#22c55e] shrink-0" strokeWidth={3} />
+                <span className="text-left whitespace-nowrap">{feature}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
