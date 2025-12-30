@@ -6,61 +6,70 @@ const modules = [
   {
     number: 1,
     title: "Introduction to Blockchain",
-    description: "Understanding the fundamentals of distributed ledger technology and how blockchain works.",
+    description:
+      "History, fundamentals of distributed ledger technology and how blockchain works.",
     duration: "~1h",
   },
   {
     number: 2,
     title: "Bitcoin Deep Dive",
-    description: "Complete guide to Bitcoin, its history, mining, transactions, and use cases.",
+    description:
+      "Complete guide to Bitcoin, history, mining, transactions, and use cases.",
     duration: "~1h",
   },
   {
     number: 3,
     title: "Ethereum & Smart Contracts",
-    description: "Learn about Ethereum, smart contracts, dapps, and the broader ecosystem.",
+    description: "Ethereum, smart contracts, dapps, and the broader ecosystem.",
     duration: "~1h",
   },
   {
     number: 4,
     title: "Cryptocurrency Wallets",
-    description: "Creating wallets, understanding wallets, security practices, and wallet management.",
+    description:
+      "Creating wallets, understanding wallets, security practices, and wallet management.",
     duration: "~1h",
   },
   {
     number: 5,
     title: "Centralized Exchanges (CEX's)",
-    description: "How to use major exchanges, trading basics, and security considerations.",
+    description:
+      "Exchange tutorial (Binance), trading basics, and security considerations.",
     duration: "~1h",
   },
   {
     number: 6,
     title: "Decentralized Exchanges (DEX's)",
-    description: "Understanding DEXs, liquidity pools, yield farming, and DeFi protocols.",
+    description:
+      "Understanding DEXs, liquidity pools, yield farming, and DeFi protocols.",
     duration: "~1h",
   },
   {
     number: 7,
-    title: "Narratives",
-    description: "Understanding Stablecoins, AI in blockchain, RWA's, Metaverse, NFT's and more.",
+    title: "Narratives/Trends",
+    description:
+      "Understanding Stablecoins, AI in blockchain, RWA's, Metaverse, NFT's and more.",
     duration: "~1h",
   },
   {
     number: 8,
     title: "Advanced Topics & Future",
-    description: "Emerging trends, regulatory landscape, and future of blockchain technology.",
+    description:
+      "Emerging trends, regulatory landscape, and future of blockchain technology.",
     duration: "~1h",
   },
   {
     number: 9,
     title: "Research & Analytical Platforms",
-    description: "How to use analytical data provider platforms to analyze cryptocurrency projects.",
+    description:
+      "How to use analytical data provider platforms to analyze cryptocurrency projects.",
     duration: "~1h",
   },
   {
     number: 10,
     title: "Layer 2's, Rollups & Side Chains",
-    description: "Purpose, importance and differences. Proving mechanisms, Zk and Optimistic proofs.",
+    description:
+      "Purpose, importance and differences. Proving mechanisms, Zk and Optimistic proofs.",
     duration: "~1h",
   },
 ];
@@ -70,14 +79,25 @@ export default function CurriculumSection() {
     <section id="curriculum" className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="text-curriculum-heading">Course Curriculum</h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">A comprehensive 10-module program designed to take you from blockchain beginner to confident crypto user in just 8 weeks.</p>
+          <h2
+            className="text-3xl md:text-4xl font-bold mb-4"
+            data-testid="text-curriculum-heading"
+          >
+            Course Curriculum
+          </h2>
+          <p className="text-muted-foreground max-w-2xl mx-auto">
+            A comprehensive 10-module program designed to take you from
+            blockchain beginner to confident crypto user in just 8 weeks.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {modules.map((module, index) => (
             <MobileScrollReveal key={module.number} delay={index * 0.06}>
-              <Card className="hover-elevate transition-all duration-300 h-full" data-testid={`card-module-${module.number}`}>
+              <Card
+                className="hover-elevate transition-all duration-300 h-full"
+                data-testid={`card-module-${module.number}`}
+              >
                 <CardContent className="p-4 md:p-6">
                   <div className="flex items-start gap-4">
                     <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-bold text-lg">
@@ -91,7 +111,9 @@ export default function CurriculumSection() {
                           <span>{module.duration}</span>
                         </div>
                       </div>
-                      <p className="text-sm text-muted-foreground">{module.description}</p>
+                      <p className="text-sm text-muted-foreground">
+                        {module.description}
+                      </p>
                     </div>
                   </div>
                 </CardContent>

@@ -61,7 +61,6 @@ export default function Header() {
           </div>
           <div className="flex flex-col">
             <span className="text-sm font-bold leading-tight" data-testid="text-brand-name">The Blockchain Pulse</span>
-            <span className="hidden md:block text-xs text-muted-foreground leading-tight">Bridging Financial Intelligence</span>
           </div>
         </button>
 
