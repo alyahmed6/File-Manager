@@ -12,7 +12,7 @@ const faqs = [
   },
   {
     question: "Do I need any prior knowledge of blockchain or cryptocurrency?",
-    answer: "No prior knowledge is required. This course is designed for beginners and will take you from the fundamentals to advanced topics step by step.",
+    answer: "No prior knowledge is required.",
   },
   {
     question: "How will I access the course content?",
