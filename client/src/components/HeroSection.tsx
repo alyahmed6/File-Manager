@@ -4,8 +4,8 @@ import { Check } from "lucide-react";
 export default function HeroSection() {
   const features = [
     "Downloadable videos",
-    "Certification included",
     "Live Q&A",
+    "Certification included",
     "10 easy modules"
   ];
 
