@@ -12,7 +12,6 @@ export default function AboutUs() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
       <main className="flex-1 py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
@@ -44,9 +43,7 @@ export default function AboutUs() {
               </p>
 
               <h2>Community Engagement</h2>
-              <p>
-                We actively engage with our learning community through multiple social media platforms under the name The Blockchain Pulse, sharing educational content, updates, and insights related to blockchain and emerging technologies.
-              </p>
+              <p>We actively engage with our learning community through multiple social media platforms under the name The Blockchain Pulse, sharing educational content, updates, and insights related to blockchain, cryptocurrencies and emerging technologies.</p>
 
               <h2>Your Starting Point</h2>
               <p>
@@ -56,7 +53,6 @@ export default function AboutUs() {
           </div>
         </div>
       </main>
-
       <Footer />
     </div>
   );
