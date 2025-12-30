@@ -24,7 +24,7 @@ const faqs = [
   },
   {
     question: "Will I receive a certificate upon completion?",
-    answer: "Yes! Upon successful completion of all 10 modules, you will receive a verified certificate of completion that you can showcase on your professional profiles.",
+    answer: "Yes.",
   },
   {
     question: "How long is the early bird discount valid?",
