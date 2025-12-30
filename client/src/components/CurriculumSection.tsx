@@ -122,20 +122,7 @@ export default function CurriculumSection() {
           ))}
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-center gap-6 text-sm text-muted-foreground">
-          <div className="flex items-center gap-2">
-            <BookOpen className="h-4 w-4 text-primary" />
-            <span>10 Video Lessons</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Clock className="h-4 w-4 text-primary" />
-            <span>~10 Hours Total Content</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-primary" />
-            <span>Downloadable via Discord</span>
-          </div>
-        </div>
+        
       </div>
     </section>
   );
