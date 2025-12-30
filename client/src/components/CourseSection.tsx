@@ -94,21 +94,7 @@ export default function CourseSection() {
           ))}
         </div>
 
-        <div className="mt-12 text-center">
-          <div className="inline-flex flex-wrap items-center justify-center gap-8 text-sm">
-            <div className="flex items-center gap-2">
-              <span className="text-muted-foreground">
-                Comprehensive Modules
-              </span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-muted-foreground">Video Lessons</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="text-muted-foreground">Months Duration</span>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </section>
   );
