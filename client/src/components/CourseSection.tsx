@@ -76,7 +76,7 @@ export default function CourseSection() {
                 className="hover-elevate transition-all duration-300 h-full"
                 data-testid={`card-feature-${index}`}
               >
-                <CardContent className="p-6">
+                <CardContent className="p-6 pl-[16px] pr-[16px] pt-[16px] pb-[16px]">
                   <div className="flex items-start gap-4">
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/10">
                       <feature.icon className="h-6 w-6 text-primary" />
