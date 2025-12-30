@@ -39,8 +39,8 @@ export default function PricingSection() {
             {benefits.map((benefit, index) => (
               <MobileScrollReveal key={index} delay={index * 0.08}>
                 <div className="flex items-center gap-3" data-testid={`text-benefit-${index}`}>
-                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-primary/10">
-                    <Check className="h-3 w-3 text-primary" />
+                  <div className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#22c55e]/10">
+                    <Check className="h-3 w-3 text-[#22c55e]" strokeWidth={3} />
                   </div>
                   <span className="text-sm md:text-base">{benefit}</span>
                 </div>
