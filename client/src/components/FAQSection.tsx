@@ -8,7 +8,7 @@ import {
 const faqs = [
   {
     question: "How long is the course?",
-    answer: "The course runs for 2 months and includes 10 comprehensive modules with approximately 10 hours of video content total. You can learn at your own pace as all videos are downloadable.",
+    answer: "The course runs for 2 months and includes 10 comprehensive modules. You can learn at your own pace as all videos are downloadable.",
   },
   {
     question: "Do I need any prior knowledge of blockchain or cryptocurrency?",
