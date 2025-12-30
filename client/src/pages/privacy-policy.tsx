@@ -12,7 +12,6 @@ export default function PrivacyPolicy() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
       <main className="flex-1 py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
@@ -26,9 +25,7 @@ export default function PrivacyPolicy() {
               <p className="text-muted-foreground">Last updated: August 9, 2025</p>
 
               <h2>Introduction</h2>
-              <p>
-                The Blockchain Pulse ("we", "us", "our") operates https://theblockchainpulse.com (the "Site") and provides online educational courses and associated community services (the "Service"). We take your privacy seriously. This Privacy Policy explains what information we collect, why we collect it, how we use it, and your rights.
-              </p>
+              <p>The Blockchain Pulse ("we", "us", "our") operates https://theblockchainpulse.org (the "Site") and provides online educational courses and associated community services (the "Service"). We take your privacy seriously. This Privacy Policy explains what information we collect, why we collect it, how we use it, and your rights.</p>
 
               <h2>1. Information We Collect</h2>
               
@@ -107,7 +104,6 @@ export default function PrivacyPolicy() {
           </div>
         </div>
       </main>
-
       <Footer />
     </div>
   );
