@@ -12,7 +12,6 @@ export default function TermsOfService() {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
-      
       <main className="flex-1 py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
@@ -41,9 +40,7 @@ export default function TermsOfService() {
               </p>
 
               <h2>4. Payment & Pricing</h2>
-              <p>
-                We accept fiat payments via credit/debit and may accept cryptocurrency (USDT and USDC). All prices are displayed in your local currency if available; when paying with crypto we show an estimated fiat equivalent at checkout.
-              </p>
+              <p>We accept fiat payments via credit/debit card transfers, bank transfers and may accept cryptocurrency (USDT). All prices are displayed in your local currency if available; when paying with crypto we show an estimated fiat equivalent.</p>
               <p><strong>Crypto payments are final once confirmed on-chain.</strong></p>
 
               <h2>5. Refund Policy</h2>
@@ -102,7 +99,6 @@ export default function TermsOfService() {
           </div>
         </div>
       </main>
-
       <Footer />
     </div>
   );
