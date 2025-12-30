@@ -27,10 +27,6 @@ const faqs = [
     answer: "Yes.",
   },
   {
-    question: "How long is the early bird discount valid?",
-    answer: "The 30% early bird discount is valid for 1 month from the course launch date. Register early to lock in the discounted price of PKR 7,000 or 25 USDT.",
-  },
-  {
     question: "Is there community support available?",
     answer: "Yes! You'll have access to our active Discord community where you can interact with fellow learners, ask questions, and get guidance from our team.",
   },
