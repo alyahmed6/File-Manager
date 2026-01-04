@@ -1,7 +1,7 @@
 import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useCallback } from "react";
 import { useHeaderVisibility } from "@/hooks/useHeaderVisibility";
 
 const navItems = [
@@ -16,45 +16,46 @@ export default function Header() {
   const [location] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isHeaderVisible = useHeaderVisibility();
-  const navRef = useRef<HTMLElement>(null);
+  
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
-      if (mobileMenuOpen && navRef.current && !navRef.current.contains(event.target as Node)) {
-        setMobileMenuOpen(false);
-      }
-    };
+  const closeMenu = useCallback(() => {
+    setMobileMenuOpen(false);
+  }, []);
 
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("touchstart", handleClickOutside);
-    
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("touchstart", handleClickOutside);
-    };
-  }, [mobileMenuOpen]);
+  const toggleMenu = useCallback(() => {
+    setMobileMenuOpen(prev => !prev);
+  }, []);
 
   useEffect(() => {
     if (!mobileMenuOpen) return;
 
-    const initialScrollY = window.scrollY;
-    
-    const handleScroll = () => {
-      if (Math.abs(window.scrollY - initialScrollY) > 10) {
-        setMobileMenuOpen(false);
+    const handlePointerDown = (event: PointerEvent) => {
+      const target = event.target as Node;
+      const isOutsideTrigger = triggerRef.current && !triggerRef.current.contains(target);
+      const isOutsideMenu = menuRef.current && !menuRef.current.contains(target);
+      
+      if (isOutsideTrigger && isOutsideMenu) {
+        closeMenu();
       }
     };
 
+    const handleScroll = () => {
+      closeMenu();
+    };
+
+    document.addEventListener("pointerdown", handlePointerDown);
     window.addEventListener("scroll", handleScroll, { passive: true });
-    
+
     return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [mobileMenuOpen]);
+  }, [mobileMenuOpen, closeMenu]);
 
   const handleNavigation = (href: string) => {
     if (href.startsWith("/")) {
-      // Internal page link
       window.location.href = href;
       return;
     }
@@ -66,71 +67,77 @@ export default function Header() {
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
-    setMobileMenuOpen(false);
+    closeMenu();
   };
 
   return (
-    <header 
-      ref={navRef}
-      className="sticky top-0 z-50 w-full bg-gradient-to-br from-primary/10 via-background to-accent/5 transition-transform duration-300 ease-out"
-      style={{
-        transform: isHeaderVisible ? "translateY(0)" : "translateY(-100%)",
-      }}
-      data-testid="header-sticky"
-    >
-      <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
-        <button 
-          onClick={() => {
-            if (location === "/") {
-              window.scrollTo({ top: 0, behavior: "smooth" });
-            } else {
-              window.location.href = "/";
-            }
-          }}
-          className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-          data-testid="button-logo-home"
-        >
-          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
-            <svg viewBox="0 0 24 24" className="h-5 w-5 text-primary-foreground" fill="currentColor">
-              <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-            </svg>
-          </div>
-          <div className="flex flex-col">
-            <span className="text-sm font-bold leading-tight" data-testid="text-brand-name">The Blockchain Pulse</span>
-          </div>
-        </button>
-
-        <nav className="hidden md:flex items-center gap-6">
-          {navItems.map((item) => (
-            <button
-              key={item.label}
-              onClick={() => handleNavigation(item.href)}
-              className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-              data-testid={`link-nav-${item.label.toLowerCase()}`}
-            >
-              {item.label}
-            </button>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
-          <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
-            <Button size="sm" className="md:h-9 md:px-4 bg-accent hover:bg-accent/90 text-accent-foreground border border-accent" data-testid="button-header-register">Get Early Access</Button>
-          </a>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            data-testid="button-mobile-menu"
+    <>
+      <header 
+        className="sticky top-0 z-50 w-full bg-gradient-to-br from-primary/10 via-background to-accent/5 transition-transform duration-300 ease-out"
+        style={{
+          transform: isHeaderVisible ? "translateY(0)" : "translateY(-100%)",
+        }}
+        data-testid="header-sticky"
+      >
+        <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
+          <button 
+            onClick={() => {
+              if (location === "/") {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              } else {
+                window.location.href = "/";
+              }
+            }}
+            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+            data-testid="button-logo-home"
           >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </Button>
+            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
+              <svg viewBox="0 0 24 24" className="h-5 w-5 text-primary-foreground" fill="currentColor">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+            </div>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold leading-tight" data-testid="text-brand-name">The Blockchain Pulse</span>
+            </div>
+          </button>
+
+          <nav className="hidden md:flex items-center gap-6">
+            {navItems.map((item) => (
+              <button
+                key={item.label}
+                onClick={() => handleNavigation(item.href)}
+                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
+                data-testid={`link-nav-${item.label.toLowerCase()}`}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+
+          <div className="flex items-center gap-2">
+            <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
+              <Button size="sm" className="md:h-9 md:px-4 bg-accent hover:bg-accent/90 text-accent-foreground border border-accent" data-testid="button-header-register">Get Early Access</Button>
+            </a>
+            <Button
+              ref={triggerRef}
+              variant="ghost"
+              size="icon"
+              className="md:hidden"
+              onClick={toggleMenu}
+              data-testid="button-mobile-menu"
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            </Button>
+          </div>
         </div>
-      </div>
+      </header>
 
       {mobileMenuOpen && (
-        <div className="md:hidden bg-gradient-to-br from-primary/10 via-background to-accent/5">
+        <div 
+          ref={menuRef}
+          className="fixed top-16 left-0 right-0 z-40 md:hidden bg-gradient-to-br from-primary/10 via-background to-accent/5 border-b border-border shadow-lg"
+          data-testid="mobile-menu-panel"
+        >
           <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
             {navItems.map((item) => (
               <button
@@ -145,6 +152,6 @@ export default function Header() {
           </nav>
         </div>
       )}
-    </header>
+    </>
   );
 }
