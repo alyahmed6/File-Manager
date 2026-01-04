@@ -1,4 +1,4 @@
-import { Link, useLocation } from "wouter";
+import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
@@ -13,7 +13,7 @@ const navItems = [
 ];
 
 export default function Header() {
-  const [location] = useLocation();
+  const [location, navigate] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isHeaderVisible = useHeaderVisibility();
   
@@ -58,12 +58,18 @@ export default function Header() {
     closeMenu();
     
     if (href.startsWith("/")) {
-      window.location.href = href;
+      navigate(href);
       return;
     }
     
     if (location !== "/" && href.startsWith("#")) {
-      window.location.href = "/" + href;
+      navigate("/");
+      setTimeout(() => {
+        const element = document.querySelector(href);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
       return;
     }
     
@@ -88,7 +94,7 @@ export default function Header() {
               if (location === "/") {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               } else {
-                window.location.href = "/";
+                navigate("/");
               }
             }}
             className="flex items-center gap-2 hover:opacity-80 transition-opacity"
