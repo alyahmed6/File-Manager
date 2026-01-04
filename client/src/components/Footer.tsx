@@ -3,7 +3,7 @@ import { SiDiscord, SiInstagram, SiLinkedin, SiFacebook } from "react-icons/si";
 import { Shield } from "lucide-react";
 
 const socialLinks = [
-  { icon: SiFacebook, href: "#", label: "Facebook" },
+  { icon: SiFacebook, href: "https://www.facebook.com/TheBlockchainPulse", label: "Facebook" },
   { icon: SiInstagram, href: "https://www.instagram.com/theblockchainpulse/", label: "Instagram" },
   { icon: "X", href: "https://x.com/theblockchainpulse", label: "X (Twitter)" },
   { icon: SiLinkedin, href: "#", label: "LinkedIn" },
