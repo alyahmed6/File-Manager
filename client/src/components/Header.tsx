@@ -135,15 +135,15 @@ export default function Header() {
       {mobileMenuOpen && (
         <div 
           ref={menuRef}
-          className="fixed top-16 left-0 right-0 z-40 md:hidden bg-gradient-to-br from-primary/10 via-background to-accent/5 border-b border-border shadow-lg"
+          className="fixed top-16 left-0 right-0 z-[9999] md:hidden bg-card border-b border-border shadow-xl"
           data-testid="mobile-menu-panel"
         >
-          <nav className="container mx-auto px-4 py-4 flex flex-col gap-2">
+          <nav className="container mx-auto px-6 py-5 flex flex-col gap-1">
             {navItems.map((item) => (
               <button
                 key={item.label}
                 onClick={() => handleNavigation(item.href)}
-                className="text-sm font-medium text-muted-foreground py-2 text-left hover:text-foreground"
+                className="text-base font-medium text-foreground py-3 text-left hover:text-primary transition-colors"
                 data-testid={`link-mobile-nav-${item.label.toLowerCase()}`}
               >
                 {item.label}
