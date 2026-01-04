@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { SiDiscord, SiInstagram, SiLinkedin, SiFacebook } from "react-icons/si";
+import { SiInstagram, SiLinkedin, SiFacebook } from "react-icons/si";
 import { Shield } from "lucide-react";
 
 const socialLinks = [
@@ -7,7 +7,6 @@ const socialLinks = [
   { icon: SiInstagram, href: "https://www.instagram.com/theblockchainpulse/", label: "Instagram" },
   { icon: "X", href: "https://x.com/theblockchainpulse", label: "X (Twitter)" },
   { icon: SiLinkedin, href: "#", label: "LinkedIn" },
-  { icon: SiDiscord, href: "#", label: "Discord" },
 ];
 
 export default function Footer() {
