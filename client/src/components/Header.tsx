@@ -19,23 +19,35 @@ export default function Header() {
   const navRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
+    const handleClickOutside = (event: MouseEvent | TouchEvent) => {
       if (mobileMenuOpen && navRef.current && !navRef.current.contains(event.target as Node)) {
         setMobileMenuOpen(false);
       }
     };
 
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+
+    const initialScrollY = window.scrollY;
+    
     const handleScroll = () => {
-      if (mobileMenuOpen) {
+      if (Math.abs(window.scrollY - initialScrollY) > 10) {
         setMobileMenuOpen(false);
       }
     };
 
-    document.addEventListener("mousedown", handleClickOutside);
     window.addEventListener("scroll", handleScroll, { passive: true });
     
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
       window.removeEventListener("scroll", handleScroll);
     };
   }, [mobileMenuOpen]);
