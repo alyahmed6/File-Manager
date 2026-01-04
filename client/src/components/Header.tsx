@@ -55,19 +55,22 @@ export default function Header() {
   }, [mobileMenuOpen, closeMenu]);
 
   const handleNavigation = (href: string) => {
+    closeMenu();
+    
     if (href.startsWith("/")) {
       window.location.href = href;
       return;
     }
+    
     if (location !== "/" && href.startsWith("#")) {
       window.location.href = "/" + href;
       return;
     }
+    
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
     }
-    closeMenu();
   };
 
   return (
