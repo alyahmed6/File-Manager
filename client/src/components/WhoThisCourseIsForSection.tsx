@@ -102,15 +102,18 @@ export default function WhoThisCourseIsForSection() {
           <p className="text-lg md:text-xl text-muted-foreground mb-6">
             Ready to start learning crypto the right way?
           </p>
-          <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
-            <Button
-              size="lg"
-              className="bg-accent hover:bg-accent/90 text-accent-foreground border border-accent"
-              data-testid="button-who-course-cta"
-            >
-              Join the Early Access Waitlist
-            </Button>
-          </a>
+          <div className="flex flex-col items-center">
+            <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
+              <Button
+                size="lg"
+                className="bg-accent hover:bg-accent/90 text-accent-foreground border border-accent"
+                data-testid="button-who-course-cta"
+              >
+                Join the Early Access Waitlist
+              </Button>
+            </a>
+            <span className="text-xs text-muted-foreground mt-2">No payment required</span>
+          </div>
         </div>
       </div>
     </section>

@@ -49,7 +49,7 @@ export default function HeroSection() {
             beginners.
           </p>
 
-          <div className="flex items-center justify-center pt-2">
+          <div className="flex flex-col items-center pt-2">
             <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
               <Button
                 size="lg"
@@ -59,6 +59,7 @@ export default function HeroSection() {
                 Get Early Access
               </Button>
             </a>
+            <span className="text-xs text-muted-foreground mt-2">No payment required</span>
           </div>
 
           <div className="grid grid-cols-2 gap-x-8 gap-y-4 pt-4 max-w-md mx-auto">

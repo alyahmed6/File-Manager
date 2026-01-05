@@ -48,7 +48,7 @@ export default function PricingSection() {
             ))}
           </div>
           
-          <div className="text-center">
+          <div className="flex flex-col items-center">
             <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
               <Button 
                 className="bg-accent hover:bg-accent/90 text-accent-foreground border border-accent" 
@@ -58,6 +58,7 @@ export default function PricingSection() {
                 Join the Early Access Waitlist
               </Button>
             </a>
+            <span className="text-xs text-muted-foreground mt-2">No payment required</span>
           </div>
         </div>
       </div>
