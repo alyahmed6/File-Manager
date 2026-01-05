@@ -96,7 +96,7 @@ export default function CurriculumSection() {
           {modules.map((module, index) => (
             <MobileScrollReveal key={module.number} delay={index * 0.06}>
               <Card
-                className="hover-elevate transition-all duration-300 h-full"
+                className="bg-card/50 border border-border/50 hover-elevate transition-all duration-300 h-full"
                 data-testid={`card-module-${module.number}`}
               >
                 <CardContent className="p-4 md:p-6">
