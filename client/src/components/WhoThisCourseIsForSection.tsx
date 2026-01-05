@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MobileScrollReveal } from "@/components/MobileScrollReveal";
+import { SectionHeadingReveal } from "@/components/SectionHeadingReveal";
 import { 
   GraduationCap, 
   TrendingUp, 
@@ -70,14 +71,14 @@ export default function WhoThisCourseIsForSection() {
   return (
     <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5 py-12 md:py-20">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <SectionHeadingReveal className="text-center mb-12">
           <h2
             className="text-3xl md:text-4xl font-bold"
             data-testid="text-who-course-section-heading"
           >
             Who This Course Is For
           </h2>
-        </div>
+        </SectionHeadingReveal>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 max-w-7xl mx-auto">
           {audiences.map((audience, index) => (

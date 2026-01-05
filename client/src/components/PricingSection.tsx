@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { MobileScrollReveal } from "@/components/MobileScrollReveal";
+import { SectionHeadingReveal } from "@/components/SectionHeadingReveal";
 import { Check } from "lucide-react";
 
 const benefits = [
@@ -15,14 +16,14 @@ export default function PricingSection() {
   return (
     <section id="pricing" className="py-16 md:py-24 bg-card">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-8">
+        <SectionHeadingReveal className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="text-pricing-heading">
             Pricing
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto text-lg">
             Invest in your future. Be the First to Learn Crypto the Right Way.
           </p>
-        </div>
+        </SectionHeadingReveal>
 
         <div className="text-center mb-10">
           <p className="text-2xl md:text-3xl font-semibold text-primary" data-testid="text-pricing-coming-soon">

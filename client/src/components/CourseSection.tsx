@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { MobileScrollReveal } from "@/components/MobileScrollReveal";
+import { SectionHeadingReveal } from "@/components/SectionHeadingReveal";
 import {
   Award,
   BookOpen,
@@ -52,7 +53,7 @@ export default function CourseSection() {
   return (
     <section id="course" className="py-16 md:py-24 bg-card">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <SectionHeadingReveal className="text-center mb-12">
           <h2
             className="text-3xl md:text-4xl font-bold mb-4"
             data-testid="text-course-heading"
@@ -67,7 +68,7 @@ export default function CourseSection() {
             curriculum is designed to give you real knowledge and practical
             skills.
           </p>
-        </div>
+        </SectionHeadingReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => (

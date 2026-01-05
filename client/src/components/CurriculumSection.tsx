@@ -1,5 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { MobileScrollReveal } from "@/components/MobileScrollReveal";
+import { SectionHeadingReveal } from "@/components/SectionHeadingReveal";
 import { Clock, Check } from "lucide-react";
 
 const modules = [
@@ -79,7 +80,7 @@ export default function CurriculumSection() {
   return (
     <section id="curriculum" className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-12">
+        <SectionHeadingReveal className="text-center mb-12">
           <h2
             className="text-3xl md:text-4xl font-bold mb-4"
             data-testid="text-curriculum-heading"
@@ -90,7 +91,7 @@ export default function CurriculumSection() {
             A comprehensive 10-module program designed to take you from
             blockchain beginner to confident crypto user in just 8 weeks.
           </p>
-        </div>
+        </SectionHeadingReveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
           {modules.map((module, index) => (
