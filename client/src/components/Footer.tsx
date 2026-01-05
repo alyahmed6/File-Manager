@@ -137,7 +137,7 @@ export default function Footer() {
           </div>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-6 text-sm text-muted-foreground">
-            <p>&copy; 2025 The Blockchain Pulse. All rights reserved.</p>
+            <p>&copy; 2026 The Blockchain Pulse. All rights reserved.</p>
             <div className="flex items-center gap-2">
               <Shield className="h-4 w-4" />
               <span>Secure Learning Platform</span>

@@ -22,7 +22,7 @@ export default function TermsOfService() {
 
             <article className="prose prose-slate dark:prose-invert max-w-none">
               <h1 data-testid="text-terms-heading">Terms of Service</h1>
-              <p className="text-muted-foreground">Last updated: August 9, 2025</p>
+              <p className="text-muted-foreground">Last updated: August 9, 2026</p>
 
               <h2>1. Agreement & Acceptance</h2>
               <p>
