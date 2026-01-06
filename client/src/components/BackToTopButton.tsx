@@ -19,36 +19,28 @@ export function BackToTopButton() {
   }, []);
 
   useEffect(() => {
-    let observer: IntersectionObserver | null = null;
-    
-    const setupObserver = () => {
+    const checkVisibility = () => {
       const faqSection = document.getElementById("faq");
       if (!faqSection) {
         setIsVisible(false);
         return;
       }
 
-      observer = new IntersectionObserver(
-        ([entry]) => {
-          setIsVisible(entry.isIntersecting || entry.boundingClientRect.top < 0);
-        },
-        { 
-          threshold: 0,
-          rootMargin: "0px 0px 0px 0px"
-        }
-      );
-
-      observer.observe(faqSection);
+      const rect = faqSection.getBoundingClientRect();
+      // Show button when FAQ section is visible or has been scrolled past
+      const shouldShow = rect.top < window.innerHeight;
+      setIsVisible(shouldShow);
     };
 
-    // Small delay to ensure DOM is ready
-    const timeoutId = setTimeout(setupObserver, 100);
+    // Check on mount after a brief delay
+    const timeoutId = setTimeout(checkVisibility, 200);
+    
+    // Check on scroll
+    window.addEventListener("scroll", checkVisibility, { passive: true });
 
     return () => {
       clearTimeout(timeoutId);
-      if (observer) {
-        observer.disconnect();
-      }
+      window.removeEventListener("scroll", checkVisibility);
     };
   }, []);
 
@@ -59,17 +51,16 @@ export function BackToTopButton() {
     });
   };
 
+  if (!isVisible) {
+    return null;
+  }
+
   return (
     <Button
       size="icon"
       variant="default"
       onClick={scrollToTop}
-      className={`fixed bottom-6 right-6 z-50 bg-accent hover:bg-accent/90 text-accent-foreground border border-accent shadow-lg ${
-        isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
-      }`}
-      style={{
-        transition: prefersReducedMotion ? "none" : "opacity 300ms ease"
-      }}
+      className="fixed bottom-6 right-6 z-50 bg-accent hover:bg-accent/90 text-accent-foreground border border-accent shadow-lg"
       aria-label="Scroll to top"
       data-testid="button-back-to-top"
     >
