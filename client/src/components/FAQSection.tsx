@@ -62,7 +62,7 @@ export default function FAQSection() {
               <AccordionItem
                 key={index}
                 value={`item-${index}`}
-                className="bg-card rounded-lg border border-border px-6"
+                className="bg-card/50 rounded-lg border border-border/50 px-6"
                 data-testid={`accordion-faq-${index}`}
               >
                 <AccordionTrigger className="text-left hover:no-underline py-4">
