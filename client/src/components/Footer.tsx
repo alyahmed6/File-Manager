@@ -47,9 +47,7 @@ export default function Footer() {
                 <span className="text-xs text-muted-foreground leading-tight">Bridging Financial Intelligence With Blockchain</span>
               </div>
             </button>
-            <p className="text-sm text-muted-foreground">
-              Empowering the next generation of blockchain enthusiasts with comprehensive, practical education.
-            </p>
+            <p className="text-sm text-muted-foreground">Empowering the next generation of Web3 enthusiasts with comprehensive, practical education.</p>
           </div>
 
           <div>
