@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { ArrowUp } from "lucide-react";
 
@@ -18,23 +18,43 @@ export function BackToTop() {
     return () => mediaQuery.removeEventListener("change", handleChange);
   }, []);
 
-  useEffect(() => {
+  const checkFaqVisibility = useCallback(() => {
     const faqSection = document.getElementById("faq");
-    if (!faqSection) return;
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsVisible(entry.isIntersecting);
-      },
-      { 
-        threshold: 0,
-        rootMargin: "0px 0px 0px 0px"
-      }
-    );
-
-    observer.observe(faqSection);
-    return () => observer.disconnect();
+    if (!faqSection) {
+      setIsVisible(false);
+      return false;
+    }
+    
+    const rect = faqSection.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    
+    // Check if FAQ section is in viewport or above it (user scrolled past)
+    const isInView = rect.top < windowHeight && rect.bottom > 0;
+    setIsVisible(isInView);
+    return true;
   }, []);
+
+  useEffect(() => {
+    // Initial check
+    checkFaqVisibility();
+    
+    // Check on scroll
+    const handleScroll = () => {
+      checkFaqVisibility();
+    };
+    
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    
+    // Also check periodically in case the DOM changes (page navigation)
+    const interval = setInterval(() => {
+      checkFaqVisibility();
+    }, 500);
+    
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      clearInterval(interval);
+    };
+  }, [checkFaqVisibility]);
 
   const scrollToTop = () => {
     window.scrollTo({ 
