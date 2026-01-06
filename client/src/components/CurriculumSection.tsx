@@ -101,22 +101,31 @@ export default function CurriculumSection() {
                 data-testid={`card-module-${module.number}`}
               >
                 <CardContent className="p-4 md:p-6">
-                  <div className="flex items-start gap-4">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-bold text-lg">
+                  <div className="flex items-start gap-3 md:gap-4">
+                    <div className="flex h-8 w-8 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-bold text-sm md:text-lg">
                       {module.number}
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
+                      <div className="hidden md:flex flex-wrap items-start justify-between gap-2 mb-1">
                         <h3 className="font-semibold">{module.title}</h3>
                         <div className="flex items-center gap-1 text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full shrink-0">
                           <Clock className="h-3 w-3" />
                           <span>{module.duration}</span>
                         </div>
                       </div>
+                      <div className="md:hidden mb-2">
+                        <div className="flex items-center gap-2">
+                          <h3 className="font-semibold text-sm">{module.title}</h3>
+                          <div className="flex items-center gap-1 text-xs text-muted-foreground shrink-0">
+                            <Clock className="h-3 w-3" />
+                            <span>{module.duration}</span>
+                          </div>
+                        </div>
+                      </div>
                       <p className="hidden md:block text-sm text-muted-foreground">
                         {module.description}
                       </p>
-                      <ul className="md:hidden space-y-1 mt-1">
+                      <ul className="md:hidden space-y-1">
                         {module.bullets.map((bullet, bulletIndex) => (
                           <li key={bulletIndex} className="flex items-start gap-2 text-sm text-muted-foreground">
                             <Check className="h-3 w-3 text-muted-foreground/60 shrink-0 mt-0.5" strokeWidth={2} />
