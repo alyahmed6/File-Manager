@@ -4,7 +4,6 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
-import { BackToTop } from "@/components/BackToTop";
 import Home from "@/pages/home";
 import Register from "@/pages/register";
 import AboutUs from "@/pages/about-us";
@@ -30,7 +29,6 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
         <ScrollProgressBar />
-        <BackToTop />
         <Toaster />
         <Router />
       </TooltipProvider>
