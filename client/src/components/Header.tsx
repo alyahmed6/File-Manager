@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import { useState, useEffect, useRef, useCallback } from "react";
 import { useHeaderVisibility } from "@/hooks/useHeaderVisibility";
+import { useActiveSection } from "@/hooks/useActiveSection";
 
 const navItems = [
   { label: "About Us", href: "/about-us" },
@@ -16,6 +17,14 @@ export default function Header() {
   const [location, navigate] = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isHeaderVisible = useHeaderVisibility();
+  const activeSection = useActiveSection();
+  
+  const isNavItemActive = (href: string) => {
+    if (location !== "/") return false;
+    if (!href.startsWith("#")) return false;
+    const sectionId = href.slice(1);
+    return activeSection === sectionId;
+  };
   
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
@@ -111,16 +120,23 @@ export default function Header() {
           </button>
 
           <nav className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => handleNavigation(item.href)}
-                className="text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
-                data-testid={`link-nav-${item.label.toLowerCase()}`}
-              >
-                {item.label}
-              </button>
-            ))}
+            {navItems.map((item) => {
+              const isActive = isNavItemActive(item.href);
+              return (
+                <button
+                  key={item.label}
+                  onClick={() => handleNavigation(item.href)}
+                  className={`text-sm font-medium transition-colors ${
+                    isActive 
+                      ? "text-foreground border-b-2 border-primary pb-0.5" 
+                      : "text-muted-foreground hover:text-foreground"
+                  }`}
+                  data-testid={`link-nav-${item.label.toLowerCase()}`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
           </nav>
 
           <div className="flex items-center gap-2">
@@ -148,16 +164,23 @@ export default function Header() {
           data-testid="mobile-menu-panel"
         >
           <nav className="container mx-auto px-6 py-5 flex flex-col gap-1">
-            {navItems.map((item) => (
-              <button
-                key={item.label}
-                onClick={() => handleNavigation(item.href)}
-                className="text-base font-medium text-foreground py-3 text-left hover:text-primary transition-colors"
-                data-testid={`link-mobile-nav-${item.label.toLowerCase()}`}
-              >
-                {item.label}
-              </button>
-            ))}
+            {navItems.map((item) => {
+              const isActive = isNavItemActive(item.href);
+              return (
+                <button
+                  key={item.label}
+                  onClick={() => handleNavigation(item.href)}
+                  className={`text-base font-medium py-3 text-left transition-colors ${
+                    isActive 
+                      ? "text-primary border-l-2 border-primary pl-3" 
+                      : "text-foreground hover:text-primary"
+                  }`}
+                  data-testid={`link-mobile-nav-${item.label.toLowerCase()}`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
           </nav>
         </div>
       )}
