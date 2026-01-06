@@ -78,7 +78,7 @@ const modules = [
 
 export default function CurriculumSection() {
   return (
-    <section id="curriculum" className="py-16 md:py-24 bg-background">
+    <section id="curriculum" className="py-16 md:py-24 bg-background pt-[92px] md:pt-24">
       <div className="container mx-auto px-4">
         <SectionHeadingReveal className="text-center mb-8 md:mb-12">
           <h2
