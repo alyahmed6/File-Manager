@@ -19,26 +19,36 @@ export function BackToTopButton() {
   }, []);
 
   useEffect(() => {
-    const checkFaqVisibility = () => {
+    let observer: IntersectionObserver | null = null;
+    
+    const setupObserver = () => {
       const faqSection = document.getElementById("faq");
-      if (!faqSection) return;
+      if (!faqSection) {
+        setIsVisible(false);
+        return;
+      }
 
-      const rect = faqSection.getBoundingClientRect();
-      const headerHeight = 64;
-      
-      // Show button when FAQ section top is at or above the viewport (accounting for header)
-      const faqIsInView = rect.top <= window.innerHeight - headerHeight;
-      
-      setIsVisible(faqIsInView);
+      observer = new IntersectionObserver(
+        ([entry]) => {
+          setIsVisible(entry.isIntersecting || entry.boundingClientRect.top < 0);
+        },
+        { 
+          threshold: 0,
+          rootMargin: "0px 0px 0px 0px"
+        }
+      );
+
+      observer.observe(faqSection);
     };
 
-    checkFaqVisibility();
-    window.addEventListener("scroll", checkFaqVisibility, { passive: true });
-    window.addEventListener("resize", checkFaqVisibility, { passive: true });
+    // Small delay to ensure DOM is ready
+    const timeoutId = setTimeout(setupObserver, 100);
 
     return () => {
-      window.removeEventListener("scroll", checkFaqVisibility);
-      window.removeEventListener("resize", checkFaqVisibility);
+      clearTimeout(timeoutId);
+      if (observer) {
+        observer.disconnect();
+      }
     };
   }, []);
 
@@ -54,7 +64,7 @@ export function BackToTopButton() {
       size="icon"
       variant="default"
       onClick={scrollToTop}
-      className={`fixed bottom-6 right-6 z-50 bg-accent hover:bg-accent/90 text-accent-foreground border border-accent shadow-lg transition-opacity duration-300 ${
+      className={`fixed bottom-6 right-6 z-50 bg-accent hover:bg-accent/90 text-accent-foreground border border-accent shadow-lg ${
         isVisible ? "opacity-100" : "opacity-0 pointer-events-none"
       }`}
       style={{
