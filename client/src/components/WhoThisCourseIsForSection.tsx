@@ -69,7 +69,7 @@ const audiences = [
 
 export default function WhoThisCourseIsForSection() {
   return (
-    <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5 py-12 md:py-20 pt-[90px] pb-[90px]">
+    <section className="relative overflow-hidden bg-gradient-to-br from-primary/5 via-background to-accent/5 py-12 md:py-20">
       <div className="container mx-auto px-4">
         <SectionHeadingReveal className="text-center mb-12">
           <h2
