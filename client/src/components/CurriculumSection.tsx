@@ -80,14 +80,14 @@ export default function CurriculumSection() {
   return (
     <section id="curriculum" className="py-16 md:py-24 bg-background">
       <div className="container mx-auto px-4">
-        <SectionHeadingReveal className="text-center mb-12">
+        <SectionHeadingReveal className="text-center mb-8 md:mb-12">
           <h2
-            className="text-3xl md:text-4xl font-bold mb-4"
+            className="text-3xl md:text-4xl font-bold md:mb-4"
             data-testid="text-curriculum-heading"
           >
             Course Curriculum
           </h2>
-          <p className="text-muted-foreground max-w-2xl mx-auto">
+          <p className="hidden md:block text-muted-foreground max-w-2xl mx-auto">
             A comprehensive 10-module program designed to take you from
             blockchain beginner to confident crypto user in just 8 weeks.
           </p>
