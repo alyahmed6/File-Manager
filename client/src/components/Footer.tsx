@@ -13,6 +13,10 @@ export default function Footer() {
   const [location] = useLocation();
 
   const scrollToSection = (href: string) => {
+    if (location !== "/") {
+      window.location.href = "/" + href;
+      return;
+    }
     const element = document.querySelector(href);
     if (element) {
       element.scrollIntoView({ behavior: "smooth" });
