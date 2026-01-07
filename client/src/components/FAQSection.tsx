@@ -47,7 +47,7 @@ const faqs = [
 
 export default function FAQSection() {
   return (
-    <section id="faq" className="pt-[92px] pb-[148px] md:py-24 bg-background">
+    <section id="faq" className="pt-[92px] pb-[196px] md:py-24 bg-background">
       <div className="container mx-auto px-4">
         <SectionHeadingReveal className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold" data-testid="text-faq-heading">Frequently Asked Questions</h2>
