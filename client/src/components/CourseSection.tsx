@@ -51,7 +51,7 @@ const features = [
 
 export default function CourseSection() {
   return (
-    <section id="course" className="pt-[92px] pb-[196px] md:py-24 bg-card">
+    <section id="course" className="pt-[92px] pb-[236px] md:py-24 bg-card">
       <div className="container mx-auto px-4">
         <SectionHeadingReveal className="text-center mb-8 md:mb-12">
           <h2
