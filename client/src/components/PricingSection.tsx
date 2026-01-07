@@ -14,7 +14,7 @@ const benefits = [
 
 export default function PricingSection() {
   return (
-    <section id="pricing" className="md:py-24 bg-card pt-[150px] pb-[150px]">
+    <section id="pricing" className="md:py-24 bg-card pt-[50px] pb-[50px]">
       <div className="container mx-auto px-4">
         <SectionHeadingReveal className="text-center mb-8">
           <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="text-pricing-heading">
