@@ -63,7 +63,7 @@ export default function HeroSection() {
               ))}
             </div>
             <p className="text-center text-sm text-muted-foreground mt-3">and more</p>
-            <p className="text-center text-xs text-muted-foreground/70 mt-1">Simplified for beginners</p>
+            <p className="text-center text-sm text-muted-foreground/80 mt-1">Simplified for beginners</p>
           </div>
 
           <div className="flex flex-col items-center pt-2">
