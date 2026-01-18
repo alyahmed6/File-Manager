@@ -55,7 +55,7 @@ export default function HeroSection() {
               {["Bitcoin", "Ethereum", "Wallets", "Exchanges", "Tokenization", "DeFi"].map((topic) => (
                 <div
                   key={topic}
-                  className="rounded-full py-2 px-3 text-center text-sm font-medium bg-gradient-to-br from-primary/15 via-primary/10 to-accent/15 text-foreground/90 border border-primary/10"
+                  className="rounded-full py-2 px-3 text-center text-sm font-medium bg-gradient-to-br from-primary/25 via-primary/20 to-accent/25 text-foreground border border-primary/20 shadow-sm"
                   data-testid={`pill-topic-${topic.toLowerCase()}`}
                 >
                   {topic}
