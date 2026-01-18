@@ -7,15 +7,25 @@ const modules = [
   {
     number: 1,
     title: "Introduction to Blockchain",
-    description: "History, fundamentals of distributed ledger technology and how blockchain works.",
-    bullets: ["History", "Fundamentals of distributed ledger tech", "How blockchain works"],
+    description:
+      "History, fundamentals of distributed ledger technology and how blockchain works.",
+    bullets: [
+      "History",
+      "Fundamentals of distributed ledger tech",
+      "How blockchain works",
+    ],
     duration: "~1h",
   },
   {
     number: 2,
     title: "Bitcoin Deep Dive",
-    description: "Complete guide to Bitcoin, history, mining, transactions, and use cases.",
-    bullets: ["Complete guide to Bitcoin", "History and mining", "Transactions and use cases"],
+    description:
+      "Complete guide to Bitcoin, history, mining, transactions, and use cases.",
+    bullets: [
+      "Complete guide to Bitcoin",
+      "History and mining",
+      "Transactions and use cases",
+    ],
     duration: "~1h",
   },
   {
@@ -28,57 +38,77 @@ const modules = [
   {
     number: 4,
     title: "Cryptocurrency Wallets",
-    description: "Creating wallets, understanding wallets, security practices, and wallet management.",
+    description:
+      "Creating wallets, understanding wallets, security practices, and wallet management.",
     bullets: ["Creating wallets", "Security practices", "Wallet management"],
     duration: "~1h",
   },
   {
     number: 5,
     title: "Centralized Exchanges (CEX's)",
-    description: "Exchange tutorial (Binance), trading basics, and security considerations.",
-    bullets: ["Exchange tutorial (Binance)", "Trading basics", "Security considerations"],
+    description:
+      "Exchange tutorial (Binance), trading basics, and security considerations.",
+    bullets: [
+      "Exchange tutorial (Binance)",
+      "Trading basics",
+      "Security considerations",
+    ],
     duration: "~1h",
   },
   {
     number: 6,
     title: "Decentralized Exchanges (DEX's)",
-    description: "Understanding DEXs, liquidity pools, yield farming, and DeFi protocols.",
-    bullets: ["Understanding DEXs", "Liquidity pools", "Yield farming and DeFi"],
+    description:
+      "Understanding DEXs, Staking, yield farming, and Liquidity pools.",
+    bullets: [
+      "Understanding DEX's",
+      "Staking",
+      "Yield farming and Liquidity pools",
+    ],
     duration: "~1h",
   },
   {
     number: 7,
     title: "Narratives/Trends",
-    description: "Understanding Stablecoins, AI in blockchain, RWA's, Metaverse, NFT's and more.",
-    bullets: ["Stablecoins and AI", "RWA's and Metaverse", "NFT's and more"],
+    description: "Defi, NFT's, Metaverse and more.",
+    bullets: ["Defi", "NFT's", "Metaverse"],
     duration: "~1h",
   },
   {
     number: 8,
     title: "Advanced Topics & Future",
-    description: "Emerging trends, regulatory landscape, and future of blockchain technology.",
-    bullets: ["Emerging trends", "Regulatory landscape", "Future of blockchain"],
+    description: "Tokenization, Stablecoins, and AI in blockchain.",
+    bullets: ["Tokenization", "Stablecoins", "AI in blockchain"],
     duration: "~1h",
   },
   {
     number: 9,
     title: "Research & Analytical Platforms",
-    description: "How to use analytical data provider platforms to analyze cryptocurrency projects.",
+    description:
+      "How to use analytical data provider platforms to analyze cryptocurrency projects.",
     bullets: ["Analytical platforms", "Data providers", "Project analysis"],
     duration: "~1h",
   },
   {
     number: 10,
     title: "Layer 2's, Rollups & Side Chains",
-    description: "Purpose, importance and differences. Proving mechanisms, Zk and Optimistic proofs.",
-    bullets: ["Purpose and importance", "Proving mechanisms", "Zk and Optimistic proofs"],
+    description:
+      "Purpose, importance and differences. Proving mechanisms, Zk and Optimistic proofs.",
+    bullets: [
+      "Purpose and importance",
+      "Proving mechanisms",
+      "Zk and Optimistic proofs",
+    ],
     duration: "~1h",
   },
 ];
 
 export default function CurriculumSection() {
   return (
-    <section id="curriculum" className="md:py-24 bg-background pt-[86px] pb-[86px]">
+    <section
+      id="curriculum"
+      className="md:py-24 bg-background pt-[86px] pb-[86px]"
+    >
       <div className="container mx-auto px-4">
         <SectionHeadingReveal className="text-center mb-8 md:mb-12">
           <h2
@@ -115,7 +145,9 @@ export default function CurriculumSection() {
                       </div>
                       <div className="md:hidden mb-2">
                         <div className="flex items-center gap-2">
-                          <h3 className="font-semibold text-sm">{module.title}</h3>
+                          <h3 className="font-semibold text-sm">
+                            {module.title}
+                          </h3>
                           <div className="flex items-center gap-1 text-xs text-muted-foreground shrink-0">
                             <Clock className="h-3 w-3" />
                             <span>{module.duration}</span>
@@ -127,8 +159,14 @@ export default function CurriculumSection() {
                       </p>
                       <ul className="md:hidden space-y-1">
                         {module.bullets.map((bullet, bulletIndex) => (
-                          <li key={bulletIndex} className="flex items-start gap-2 text-sm text-muted-foreground">
-                            <Check className="h-3 w-3 text-muted-foreground/60 shrink-0 mt-0.5" strokeWidth={2} />
+                          <li
+                            key={bulletIndex}
+                            className="flex items-start gap-2 text-sm text-muted-foreground"
+                          >
+                            <Check
+                              className="h-3 w-3 text-muted-foreground/60 shrink-0 mt-0.5"
+                              strokeWidth={2}
+                            />
                             <span>{bullet}</span>
                           </li>
                         ))}
@@ -140,8 +178,6 @@ export default function CurriculumSection() {
             </MobileScrollReveal>
           ))}
         </div>
-
-        
       </div>
     </section>
   );

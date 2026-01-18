@@ -15,7 +15,7 @@ const features = [
     icon: Award,
     title: "Certification",
     description:
-      "Earn a verifiable certificate you can share on LinkedIn or post on Upwork after completing all modules.",
+      "Earn a verifiable certificate you can share on LinkedIn or post on Upwork.",
   },
   {
     icon: BookOpen,
@@ -94,8 +94,6 @@ export default function CourseSection() {
             </MobileScrollReveal>
           ))}
         </div>
-
-        
       </div>
     </section>
   );
