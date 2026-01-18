@@ -39,14 +39,32 @@ export default function HeroSection() {
             From zero to confident in 8 weeks
           </h2>
 
+          {/* Desktop: Original paragraph */}
           <p
-            className="text-lg md:text-xl text-muted-foreground max-w-2xl"
+            className="hidden md:block text-lg md:text-xl text-muted-foreground max-w-2xl"
             data-testid="text-hero-description"
           >
             Learn how crypto actually works — Bitcoin, Ethereum, wallets,
             exchanges, and real-world use cases, explained simply for
             beginners.
           </p>
+
+          {/* Mobile: Pill-style topic tags */}
+          <div className="md:hidden w-full max-w-xs mx-auto">
+            <div className="grid grid-cols-3 gap-2.5">
+              {["Bitcoin", "Ethereum", "Wallets", "Exchanges", "Tokenization", "DeFi"].map((topic) => (
+                <div
+                  key={topic}
+                  className="rounded-full py-2 px-3 text-center text-sm font-medium bg-gradient-to-br from-primary/15 via-primary/10 to-accent/15 text-foreground/90 border border-primary/10"
+                  data-testid={`pill-topic-${topic.toLowerCase()}`}
+                >
+                  {topic}
+                </div>
+              ))}
+            </div>
+            <p className="text-center text-sm text-muted-foreground mt-3">and more</p>
+            <p className="text-center text-xs text-muted-foreground/70 mt-1">Simplified for beginners</p>
+          </div>
 
           <div className="flex flex-col items-center pt-2">
             <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
