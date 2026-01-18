@@ -51,7 +51,7 @@ export default function HeroSection() {
 
           {/* Mobile: Pill-style topic tags */}
           <div className="md:hidden w-full max-w-xs mx-auto">
-            <div className="grid grid-cols-3 gap-2.5">
+            <div className="grid grid-cols-2 gap-2.5">
               {["Bitcoin", "Ethereum", "Wallets", "Exchanges", "Tokenization", "DeFi"].map((topic) => (
                 <div
                   key={topic}
