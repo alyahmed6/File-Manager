@@ -18,16 +18,16 @@ const features = [
       "Earn a verifiable certificate you can share on LinkedIn or post on Upwork.",
   },
   {
-    icon: BookOpen,
-    title: "Hands-on Learning",
-    description:
-      "Practice with real examples so you actually understand how crypto works — not just theory.",
-  },
-  {
     icon: Calendar,
     title: "Flexible Schedule",
     description:
       "Learn at your own pace with downloadable videos accessible anytime.",
+  },
+  {
+    icon: BookOpen,
+    title: "Hands-on Learning",
+    description:
+      "Practice with real examples so you actually understand how crypto works — not just theory.",
   },
   {
     icon: Users,
