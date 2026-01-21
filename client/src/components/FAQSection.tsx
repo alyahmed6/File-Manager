@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     question: "Will I receive a certificate upon completion?",
-    answer: "Yes.",
+    answer: "Yes. You'll receive a certificate after completing all modules, which you can add to your CV or résumé and freelance profiles to showcase your skills.",
   },
   {
     question: "Is there community support available?",
@@ -45,7 +45,7 @@ const faqs = [
   },
   {
     question: "Who is behind The Blockchain Pulse?",
-    answer: "The Blockchain Pulse is a company registered with the Securities and Exchange Commission of Pakistan (SECP), committed to providing quality blockchain education.",
+    answer: "The Blockchain Pulse is a company registered with the Securities and Exchange Commission of Pakistan (SECP), committed to providing quality WEB3, blockchain and cryptocurrency education.",
   },
 ];
 
