@@ -20,6 +20,10 @@ const faqs = [
     answer: "All course videos are delivered through our Discord server. Once enrolled, you'll get access to downloadable video lessons that you can watch anytime, anywhere.",
   },
   {
+    question: "When are live sessions held?",
+    answer: "Live question and answer sessions will be held on weekends only.",
+  },
+  {
     question: "What payment methods do you accept?",
     answer: "We accept PKR via bank and wallet transfers.",
   },
