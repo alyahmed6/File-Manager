@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     question: "What payment methods do you accept?",
-    answer: "We accept PKR via bank transfer and cryptocurrency payments in USDT. Detailed payment instructions will be provided after registration.",
+    answer: "We accept PKR via bank and wallet transfers.",
   },
   {
     question: "Will I receive a certificate upon completion?",
