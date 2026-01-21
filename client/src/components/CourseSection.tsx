@@ -31,7 +31,7 @@ const features = [
   },
   {
     icon: Users,
-    title: "Community Support (live Q&A)",
+    title: "Community Support",
     description:
       "Get help inside our beginner-friendly Discord community with guidance from mentors.",
   },
