@@ -8,11 +8,11 @@ const modules = [
     number: 1,
     title: "Introduction to Blockchain",
     description:
-      "History, fundamentals of distributed ledger technology and how blockchain works.",
+      "Distributed ledger technology, Nodes, Types of blockchain and use-cases.",
     bullets: [
-      "History",
-      "Fundamentals of distributed ledger tech",
-      "How blockchain works",
+      "Distributed ledger tech",
+      "Blockchain types and nodes",
+      "Use-cases",
     ],
     duration: "~1h",
   },
@@ -20,10 +20,10 @@ const modules = [
     number: 2,
     title: "Bitcoin Deep Dive",
     description:
-      "Complete guide to Bitcoin, history, mining, transactions, and use cases.",
+      "Complete guide to Bitcoin, mining, transactions, and use cases.",
     bullets: [
-      "Complete guide to Bitcoin",
-      "History and mining",
+      "Bitcoin guide",
+      "Mining and miners",
       "Transactions and use cases",
     ],
     duration: "~1h",
@@ -37,20 +37,24 @@ const modules = [
   },
   {
     number: 4,
-    title: "Cryptocurrency Wallets",
+    title: "Web3/Crypto Wallets",
     description:
       "Creating wallets, understanding wallets, security practices, and wallet management.",
-    bullets: ["Creating wallets", "Security practices", "Wallet management"],
+    bullets: [
+      "Creating wallets (tutorial)",
+      "Security practices",
+      "Wallet management and more",
+    ],
     duration: "~1h",
   },
   {
     number: 5,
     title: "Centralized Exchanges (CEX's)",
     description:
-      "Exchange tutorial (Binance), trading basics, and security considerations.",
+      "Exchange walktrough (Binance), benefits, risks, and security considerations.",
     bullets: [
-      "Exchange tutorial (Binance)",
-      "Trading basics",
+      "Exchange walkthrough (Binance)",
+      "Risks and benefits",
       "Security considerations",
     ],
     duration: "~1h",
@@ -61,9 +65,9 @@ const modules = [
     description:
       "Understanding DEXs, Staking, yield farming, and Liquidity pools.",
     bullets: [
-      "Understanding DEX's",
-      "Staking",
-      "Yield farming and Liquidity pools",
+      "DEX's walkthrough (Uniswap)",
+      "Types of Dex's",
+      "Yield farming, Liquidity pools and more",
     ],
     duration: "~1h",
   },
@@ -91,12 +95,12 @@ const modules = [
   },
   {
     number: 10,
-    title: "Layer 2's, Rollups & Side Chains",
+    title: "Layer 2, Layer 1 and Layer 0",
     description:
       "Purpose, importance and differences. Proving mechanisms, Zk and Optimistic proofs.",
     bullets: [
       "Purpose and importance",
-      "Proving mechanisms",
+      "Future of the layers",
       "Zk and Optimistic proofs",
     ],
     duration: "~1h",

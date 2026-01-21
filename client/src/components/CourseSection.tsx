@@ -43,9 +43,9 @@ const features = [
   },
   {
     icon: BarChart3,
-    title: "Market Insights",
+    title: "Weekend Live Session (Q&A)",
     description:
-      "Learn how to research crypto projects responsibly using professional tools — no trading signals.",
+      "Download videos → Watch them → Ask questions",
   },
 ];
 
