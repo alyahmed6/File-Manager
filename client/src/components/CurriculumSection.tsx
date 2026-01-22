@@ -7,20 +7,12 @@ const modules = [
   {
     number: 1,
     title: "Introduction to Blockchain",
-    description:
-      "Distributed ledger technology, Nodes, Types of blockchain and use-cases.",
-    bullets: [
-      "Distributed ledger tech",
-      "Blockchain types and nodes",
-      "Use-cases",
-    ],
+    bullets: ["Blockchain types", "Nodes", "Practical Applications"],
     duration: "~1h",
   },
   {
     number: 2,
     title: "Bitcoin Deep Dive",
-    description:
-      "Complete guide to Bitcoin, mining, transactions, and use cases.",
     bullets: [
       "Bitcoin guide",
       "Mining and miners",
@@ -31,15 +23,12 @@ const modules = [
   {
     number: 3,
     title: "Ethereum & Smart Contracts",
-    description: "Ethereum, smart contracts, dapps, and the broader ecosystem.",
     bullets: ["Ethereum basics", "Smart contracts", "Dapps and ecosystem"],
     duration: "~1h",
   },
   {
     number: 4,
     title: "Web3/Crypto Wallets",
-    description:
-      "Creating wallets, understanding wallets, security practices, and wallet management.",
     bullets: [
       "Creating wallets (tutorial)",
       "Security practices",
@@ -50,8 +39,6 @@ const modules = [
   {
     number: 5,
     title: "Centralized Exchanges (CEX's)",
-    description:
-      "Exchange walktrough (Binance), benefits, risks, and security considerations.",
     bullets: [
       "Exchange walkthrough (Binance)",
       "Risks and benefits",
@@ -62,8 +49,6 @@ const modules = [
   {
     number: 6,
     title: "Decentralized Exchanges (DEX's)",
-    description:
-      "Understanding DEXs, Staking, yield farming, and Liquidity pools.",
     bullets: [
       "DEX's walkthrough (Uniswap)",
       "Types of Dex's",
@@ -74,33 +59,27 @@ const modules = [
   {
     number: 7,
     title: "Narratives/Trends",
-    description: "Defi, NFT's, Metaverse and more.",
     bullets: ["Defi", "NFT's", "Metaverse"],
     duration: "~1h",
   },
   {
     number: 8,
     title: "Advanced Topics & Future",
-    description: "Tokenization, Stablecoins, and AI in blockchain.",
     bullets: ["Tokenization", "Stablecoins", "AI in blockchain"],
     duration: "~1h",
   },
   {
     number: 9,
     title: "Research & Analytical Platforms",
-    description:
-      "How to use analytical data provider platforms to analyze cryptocurrency projects.",
     bullets: ["Analytical platforms", "Data providers", "Project analysis"],
     duration: "~1h",
   },
   {
     number: 10,
     title: "Layer 2, Layer 1 and Layer 0",
-    description:
-      "Purpose, importance and differences. Proving mechanisms, Zk and Optimistic proofs.",
     bullets: [
       "Purpose and importance",
-      "Future of the layers",
+      "Future prospects",
       "Zk and Optimistic proofs",
     ],
     duration: "~1h",
