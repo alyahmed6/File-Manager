@@ -113,7 +113,7 @@ export default function CurriculumSection() {
                 className="bg-card/50 border border-border/50 hover-elevate transition-all duration-300 h-full"
                 data-testid={`card-module-${module.number}`}
               >
-                <CardContent className="p-4 md:p-6">
+                <CardContent className="p-4 md:px-6 md:py-4">
                   <div className="flex items-start gap-3 md:gap-4">
                     <div className="flex h-8 w-8 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-lg bg-gradient-to-br from-primary to-primary/80 text-primary-foreground font-bold text-sm md:text-lg">
                       {module.number}
