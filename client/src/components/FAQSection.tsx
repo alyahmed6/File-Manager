@@ -29,7 +29,7 @@ const faqs = [
   },
   {
     question: "Will I receive a certificate upon completion?",
-    answer: "Yes. You'll receive a certificate after completing all modules, which you can add to your CV or résumé and freelance profiles to showcase your skills.",
+    answer: "Yes. You’ll receive a certificate after completing all modules, which you can add to your CV or résumé and freelance profiles to showcase your skills.",
   },
   {
     question: "Is there community support available?",

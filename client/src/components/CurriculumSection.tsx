@@ -158,9 +158,13 @@ export default function CurriculumSection() {
                           </div>
                         </div>
                       </div>
-                      <p className="hidden md:block text-sm text-muted-foreground">
-                        {module.description}
-                      </p>
+                      <div className="hidden md:block text-sm text-muted-foreground">
+                        <ul className="list-disc pl-4 space-y-1">
+                          {module.bullets.map((bullet, bulletIndex) => (
+                            <li key={bulletIndex}>{bullet}</li>
+                          ))}
+                        </ul>
+                      </div>
                       <ul className="md:hidden space-y-1">
                         {module.bullets.map((bullet, bulletIndex) => (
                           <li
