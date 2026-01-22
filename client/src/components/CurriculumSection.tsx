@@ -137,13 +137,14 @@ export default function CurriculumSection() {
                           </div>
                         </div>
                       </div>
-                      <div className="hidden md:block text-sm text-muted-foreground">
-                        <ul className="list-disc pl-4 space-y-1">
-                          {module.bullets.map((bullet, bulletIndex) => (
-                            <li key={bulletIndex}>{bullet}</li>
-                          ))}
-                        </ul>
-                      </div>
+                      <ul className="hidden md:block text-sm text-muted-foreground space-y-1">
+                        {module.bullets.map((bullet, bulletIndex) => (
+                          <li key={bulletIndex} className="flex items-start gap-2">
+                            <Check className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" strokeWidth={2.5} />
+                            <span>{bullet}</span>
+                          </li>
+                        ))}
+                      </ul>
                       <ul className="md:hidden space-y-1">
                         {module.bullets.map((bullet, bulletIndex) => (
                           <li
