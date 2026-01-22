@@ -22,7 +22,7 @@ export default function PrivacyPolicy() {
 
             <article className="prose prose-slate dark:prose-invert max-w-none">
               <h1 data-testid="text-privacy-heading">Privacy Policy</h1>
-              <p className="text-muted-foreground">Last updated: August 9, 2025</p>
+              <p className="text-muted-foreground">Last updated: February 9, 2025</p>
 
               <h2>Introduction</h2>
               <p>The Blockchain Pulse ("we", "us", "our") operates https://theblockchainpulse.org (the "Site") and provides online educational courses and associated community services (the "Service"). We take your privacy seriously. This Privacy Policy explains what information we collect, why we collect it, how we use it, and your rights.</p>
