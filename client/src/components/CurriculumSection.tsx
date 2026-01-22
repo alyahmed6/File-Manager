@@ -140,7 +140,7 @@ export default function CurriculumSection() {
                       <ul className="hidden md:block text-sm text-muted-foreground space-y-1">
                         {module.bullets.map((bullet, bulletIndex) => (
                           <li key={bulletIndex} className="flex items-start gap-2">
-                            <Check className="h-3.5 w-3.5 text-primary shrink-0 mt-0.5" strokeWidth={2.5} />
+                            <Check className="h-3.5 w-3.5 text-muted-foreground/60 shrink-0 mt-0.5" strokeWidth={2.5} />
                             <span>{bullet}</span>
                           </li>
                         ))}
