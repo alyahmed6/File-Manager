@@ -51,11 +51,24 @@ export default function TermsOfService() {
                 <strong>Exceptions:</strong> Refunds may be granted at our discretion for exceptional cases, subject to verification.
               </p>
 
-              <h2>6. Certificates & Verification</h2>
+              <h2>6. Content Protection & Unauthorized Sharing</h2>
+              <p>
+                All course materials, including videos, recordings, slides, and downloadable resources, are the intellectual property of The Blockchain Pulse.
+              </p>
+              <p>
+                Unauthorized copying, recording, sharing, distribution, or public posting of any course content — whether on social media platforms, websites, messaging groups, or any other public or private channels — is strictly prohibited.
+              </p>
+              <p>Any violation of this policy may result in:</p>
+              <ul>
+                <li>Immediate termination of access without refund, and</li>
+                <li>Legal action in accordance with applicable copyright and intellectual property laws.</li>
+              </ul>
+
+              <h2>7. Certificates & Verification</h2>
               <p>We may issue digital certificates upon course completion.</p>
               <p>We reserve the right to revoke certificates if we determine they were obtained fraudulently.</p>
 
-              <h2>7. License & Content Use</h2>
+              <h2>8. License & Content Use</h2>
               <p>
                 All course content is &copy; The Blockchain Pulse. We grant paid users a limited, non-transferable license to access and view content for personal, non-commercial use unless otherwise specified.
               </p>
@@ -63,12 +76,12 @@ export default function TermsOfService() {
                 You may not redistribute, sell, or publicly republish and upload course videos, slides, or assignments without permission.
               </p>
 
-              <h2>8. User Conduct</h2>
+              <h2>9. User Conduct</h2>
               <p>
                 You agree not to use the Service for unlawful activities. Respect community rules; harassment, hate speech, or sharing illegal content may lead to account suspension.
               </p>
 
-              <h2>9. Disclaimers & Limitation of Liability</h2>
+              <h2>10. Disclaimers & Limitation of Liability</h2>
               <p>
                 <strong>No financial advice:</strong> Course content is educational only and not financial, tax, or legal advice.
               </p>
@@ -76,22 +89,22 @@ export default function TermsOfService() {
                 <strong>Warranty disclaimer:</strong> Services are provided "as is" without warranties. We are not liable for indirect or consequential damages. Our liability is limited to the amount you paid for the course in the past 3 months.
               </p>
 
-              <h2>10. Termination</h2>
+              <h2>11. Termination</h2>
               <p>
                 We may suspend or terminate discord accounts for violation of Terms. You may delete your account via account settings or by contacting support; deletion is subject to retention for legal obligations.
               </p>
 
-              <h2>11. Governing Law</h2>
+              <h2>12. Governing Law</h2>
               <p>
                 These Terms are governed by the laws of the jurisdiction in which The Blockchain Pulse operates. Any disputes will be resolved in the competent courts of that jurisdiction.
               </p>
 
-              <h2>12. Changes to Terms</h2>
+              <h2>13. Changes to Terms</h2>
               <p>
                 We may modify these Terms; material changes will be posted on the Site with an updated "Last updated" date. Continued use constitutes acceptance.
               </p>
 
-              <h2>13. Contact</h2>
+              <h2>14. Contact</h2>
               <p>
                 <a href="mailto:support@theblockchainpulse.org">support@theblockchainpulse.org</a>
               </p>
