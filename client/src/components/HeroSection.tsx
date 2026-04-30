@@ -52,7 +52,7 @@ export default function HeroSection() {
           {/* Mobile: Pill-style topic tags */}
           <div className="md:hidden w-full max-w-xs mx-auto">
             <div className="grid grid-cols-2 gap-2.5">
-              {["Bitcoin", "Ethereum", "Wallets", "Exchanges", "Tokenization", "DeFi"].map((topic) => (
+              {["Bitcoin", "Ethereum", "Wallets", "Stable Coins", "Tokenization", "AI", "DeFi", "Exchanges"].map((topic) => (
                 <div
                   key={topic}
                   className="rounded-full py-2 px-3 text-center text-sm font-medium bg-gradient-to-br from-primary/25 via-primary/20 to-accent/25 text-foreground border border-primary/20 shadow-sm"
