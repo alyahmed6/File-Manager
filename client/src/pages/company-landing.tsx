@@ -145,7 +145,7 @@ const testimonials = [
 ];
 
 const incubationItems = ["Freelancer Growth", "Mentorship & Guidance", "Skill Development", "Startup Support", "24/7 Fast Internet", "24/7 Electricity"];
-const blockchainItems = ["Smart Contract Development", "DApp Development", "Web3 Integrations", "Blockchain Consulting", "Crypto Research"];
+const blockchainItems = ["In-Depth Analysis for Web3 Projects", "Discord Moderation", "Web3 Education", "Blockchain Consulting", "Crypto Research", "Research/News Updates on Socials"];
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -395,7 +395,7 @@ export default function CompanyLanding() {
                 className="text-sm md:text-base font-medium tracking-[0.18em] uppercase"
                 style={{ color: "rgba(148,163,184,0.85)", letterSpacing: "0.18em" }}
               >
-                Incubating Talent&nbsp;&nbsp;·&nbsp;&nbsp;Delivering World-Class Solutions
+                Incubating Talent&nbsp;&nbsp;·&nbsp;&nbsp;Delivering World-Class Freelance Solutions
               </p>
               <div className="h-px w-10 flex-shrink-0" style={{ background: "linear-gradient(to left, transparent, rgba(59,181,232,0.5))" }} />
             </div>
