@@ -150,15 +150,15 @@ export default function CompanyLanding() {
       <main className="flex-1">
 
         {/* ── HERO ── */}
-        <section className="relative overflow-hidden flex flex-col items-center justify-center min-h-[100svh] text-center px-4">
+        <section className="relative overflow-hidden flex flex-col items-center justify-start min-h-[100svh] text-center px-4 pt-[18vh]">
           <ParticleCanvas />
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: "radial-gradient(ellipse 70% 55% at 50% 30%, rgba(59,181,232,0.12) 0%, transparent 70%)",
+              background: "radial-gradient(ellipse 70% 55% at 50% 20%, rgba(59,181,232,0.11) 0%, transparent 65%)",
             }}
           />
-          <div className="relative z-10 max-w-3xl mx-auto space-y-6">
+          <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center gap-5">
             <h1
               className="text-5xl md:text-7xl font-bold tracking-tight leading-tight"
               style={{
@@ -166,21 +166,23 @@ export default function CompanyLanding() {
                 WebkitBackgroundClip: "text",
                 WebkitTextFillColor: "transparent",
                 backgroundClip: "text",
-                animationFillMode: "both",
               }}
               data-testid="text-company-hero-heading"
             >
               The Blockchain Pulse
             </h1>
 
-            <p
-              className="text-xl md:text-2xl font-light"
-              style={{ color: "#94a3b8" }}
-              data-testid="text-company-hero-subheading"
-            >
-              Incubating talent, delivering world class freelance solutions
-            </p>
-
+            {/* Tagline */}
+            <div className="flex items-center gap-4 mt-1" data-testid="text-company-hero-subheading">
+              <div className="h-px w-10 flex-shrink-0" style={{ background: "linear-gradient(to right, transparent, rgba(59,181,232,0.5))" }} />
+              <p
+                className="text-sm md:text-base font-medium tracking-[0.18em] uppercase"
+                style={{ color: "rgba(148,163,184,0.85)", letterSpacing: "0.18em" }}
+              >
+                Incubating Talent&nbsp;&nbsp;·&nbsp;&nbsp;Delivering World-Class Solutions
+              </p>
+              <div className="h-px w-10 flex-shrink-0" style={{ background: "linear-gradient(to left, transparent, rgba(59,181,232,0.5))" }} />
+            </div>
           </div>
 
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
