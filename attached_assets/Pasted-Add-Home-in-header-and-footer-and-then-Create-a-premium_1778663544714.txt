@@ -1,0 +1,335 @@
+Add Home in header and footer and then
+Create a premium, modern, and clean landing page for a company called “The Blockchain Pulse”(when someone click home direct them to this page and for the current landing page which is about my course, add course in header and footer and show the course page when someone click on it and don't make it the landing page which it is now).
+The company provides:
+
+
+Incubation services for freelancers, individuals, startups, and tech talent
+
+
+Blockchain and Web3 development services
+
+
+The overall design should be:
+
+
+minimal
+
+
+clean
+
+
+modern
+
+
+premium
+
+
+futuristic but not overly flashy
+
+
+Use:
+
+
+dark background
+
+
+black and deep navy tones
+
+
+subtle electric blue accents
+
+
+smooth gradients
+
+
+soft lighting effects
+
+
+clean typography
+
+
+lots of spacing
+
+
+subtle animations
+
+
+responsive design for all devices
+
+
+Avoid:
+
+
+excessive cards
+
+
+cluttered layouts
+
+
+overly complex sections
+
+
+too many glowing effects
+
+
+Do NOT create a new header or footer.
+Reuse the exact same header and footer from my existing course page for consistent branding.
+==================================================
+HERO SECTION
+Create a clean full-screen hero section.
+Background:
+
+
+subtle animated particles
+
+
+soft gradient lighting
+
+
+minimal blockchain-inspired visuals
+
+
+cinematic dark atmosphere
+
+
+Main heading:
+“The Blockchain Pulse”
+Subheading:
+“Incubating talent, delivering world class freelance solutions”
+Supporting text:
+“We help freelancers, startups, and digital talent grow through incubation services while also delivering professional blockchain and Web3 solutions.”
+Design style:
+
+
+large bold typography
+
+
+centered layout
+
+
+elegant spacing
+
+
+smooth fade-in animations
+
+
+Do not add any buttons in the hero section.
+==================================================
+SERVICES SECTION
+Section title:
+“Our Services”
+Create a simple clean split layout with two service areas instead of cards.
+
+LEFT SIDE
+Heading:
+“Incubation Services”
+Text:
+“We support freelancers, individuals, and startups through mentorship, skill development, collaboration, and real-world opportunities.”
+Include simple clean bullet points:
+
+
+Freelancer Growth
+
+
+Mentorship & Guidance
+
+
+Skill Development
+
+
+Startup Support
+
+
+Real Project Opportunities
+
+
+
+RIGHT SIDE
+Heading:
+“Blockchain & Web3 Solutions”
+Text:
+“We provide blockchain development and Web3 technical solutions for startups, businesses, and digital products.”
+Include simple clean bullet points:
+
+
+Smart Contract Development
+
+
+DApp Development
+
+
+Web3 Integrations
+
+
+Blockchain Consulting
+
+
+Crypto Research
+
+
+Use:
+
+
+thin dividers
+
+
+subtle hover effects
+
+
+minimal icons if needed
+
+
+elegant spacing
+
+
+no heavy glassmorphism cards
+
+
+==================================================
+WEB3 COURSE SECTION
+Section title:
+“Upcoming Web3 & Blockchain Program”
+Subtitle:
+“Learn blockchain fundamentals, Ethereum architecture, smart contracts, and real-world Web3 development.”
+Create a clean premium course showcase section.
+Display the roadmap in a modern minimal layout:
+
+
+Blockchain Fundamentals
+
+
+Ethereum Basics
+
+
+Smart Contracts & Solidity
+
+
+DeFi & Layer 2s
+
+
+Nodes & Validators
+
+
+Web3 Development
+
+
+Tokenomics
+
+
+Real Projects
+
+
+Include:
+
+
+countdown timer
+
+
+subtle futuristic visuals
+
+
+clean typography hierarchy
+
+
+modern spacing
+
+
+Use:
+
+
+minimal design
+
+
+soft section highlights
+
+
+subtle motion animations
+
+
+premium SaaS-style layout
+
+
+Do not add any buttons in this section.
+==================================================
+TESTIMONIALS SECTION
+Section title:
+“What People Say About Us”
+Create a clean horizontal testimonials layout.
+Each testimonial should include:
+
+
+upload image option
+
+
+circular profile image
+
+
+editable name
+
+
+editable role/title
+
+
+five-star rating
+
+
+editable comment text
+
+
+Style:
+
+
+simple premium layout
+
+
+subtle separators
+
+
+soft hover animations
+
+
+clean typography
+
+
+no bulky cards
+
+
+Sample testimonials:
+“The incubation environment helped me grow from a beginner freelancer into a professional service provider.”
+“The Blockchain Pulse delivered excellent blockchain solutions with great professionalism and communication.”
+“The Web3 course made complex blockchain concepts easy to understand and practical to apply.”
+==================================================
+ADDITIONAL REQUIREMENTS
+
+
+smooth scrolling
+
+
+reveal-on-scroll animations
+
+
+modern spacing hierarchy
+
+
+premium typography
+
+
+subtle transitions
+
+
+cinematic but minimal appearance
+
+
+clean responsive design
+
+
+avoid generic template look
+
+
+maintain consistent branding
+
+
+modern elite startup aesthetic without visual clutter
+
+
+do not include buttons anywhere on the landing page

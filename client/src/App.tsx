@@ -4,7 +4,8 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
-import Home from "@/pages/home";
+import CompanyLanding from "@/pages/company-landing";
+import Course from "@/pages/course";
 import Register from "@/pages/register";
 import AboutUs from "@/pages/about-us";
 import PrivacyPolicy from "@/pages/privacy-policy";
@@ -14,7 +15,8 @@ import NotFound from "@/pages/not-found";
 function Router() {
   return (
     <Switch>
-      <Route path="/" component={Home} />
+      <Route path="/" component={CompanyLanding} />
+      <Route path="/course" component={Course} />
       <Route path="/register" component={Register} />
       <Route path="/about-us" component={AboutUs} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />

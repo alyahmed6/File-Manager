@@ -5,8 +5,13 @@ import { useState, useEffect, useRef, useCallback } from "react";
 import { useHeaderVisibility } from "@/hooks/useHeaderVisibility";
 import { useActiveSection } from "@/hooks/useActiveSection";
 
-const navItems = [
+const baseNavItems = [
+  { label: "Home", href: "/" },
+  { label: "Course", href: "/course" },
   { label: "About Us", href: "/about-us" },
+];
+
+const courseNavItems = [
   { label: "Overview", href: "#course" },
   { label: "Curriculum", href: "#curriculum" },
   { label: "Pricing", href: "#pricing" },
@@ -18,14 +23,23 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const isHeaderVisible = useHeaderVisibility();
   const activeSection = useActiveSection();
-  
+
+  const isOnCourse = location === "/course";
+
+  const navItems = isOnCourse ? [...baseNavItems, ...courseNavItems] : baseNavItems;
+
   const isNavItemActive = (href: string) => {
-    if (location !== "/") return false;
-    if (!href.startsWith("#")) return false;
-    const sectionId = href.slice(1);
-    return activeSection === sectionId;
+    if (href.startsWith("#")) {
+      if (!isOnCourse) return false;
+      const sectionId = href.slice(1);
+      return activeSection === sectionId;
+    }
+    if (href === "/") return location === "/";
+    if (href === "/course") return isOnCourse;
+    if (href === "/about-us") return location === "/about-us";
+    return false;
   };
-  
+
   const triggerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
@@ -44,19 +58,13 @@ export default function Header() {
       const target = event.target as Node;
       const isOutsideTrigger = triggerRef.current && !triggerRef.current.contains(target);
       const isOutsideMenu = menuRef.current && !menuRef.current.contains(target);
-      
-      if (isOutsideTrigger && isOutsideMenu) {
-        closeMenu();
-      }
+      if (isOutsideTrigger && isOutsideMenu) closeMenu();
     };
 
-    const handleScroll = () => {
-      closeMenu();
-    };
+    const handleScroll = () => closeMenu();
 
     document.addEventListener("pointerdown", handlePointerDown);
     window.addEventListener("scroll", handleScroll, { passive: true });
-
     return () => {
       document.removeEventListener("pointerdown", handlePointerDown);
       window.removeEventListener("scroll", handleScroll);
@@ -65,40 +73,34 @@ export default function Header() {
 
   const handleNavigation = (href: string) => {
     closeMenu();
-    
+
     if (href.startsWith("/")) {
       navigate(href);
       return;
     }
-    
-    if (location !== "/" && href.startsWith("#")) {
-      navigate("/");
+
+    if (!isOnCourse && href.startsWith("#")) {
+      navigate("/course");
       setTimeout(() => {
         const element = document.querySelector(href);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth" });
-        }
+        if (element) element.scrollIntoView({ behavior: "smooth" });
       }, 100);
       return;
     }
-    
+
     const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <>
-      <header 
+      <header
         className="sticky top-0 z-50 w-full bg-gradient-to-br from-primary/10 via-background to-accent/5 transition-transform duration-300 ease-out"
-        style={{
-          transform: isHeaderVisible ? "translateY(0)" : "translateY(-100%)",
-        }}
+        style={{ transform: isHeaderVisible ? "translateY(0)" : "translateY(-100%)" }}
         data-testid="header-sticky"
       >
         <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
-          <button 
+          <button
             onClick={() => {
               if (location === "/") {
                 window.scrollTo({ top: 0, behavior: "smooth" });
@@ -127,11 +129,11 @@ export default function Header() {
                   key={item.label}
                   onClick={() => handleNavigation(item.href)}
                   className={`text-sm font-medium transition-colors ${
-                    isActive 
-                      ? "text-foreground border-b-2 border-primary pb-0.5" 
+                    isActive
+                      ? "text-foreground border-b-2 border-primary pb-0.5"
                       : "text-muted-foreground hover:text-foreground"
                   }`}
-                  data-testid={`link-nav-${item.label.toLowerCase()}`}
+                  data-testid={`link-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   {item.label}
                 </button>
@@ -141,7 +143,9 @@ export default function Header() {
 
           <div className="flex items-center gap-2">
             <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
-              <Button size="sm" className="md:h-9 md:px-4 bg-accent hover:bg-accent/90 text-accent-foreground border border-accent" data-testid="button-header-register">Get Early Access</Button>
+              <Button size="sm" className="md:h-9 md:px-4 bg-accent hover:bg-accent/90 text-accent-foreground border border-accent" data-testid="button-header-register">
+                Get Early Access
+              </Button>
             </a>
             <Button
               ref={triggerRef}
@@ -158,7 +162,7 @@ export default function Header() {
       </header>
 
       {mobileMenuOpen && (
-        <div 
+        <div
           ref={menuRef}
           className="fixed top-16 left-0 right-0 z-[9999] md:hidden bg-card border-b border-border shadow-xl"
           data-testid="mobile-menu-panel"
@@ -171,11 +175,11 @@ export default function Header() {
                   key={item.label}
                   onClick={() => handleNavigation(item.href)}
                   className={`text-base font-medium py-3 text-left transition-colors ${
-                    isActive 
-                      ? "text-primary border-l-2 border-primary pl-3" 
+                    isActive
+                      ? "text-primary border-l-2 border-primary pl-3"
                       : "text-foreground hover:text-primary"
                   }`}
-                  data-testid={`link-mobile-nav-${item.label.toLowerCase()}`}
+                  data-testid={`link-mobile-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   {item.label}
                 </button>

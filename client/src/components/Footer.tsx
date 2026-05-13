@@ -12,15 +12,13 @@ const socialLinks = [
 export default function Footer() {
   const [location] = useLocation();
 
-  const scrollToSection = (href: string) => {
-    if (location !== "/") {
-      window.location.href = "/" + href;
+  const scrollToSection = (anchor: string) => {
+    if (location !== "/course") {
+      window.location.href = "/course" + anchor;
       return;
     }
-    const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
+    const element = document.querySelector(anchor);
+    if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleLogoClick = () => {
@@ -36,7 +34,7 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
-            <button 
+            <button
               onClick={handleLogoClick}
               className="flex items-center gap-2 mb-4 hover:opacity-80 transition-opacity text-left"
               data-testid="button-footer-logo-home"
@@ -52,6 +50,27 @@ export default function Footer() {
               </div>
             </button>
             <p className="text-sm text-muted-foreground">Empowering the next generation of WEB3 enthusiasts with comprehensive, practical education.</p>
+          </div>
+
+          <div>
+            <h4 className="font-semibold mb-4">Navigate</h4>
+            <ul className="space-y-2 text-sm text-muted-foreground">
+              <li>
+                <Link href="/" className="hover:text-foreground transition-colors" data-testid="link-footer-home">
+                  Home
+                </Link>
+              </li>
+              <li>
+                <Link href="/course" className="hover:text-foreground transition-colors" data-testid="link-footer-course">
+                  Course
+                </Link>
+              </li>
+              <li>
+                <Link href="/about-us" className="hover:text-foreground transition-colors" data-testid="link-footer-about">
+                  About Us
+                </Link>
+              </li>
+            </ul>
           </div>
 
           <div>
@@ -81,22 +100,6 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="font-semibold mb-4">Support</h4>
-            <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>
-                <a href="mailto:support@theblockchainpulse.org" className="hover:text-foreground transition-colors" data-testid="link-footer-help">
-                  Help Center
-                </a>
-              </li>
-              <li>
-                <a href="https://x.com/theblockchainpulse" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors" data-testid="link-footer-contact">
-                  Contact Us
-                </a>
-              </li>
-            </ul>
-          </div>
-
-          <div>
             <h4 className="font-semibold mb-4">Legal</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
@@ -109,33 +112,41 @@ export default function Footer() {
                   Terms of Service
                 </Link>
               </li>
+              <li>
+                <a href="mailto:support@theblockchainpulse.org" className="hover:text-foreground transition-colors" data-testid="link-footer-help">
+                  Help Center
+                </a>
+              </li>
+              <li>
+                <a href="https://x.com/theblockchainpulse" target="_blank" rel="noopener noreferrer" className="hover:text-foreground transition-colors" data-testid="link-footer-contact">
+                  Contact Us
+                </a>
+              </li>
             </ul>
           </div>
         </div>
 
         <div className="border-t border-border pt-8">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="flex flex-wrap items-center gap-4">
-              {socialLinks.map((social, index) => (
-                <a
-                  key={index}
-                  href={social.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm text-accent-foreground hover:bg-accent/80 transition-colors"
-                  data-testid={`link-social-${social.label.toLowerCase().replace(/[^a-z]/g, "")}`}
-                >
-                  {social.icon === "X" ? (
-                    <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                    </svg>
-                  ) : (
-                    <social.icon className="h-4 w-4" />
-                  )}
-                  <span>{social.label}</span>
-                </a>
-              ))}
-            </div>
+          <div className="flex flex-wrap items-center gap-4">
+            {socialLinks.map((social, index) => (
+              <a
+                key={index}
+                href={social.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 rounded-md bg-accent px-3 py-2 text-sm text-accent-foreground hover:bg-accent/80 transition-colors"
+                data-testid={`link-social-${social.label.toLowerCase().replace(/[^a-z]/g, "")}`}
+              >
+                {social.icon === "X" ? (
+                  <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                  </svg>
+                ) : (
+                  <social.icon className="h-4 w-4" />
+                )}
+                <span>{social.label}</span>
+              </a>
+            ))}
           </div>
 
           <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-6 text-sm text-muted-foreground">
