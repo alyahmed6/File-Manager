@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { motion, useInView } from "framer-motion";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -143,6 +144,121 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
   );
 }
 
+const svcContainerLeft = {
+  hidden: { x: -72, opacity: 0 },
+  visible: {
+    x: 0, opacity: 1,
+    transition: { duration: 0.95, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.14, delayChildren: 0.05 },
+  },
+};
+const svcContainerRight = {
+  hidden: { x: 72, opacity: 0 },
+  visible: {
+    x: 0, opacity: 1,
+    transition: { duration: 0.95, ease: [0.22, 1, 0.36, 1], staggerChildren: 0.14, delayChildren: 0.15 },
+  },
+};
+const svcChild = {
+  hidden: { opacity: 0, y: 14 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] } },
+};
+const bulletLeft = {
+  hidden: { opacity: 0, x: -12 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+};
+const bulletRight = {
+  hidden: { opacity: 0, x: 12 },
+  visible: { opacity: 1, x: 0, transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] } },
+};
+const bulletList = {
+  hidden: {},
+  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.08 } },
+};
+
+function ServicesGrid() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
+  const animate = inView ? "visible" : "hidden";
+
+  return (
+    <div ref={ref} className="grid md:grid-cols-2 gap-0">
+      {/* Left: Incubation */}
+      <motion.div
+        className="pr-0 md:pr-12 pb-12 md:pb-0"
+        variants={svcContainerLeft}
+        initial="hidden"
+        animate={animate}
+      >
+        <motion.div variants={svcChild} className="mb-5">
+          <div className="inline-flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(59,181,232,0.12)", border: "1px solid rgba(59,181,232,0.2)" }}>
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#3bb5e8" strokeWidth="1.8">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold text-white" data-testid="text-incubation-heading">Incubation Services</h3>
+          </div>
+        </motion.div>
+        <motion.p variants={svcChild} className="text-sm leading-relaxed mb-6" style={{ color: "#64748b" }}>
+          We support freelancers, individuals, and startups through mentorship, skill development, collaboration, and real-world opportunities.
+        </motion.p>
+        <motion.ul className="space-y-3" variants={bulletList}>
+          {incubationItems.map((item) => (
+            <motion.li
+              key={item}
+              variants={bulletLeft}
+              className="flex items-center gap-3 text-sm group cursor-default"
+              data-testid={`item-incubation-${item.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all group-hover:scale-150" style={{ background: "#3bb5e8" }} />
+              <span className="transition-colors group-hover:text-white" style={{ color: "#94a3b8" }}>{item}</span>
+            </motion.li>
+          ))}
+        </motion.ul>
+      </motion.div>
+
+      {/* Divider */}
+      <div className="hidden md:block absolute left-1/2 -translate-x-px" style={{ width: "1px", top: "auto", height: "100%", background: "linear-gradient(to bottom, transparent, rgba(59,181,232,0.3), transparent)" }} />
+      <div className="md:hidden h-px w-full my-8" style={{ background: "linear-gradient(to right, transparent, rgba(59,181,232,0.3), transparent)" }} />
+
+      {/* Right: Blockchain */}
+      <motion.div
+        className="pl-0 md:pl-12"
+        variants={svcContainerRight}
+        initial="hidden"
+        animate={animate}
+      >
+        <motion.div variants={svcChild} className="mb-5">
+          <div className="inline-flex items-center gap-2 mb-4">
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(59,181,232,0.12)", border: "1px solid rgba(59,181,232,0.2)" }}>
+              <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#3bb5e8" strokeWidth="1.8">
+                <rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-semibold text-white" data-testid="text-blockchain-heading">Blockchain & Web3 Solutions</h3>
+          </div>
+        </motion.div>
+        <motion.p variants={svcChild} className="text-sm leading-relaxed mb-6" style={{ color: "#64748b" }}>
+          We provide blockchain development and Web3 technical solutions for startups, businesses, and digital products.
+        </motion.p>
+        <motion.ul className="space-y-3" variants={bulletList}>
+          {blockchainItems.map((item) => (
+            <motion.li
+              key={item}
+              variants={bulletRight}
+              className="flex items-center gap-3 text-sm group cursor-default"
+              data-testid={`item-blockchain-${item.toLowerCase().replace(/\s+/g, "-")}`}
+            >
+              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all group-hover:scale-150" style={{ background: "#3bb5e8" }} />
+              <span className="transition-colors group-hover:text-white" style={{ color: "#94a3b8" }}>{item}</span>
+            </motion.li>
+          ))}
+        </motion.ul>
+      </motion.div>
+    </div>
+  );
+}
+
 export default function CompanyLanding() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "#04060e", color: "#e2e8f0" }}>
@@ -199,69 +315,7 @@ export default function CompanyLanding() {
               <div className="w-12 h-px mx-auto mt-4" style={{ background: "linear-gradient(to right, transparent, #3bb5e8, transparent)" }} />
             </FadeIn>
 
-            <div className="grid md:grid-cols-2 gap-0">
-              {/* Left: Incubation */}
-              <FadeIn delay={0.1} className="pr-0 md:pr-12 pb-12 md:pb-0">
-                <div className="mb-5">
-                  <div className="inline-flex items-center gap-2 mb-4">
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(59,181,232,0.12)", border: "1px solid rgba(59,181,232,0.2)" }}>
-                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#3bb5e8" strokeWidth="1.8">
-                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M23 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-semibold text-white" data-testid="text-incubation-heading">Incubation Services</h3>
-                  </div>
-                  <p className="text-sm leading-relaxed mb-6" style={{ color: "#64748b" }}>
-                    We support freelancers, individuals, and startups through mentorship, skill development, collaboration, and real-world opportunities.
-                  </p>
-                </div>
-                <ul className="space-y-3">
-                  {incubationItems.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-3 text-sm group cursor-default"
-                      data-testid={`item-incubation-${item.toLowerCase().replace(/\s+/g, "-")}`}
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all group-hover:scale-150" style={{ background: "#3bb5e8" }} />
-                      <span className="transition-colors group-hover:text-white" style={{ color: "#94a3b8" }}>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </FadeIn>
-
-              {/* Divider */}
-              <div className="hidden md:block absolute left-1/2 -translate-x-px" style={{ width: "1px", top: "auto", height: "100%", background: "linear-gradient(to bottom, transparent, rgba(59,181,232,0.3), transparent)" }} />
-              <div className="md:hidden h-px w-full my-8" style={{ background: "linear-gradient(to right, transparent, rgba(59,181,232,0.3), transparent)" }} />
-
-              {/* Right: Blockchain */}
-              <FadeIn delay={0.2} className="pl-0 md:pl-12">
-                <div className="mb-5">
-                  <div className="inline-flex items-center gap-2 mb-4">
-                    <div className="w-8 h-8 rounded-lg flex items-center justify-center" style={{ background: "rgba(59,181,232,0.12)", border: "1px solid rgba(59,181,232,0.2)" }}>
-                      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="#3bb5e8" strokeWidth="1.8">
-                        <rect x="2" y="3" width="20" height="14" rx="2" /><path d="M8 21h8M12 17v4" />
-                      </svg>
-                    </div>
-                    <h3 className="text-xl font-semibold text-white" data-testid="text-blockchain-heading">Blockchain & Web3 Solutions</h3>
-                  </div>
-                  <p className="text-sm leading-relaxed mb-6" style={{ color: "#64748b" }}>
-                    We provide blockchain development and Web3 technical solutions for startups, businesses, and digital products.
-                  </p>
-                </div>
-                <ul className="space-y-3">
-                  {blockchainItems.map((item) => (
-                    <li
-                      key={item}
-                      className="flex items-center gap-3 text-sm group cursor-default"
-                      data-testid={`item-blockchain-${item.toLowerCase().replace(/\s+/g, "-")}`}
-                    >
-                      <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all group-hover:scale-150" style={{ background: "#3bb5e8" }} />
-                      <span className="transition-colors group-hover:text-white" style={{ color: "#94a3b8" }}>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </FadeIn>
-            </div>
+            <ServicesGrid />
           </div>
         </section>
 
