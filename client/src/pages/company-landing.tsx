@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { motion, useInView } from "framer-motion";
+import { Link2, Hexagon, FileCode2, Layers, Tag, Cpu, Scale, BarChart2 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -79,15 +80,47 @@ function ParticleCanvas() {
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
 }
 
-const roadmapItems = [
-  "Blockchain Fundamentals",
-  "Ethereum Basics",
-  "Smart Contracts & Solidity",
-  "DeFi & Layer 2s",
-  "Tokenization",
-  "AI in Blockchains",
-  "Stablecoins",
-  "Exchange Tutorials",
+const roadmapModules = [
+  {
+    title: "Blockchain Fundamentals",
+    desc: "Distributed ledgers, consensus mechanisms, and how blockchains work",
+    Icon: Link2,
+  },
+  {
+    title: "Ethereum Basics",
+    desc: "Accounts, gas, the EVM, and Ethereum's core architecture",
+    Icon: Hexagon,
+  },
+  {
+    title: "Smart Contracts & Solidity",
+    desc: "Writing, deploying, and testing on-chain logic end-to-end",
+    Icon: FileCode2,
+  },
+  {
+    title: "DeFi & Layer 2s",
+    desc: "Protocols, liquidity pools, and blockchain scaling solutions",
+    Icon: Layers,
+  },
+  {
+    title: "Tokenization",
+    desc: "Token standards, asset digitization, and real-world use cases",
+    Icon: Tag,
+  },
+  {
+    title: "AI in Blockchains",
+    desc: "Integrating machine learning with on-chain data and systems",
+    Icon: Cpu,
+  },
+  {
+    title: "Stablecoins",
+    desc: "Mechanisms, risks, and the evolving stablecoin landscape",
+    Icon: Scale,
+  },
+  {
+    title: "Exchange Tutorials",
+    desc: "CEX vs DEX, trading mechanics, and navigating order books",
+    Icon: BarChart2,
+  },
 ];
 
 const testimonials = [
@@ -259,6 +292,85 @@ function ServicesGrid() {
   );
 }
 
+function RoadmapGrid() {
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
+  return (
+    <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto">
+      {roadmapModules.map(({ title, desc, Icon }, index) => (
+        <motion.div
+          key={title}
+          initial={{ opacity: 0, y: 36 }}
+          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
+          transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: index * 0.07 }}
+          whileHover={{
+            scale: 1.025,
+            borderColor: "rgba(59,181,232,0.38)",
+            boxShadow: "0 0 28px rgba(59,181,232,0.1)",
+          }}
+          className="relative overflow-hidden rounded-2xl px-6 py-5 cursor-default group"
+          style={{
+            background: "linear-gradient(140deg, rgba(8,14,26,0.95) 0%, rgba(4,6,14,0.98) 100%)",
+            border: "1px solid rgba(59,181,232,0.12)",
+          }}
+          data-testid={`roadmap-item-${index + 1}`}
+        >
+          {/* Decorative large module number */}
+          <span
+            className="absolute top-2 right-4 font-black select-none pointer-events-none leading-none"
+            style={{ fontSize: "5rem", color: "rgba(59,181,232,0.05)" }}
+          >
+            {String(index + 1).padStart(2, "0")}
+          </span>
+
+          {/* Top row: icon + module badge */}
+          <div className="flex items-center justify-between mb-4 relative z-10">
+            <div
+              className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
+              style={{ background: "rgba(59,181,232,0.1)", border: "1px solid rgba(59,181,232,0.2)" }}
+            >
+              <Icon className="w-4 h-4" style={{ color: "#3bb5e8" }} />
+            </div>
+            <span
+              className="text-[10px] font-semibold tracking-[0.14em] uppercase px-2.5 py-1 rounded-full"
+              style={{
+                background: "rgba(59,181,232,0.07)",
+                color: "rgba(59,181,232,0.75)",
+                border: "1px solid rgba(59,181,232,0.14)",
+              }}
+            >
+              Module {String(index + 1).padStart(2, "0")}
+            </span>
+          </div>
+
+          {/* Title */}
+          <h4
+            className="text-sm font-semibold mb-1.5 relative z-10 transition-colors duration-300 group-hover:text-[#3bb5e8]"
+            style={{ color: "#e2e8f0" }}
+          >
+            {title}
+          </h4>
+
+          {/* Description */}
+          <p className="text-xs leading-relaxed relative z-10" style={{ color: "#475569" }}>
+            {desc}
+          </p>
+
+          {/* Bottom accent line that sweeps in on hover */}
+          <motion.div
+            className="absolute bottom-0 left-0 h-[1.5px]"
+            style={{ background: "linear-gradient(to right, transparent, #3bb5e8, transparent)" }}
+            initial={{ width: "0%" }}
+            whileHover={{ width: "100%" }}
+            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
+          />
+        </motion.div>
+      ))}
+    </div>
+  );
+}
+
 export default function CompanyLanding() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "#04060e", color: "#e2e8f0" }}>
@@ -333,30 +445,7 @@ export default function CompanyLanding() {
               <div className="w-12 h-px mx-auto mt-4" style={{ background: "linear-gradient(to right, transparent, #3bb5e8, transparent)" }} />
             </FadeIn>
 
-            {/* Roadmap */}
-            <FadeIn delay={0.2}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 max-w-2xl mx-auto">
-                {roadmapItems.map((item, index) => (
-                  <div
-                    key={item}
-                    className="flex items-center gap-4 rounded-xl px-5 py-4 group transition-all duration-300 cursor-default"
-                    style={{
-                      background: "rgba(59,181,232,0.04)",
-                      border: "1px solid rgba(59,181,232,0.10)",
-                    }}
-                    data-testid={`roadmap-item-${index + 1}`}
-                  >
-                    <span
-                      className="w-7 h-7 rounded-full flex items-center justify-center text-xs font-bold flex-shrink-0"
-                      style={{ background: "rgba(59,181,232,0.12)", color: "#3bb5e8", border: "1px solid rgba(59,181,232,0.25)" }}
-                    >
-                      {String(index + 1).padStart(2, "0")}
-                    </span>
-                    <span className="text-sm font-medium" style={{ color: "#94a3b8" }}>{item}</span>
-                  </div>
-                ))}
-              </div>
-            </FadeIn>
+            <RoadmapGrid />
           </div>
         </section>
 
