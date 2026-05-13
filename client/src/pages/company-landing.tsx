@@ -330,16 +330,6 @@ function RoadmapGrid() {
             >
               <Icon className="w-4 h-4" style={{ color: "#3bb5e8" }} />
             </div>
-            <span
-              className="text-[10px] font-semibold tracking-[0.14em] uppercase px-2.5 py-1 rounded-full"
-              style={{
-                background: "rgba(59,181,232,0.07)",
-                color: "rgba(59,181,232,0.75)",
-                border: "1px solid rgba(59,181,232,0.14)",
-              }}
-            >
-              Module {String(index + 1).padStart(2, "0")}
-            </span>
           </div>
 
           {/* Title */}
