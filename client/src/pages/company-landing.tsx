@@ -2,31 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-function useCountdown(targetDate: Date) {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-
-  useEffect(() => {
-    const calculate = () => {
-      const diff = targetDate.getTime() - Date.now();
-      if (diff <= 0) {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
-        return;
-      }
-      setTimeLeft({
-        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
-        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
-        minutes: Math.floor((diff / 1000 / 60) % 60),
-        seconds: Math.floor((diff / 1000) % 60),
-      });
-    };
-    calculate();
-    const id = setInterval(calculate, 1000);
-    return () => clearInterval(id);
-  }, [targetDate]);
-
-  return timeLeft;
-}
-
 function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
@@ -103,17 +78,15 @@ function ParticleCanvas() {
   return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
 }
 
-const LAUNCH_DATE = new Date("2026-09-15T00:00:00");
-
 const roadmapItems = [
   "Blockchain Fundamentals",
   "Ethereum Basics",
   "Smart Contracts & Solidity",
   "DeFi & Layer 2s",
-  "Nodes & Validators",
-  "Web3 Development",
-  "Tokenomics",
-  "Real Projects",
+  "Tokenization",
+  "AI in Blockchains",
+  "Stablecoins",
+  "Exchange Tutorials",
 ];
 
 const testimonials = [
@@ -137,7 +110,7 @@ const testimonials = [
   },
 ];
 
-const incubationItems = ["Freelancer Growth", "Mentorship & Guidance", "Skill Development", "Startup Support", "Real Project Opportunities"];
+const incubationItems = ["Freelancer Growth", "Mentorship & Guidance", "Skill Development", "Startup Support", "24/7 Fast Internet", "24/7 Electricity"];
 const blockchainItems = ["Smart Contract Development", "DApp Development", "Web3 Integrations", "Blockchain Consulting", "Crypto Research"];
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
@@ -171,8 +144,6 @@ function FadeIn({ children, delay = 0, className = "" }: { children: React.React
 }
 
 export default function CompanyLanding() {
-  const { days, hours, minutes, seconds } = useCountdown(LAUNCH_DATE);
-
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "#04060e", color: "#e2e8f0" }}>
       <Header />
@@ -188,18 +159,6 @@ export default function CompanyLanding() {
             }}
           />
           <div className="relative z-10 max-w-3xl mx-auto space-y-6">
-            <div
-              className="inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-medium mb-2"
-              style={{ background: "rgba(59,181,232,0.10)", border: "1px solid rgba(59,181,232,0.25)", color: "#3bb5e8" }}
-              data-testid="badge-hero-company"
-            >
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full opacity-75" style={{ background: "#3bb5e8" }} />
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5" style={{ background: "#3bb5e8" }} />
-              </span>
-              SECP-Registered · Pakistan
-            </div>
-
             <h1
               className="text-5xl md:text-7xl font-bold tracking-tight leading-tight"
               style={{
@@ -222,13 +181,6 @@ export default function CompanyLanding() {
               Incubating talent, delivering world class freelance solutions
             </p>
 
-            <p
-              className="text-base md:text-lg max-w-xl mx-auto leading-relaxed"
-              style={{ color: "#64748b" }}
-              data-testid="text-company-hero-body"
-            >
-              We help freelancers, startups, and digital talent grow through incubation services while also delivering professional blockchain and Web3 solutions.
-            </p>
           </div>
 
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
@@ -323,38 +275,6 @@ export default function CompanyLanding() {
                 Learn blockchain fundamentals, Ethereum architecture, smart contracts, and real-world Web3 development.
               </p>
               <div className="w-12 h-px mx-auto mt-4" style={{ background: "linear-gradient(to right, transparent, #3bb5e8, transparent)" }} />
-            </FadeIn>
-
-            {/* Countdown */}
-            <FadeIn delay={0.1} className="mb-16">
-              <p className="text-center text-xs font-medium tracking-widest uppercase mb-5" style={{ color: "#475569" }}>
-                Program launches in
-              </p>
-              <div className="flex items-center justify-center gap-3 md:gap-6" data-testid="countdown-timer">
-                {[
-                  { value: days, label: "Days" },
-                  { value: hours, label: "Hours" },
-                  { value: minutes, label: "Min" },
-                  { value: seconds, label: "Sec" },
-                ].map(({ value, label }, i) => (
-                  <div key={label} className="flex items-center gap-3 md:gap-6">
-                    <div className="flex flex-col items-center" data-testid={`countdown-${label.toLowerCase()}`}>
-                      <div
-                        className="w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center text-2xl md:text-3xl font-bold text-white font-mono"
-                        style={{
-                          background: "rgba(59,181,232,0.07)",
-                          border: "1px solid rgba(59,181,232,0.2)",
-                          boxShadow: "0 0 20px rgba(59,181,232,0.05)",
-                        }}
-                      >
-                        {String(value).padStart(2, "0")}
-                      </div>
-                      <span className="text-xs mt-2 font-medium" style={{ color: "#475569" }}>{label}</span>
-                    </div>
-                    {i < 3 && <span className="text-2xl font-light mb-4" style={{ color: "rgba(59,181,232,0.4)" }}>:</span>}
-                  </div>
-                ))}
-              </div>
             </FadeIn>
 
             {/* Roadmap */}
