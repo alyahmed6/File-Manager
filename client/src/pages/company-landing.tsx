@@ -249,11 +249,9 @@ function ServicesGrid() {
           ))}
         </motion.ul>
       </motion.div>
-
       {/* Divider */}
       <div className="hidden md:block absolute left-1/2 -translate-x-px" style={{ width: "1px", top: "auto", height: "100%", background: "linear-gradient(to bottom, transparent, rgba(59,181,232,0.3), transparent)" }} />
       <div className="md:hidden h-px w-full my-8" style={{ background: "linear-gradient(to right, transparent, rgba(59,181,232,0.3), transparent)" }} />
-
       {/* Right: Blockchain */}
       <motion.div
         className="pl-0 md:pl-12"
@@ -439,9 +437,7 @@ export default function CompanyLanding() {
               <h2 className="text-3xl md:text-4xl font-bold text-white" data-testid="text-course-showcase-heading">
                 Upcoming Web3 & Blockchain Program
               </h2>
-              <p className="mt-4 text-base max-w-xl mx-auto" style={{ color: "#64748b" }}>
-                Learn blockchain fundamentals, Ethereum architecture, smart contracts, and real-world Web3 development.
-              </p>
+              <p className="mt-4 text-base max-w-xl mx-auto" style={{ color: "#64748b" }}>Learn blockchain fundamentals, Bitcoin architecture, Ethereum architecture, smart contracts and more.</p>
               <div className="w-12 h-px mx-auto mt-4" style={{ background: "linear-gradient(to right, transparent, #3bb5e8, transparent)" }} />
             </FadeIn>
 
