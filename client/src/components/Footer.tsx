@@ -29,8 +29,17 @@ export default function Footer() {
     }
   };
 
+  const isHome = location === "/";
+
   return (
-    <footer className="bg-background text-foreground py-12">
+    <footer
+      className="py-12"
+      style={
+        isHome
+          ? { background: "#04060e", color: "#e2e8f0", borderTop: "1px solid rgba(255,255,255,0.06)" }
+          : undefined
+      }
+    >
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>

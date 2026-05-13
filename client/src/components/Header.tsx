@@ -92,79 +92,109 @@ export default function Header() {
     if (element) element.scrollIntoView({ behavior: "smooth" });
   };
 
+  const isHome = location === "/";
+
   return (
     <>
       <header
-        className="sticky top-0 z-50 w-full bg-gradient-to-br from-primary/10 via-background to-accent/5 transition-transform duration-300 ease-out"
-        style={{ transform: isHeaderVisible ? "translateY(0)" : "translateY(-100%)" }}
+        className={`sticky top-0 z-50 w-full transition-transform duration-300 ease-out ${!isHome ? "bg-gradient-to-br from-primary/10 via-background to-accent/5" : ""}`}
+        style={{
+          transform: isHeaderVisible ? "translateY(0)" : "translateY(-100%)",
+          ...(isHome && {
+            background: "rgba(4, 6, 14, 0.82)",
+            backdropFilter: "blur(14px)",
+            borderBottom: "1px solid rgba(255,255,255,0.06)",
+          }),
+        }}
         data-testid="header-sticky"
       >
-        <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
-          <button
-            onClick={() => {
-              if (location === "/") {
-                window.scrollTo({ top: 0, behavior: "smooth" });
-              } else {
-                navigate("/");
-              }
-            }}
-            className="flex items-center gap-2 hover:opacity-80 transition-opacity"
-            data-testid="button-logo-home"
-          >
-            <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
-              <svg viewBox="0 0 24 24" className="h-5 w-5 text-primary-foreground" fill="currentColor">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
-              </svg>
-            </div>
-            <div className="flex flex-col">
-              <span className="text-sm font-bold leading-tight" data-testid="text-brand-name">The Blockchain Pulse</span>
-            </div>
-          </button>
-
-          <nav className="hidden md:flex items-center gap-6">
-            {navItems.map((item) => {
-              const isActive = isNavItemActive(item.href);
-              return (
-                <button
-                  key={item.label}
-                  onClick={() => handleNavigation(item.href)}
-                  className={`text-sm font-medium transition-colors ${
-                    isActive
-                      ? "text-foreground border-b-2 border-primary pb-0.5"
-                      : "text-muted-foreground hover:text-foreground"
-                  }`}
-                  data-testid={`link-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
-                >
-                  {item.label}
-                </button>
-              );
-            })}
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
-              <Button size="sm" className="md:h-9 md:px-4 bg-accent hover:bg-accent/90 text-accent-foreground border border-accent" data-testid="button-header-register">
-                Get Early Access
-              </Button>
-            </a>
-            <Button
-              ref={triggerRef}
-              variant="ghost"
-              size="icon"
-              className="md:hidden"
-              onClick={toggleMenu}
-              data-testid="button-mobile-menu"
+          <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
+            <button
+              onClick={() => {
+                if (location === "/") {
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                } else {
+                  navigate("/");
+                }
+              }}
+              className="flex items-center gap-2 hover:opacity-80 transition-opacity"
+              data-testid="button-logo-home"
             >
-              {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-            </Button>
+              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
+                <svg viewBox="0 0 24 24" className="h-5 w-5 text-primary-foreground" fill="currentColor">
+                  <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+                </svg>
+              </div>
+              <div className="flex flex-col">
+                <span
+                  className="text-sm font-bold leading-tight"
+                  style={isHome ? { color: "#e2e8f0" } : undefined}
+                  data-testid="text-brand-name"
+                >
+                  The Blockchain Pulse
+                </span>
+              </div>
+            </button>
+
+            <nav className="hidden md:flex items-center gap-6">
+              {navItems.map((item) => {
+                const isActive = isNavItemActive(item.href);
+                return (
+                  <button
+                    key={item.label}
+                    onClick={() => handleNavigation(item.href)}
+                    className={`text-sm font-medium transition-colors ${
+                      isActive
+                        ? isHome
+                          ? "border-b-2 border-[#3bb5e8] pb-0.5"
+                          : "text-foreground border-b-2 border-primary pb-0.5"
+                        : ""
+                    }`}
+                    style={
+                      isHome
+                        ? { color: isActive ? "#ffffff" : "rgba(148,163,184,0.9)" }
+                        : undefined
+                    }
+                    onMouseEnter={isHome ? (e) => { (e.currentTarget as HTMLButtonElement).style.color = "#ffffff"; } : undefined}
+                    onMouseLeave={isHome ? (e) => { (e.currentTarget as HTMLButtonElement).style.color = isActive ? "#ffffff" : "rgba(148,163,184,0.9)"; } : undefined}
+                    data-testid={`link-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
+            </nav>
+
+            <div className="flex items-center gap-2">
+              <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
+                <Button size="sm" className="md:h-9 md:px-4 bg-accent hover:bg-accent/90 text-accent-foreground border border-accent" data-testid="button-header-register">
+                  Get Early Access
+                </Button>
+              </a>
+              <Button
+                ref={triggerRef}
+                variant="ghost"
+                size="icon"
+                className="md:hidden"
+                style={isHome ? { color: "#e2e8f0" } : undefined}
+                onClick={toggleMenu}
+                data-testid="button-mobile-menu"
+              >
+                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+              </Button>
+            </div>
           </div>
-        </div>
       </header>
 
       {mobileMenuOpen && (
         <div
           ref={menuRef}
-          className="fixed top-16 left-0 right-0 z-[9999] md:hidden bg-card border-b border-border shadow-xl"
+          className="fixed top-16 left-0 right-0 z-[9999] md:hidden shadow-xl"
+          style={
+            isHome
+              ? { background: "rgba(4,6,14,0.95)", backdropFilter: "blur(12px)", borderBottom: "1px solid rgba(255,255,255,0.07)" }
+              : { background: "hsl(var(--card))", borderBottom: "1px solid hsl(var(--border))" }
+          }
           data-testid="mobile-menu-panel"
         >
           <nav className="container mx-auto px-6 py-5 flex flex-col gap-1">
@@ -174,11 +204,12 @@ export default function Header() {
                 <button
                   key={item.label}
                   onClick={() => handleNavigation(item.href)}
-                  className={`text-base font-medium py-3 text-left transition-colors ${
-                    isActive
-                      ? "text-primary border-l-2 border-primary pl-3"
-                      : "text-foreground hover:text-primary"
-                  }`}
+                  className="text-base font-medium py-3 text-left transition-colors"
+                  style={
+                    isHome
+                      ? { color: isActive ? "#3bb5e8" : "#94a3b8", borderLeft: isActive ? "2px solid #3bb5e8" : undefined, paddingLeft: isActive ? "12px" : undefined }
+                      : undefined
+                  }
                   data-testid={`link-mobile-nav-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   {item.label}
