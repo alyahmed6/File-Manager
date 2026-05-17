@@ -131,8 +131,8 @@ const roadmapModules = [
 
 const testimonials = [
   {
-    initials: "AR",
-    name: "Ahmed R.",
+    initials: "SA",
+    name: "Salman Ali",
     role: "Freelancer",
     comment: "The incubation environment helped me grow from a beginner freelancer into a professional service provider.",
   },
