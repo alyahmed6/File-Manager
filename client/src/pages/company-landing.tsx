@@ -109,7 +109,7 @@ const roadmapModules = [
   },
   {
     title: "Tokenization",
-    desc: "Token standards, asset digitization, and real-world use cases",
+    desc: "Asset digitization and real-world use cases",
     Icon: Tag,
   },
   {
