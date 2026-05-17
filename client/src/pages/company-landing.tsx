@@ -404,11 +404,23 @@ export default function CompanyLanding() {
           <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
             <div className="w-px h-10 rounded-full" style={{ background: "linear-gradient(to bottom, rgba(59,181,232,0.6), transparent)" }} />
           </div>
+          {/* Bottom dissolve into services */}
+          <div className="absolute bottom-0 left-0 right-0 h-36 pointer-events-none" style={{
+            background: "linear-gradient(to bottom, transparent, #04060e)",
+          }} />
         </section>
 
         {/* ── SERVICES ── */}
-        <section className="py-28 px-4" style={{ background: "#080e1a" }} data-testid="section-services">
-          <div className="max-w-5xl mx-auto">
+        <section className="relative py-28 px-4" data-testid="section-services">
+          {/* Ambient glow — left side */}
+          <div className="absolute inset-0 pointer-events-none" style={{
+            background: "radial-gradient(ellipse 65% 80% at -5% 50%, rgba(59,181,232,0.07) 0%, transparent 60%)",
+          }} />
+          {/* Ambient glow — top blend from hero */}
+          <div className="absolute top-0 left-0 right-0 h-40 pointer-events-none" style={{
+            background: "linear-gradient(to bottom, rgba(59,181,232,0.025), transparent)",
+          }} />
+          <div className="max-w-5xl mx-auto relative z-10">
             <FadeIn className="text-center mb-16">
               <p className="text-xs font-semibold tracking-[0.2em] uppercase mb-3" style={{ color: "#3bb5e8" }}>What We Do</p>
               <h2 className="text-3xl md:text-4xl font-bold text-white" data-testid="text-services-heading">Our Services</h2>
@@ -420,8 +432,16 @@ export default function CompanyLanding() {
         </section>
 
         {/* ── WEB3 COURSE ── */}
-        <section className="py-28 px-4" style={{ background: "#04060e" }} data-testid="section-course-showcase">
-          <div className="max-w-5xl mx-auto">
+        <section className="relative py-28 px-4" data-testid="section-course-showcase">
+          {/* Ambient glow — right side */}
+          <div className="absolute inset-0 pointer-events-none" style={{
+            background: "radial-gradient(ellipse 65% 80% at 105% 50%, rgba(59,181,232,0.065) 0%, transparent 60%)",
+          }} />
+          {/* Center glow pulse */}
+          <div className="absolute inset-0 pointer-events-none" style={{
+            background: "radial-gradient(ellipse 50% 40% at 50% 50%, rgba(59,181,232,0.028) 0%, transparent 70%)",
+          }} />
+          <div className="max-w-5xl mx-auto relative z-10">
             <FadeIn className="text-center mb-16">
               <p className="text-xs font-semibold tracking-[0.2em] uppercase mb-3" style={{ color: "#3bb5e8" }}>Upcoming Program</p>
               <h2 className="text-3xl md:text-4xl font-bold text-white" data-testid="text-course-showcase-heading">
@@ -436,8 +456,16 @@ export default function CompanyLanding() {
         </section>
 
         {/* ── TESTIMONIALS ── */}
-        <section className="py-28 px-4" style={{ background: "#080e1a" }} data-testid="section-testimonials">
-          <div className="max-w-5xl mx-auto">
+        <section className="relative py-28 px-4" data-testid="section-testimonials">
+          {/* Ambient glow — bottom center, fades upward */}
+          <div className="absolute inset-0 pointer-events-none" style={{
+            background: "radial-gradient(ellipse 80% 65% at 50% 100%, rgba(59,181,232,0.06) 0%, transparent 60%)",
+          }} />
+          {/* Left accent */}
+          <div className="absolute inset-0 pointer-events-none" style={{
+            background: "radial-gradient(ellipse 40% 60% at 100% 20%, rgba(59,181,232,0.04) 0%, transparent 55%)",
+          }} />
+          <div className="max-w-5xl mx-auto relative z-10">
             <FadeIn className="text-center mb-16">
               <p className="text-xs font-semibold tracking-[0.2em] uppercase mb-3" style={{ color: "#3bb5e8" }}>Testimonials</p>
               <h2 className="text-3xl md:text-4xl font-bold text-white" data-testid="text-testimonials-heading">

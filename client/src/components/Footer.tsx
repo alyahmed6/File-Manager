@@ -36,7 +36,7 @@ export default function Footer() {
       className="py-12"
       style={
         isHome
-          ? { background: "#04060e", color: "#e2e8f0", borderTop: "1px solid rgba(255,255,255,0.06)" }
+          ? { background: "transparent", color: "#e2e8f0" }
           : undefined
       }
     >
