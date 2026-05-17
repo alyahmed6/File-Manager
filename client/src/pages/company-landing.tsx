@@ -93,13 +93,13 @@ const roadmapModules = [
     Icon: Link2,
   },
   {
-    title: "Ethereum Basics",
+    title: "Ethereum & Smart Contracts",
     desc: "Accounts, gas, the EVM, and Ethereum's core architecture",
     Icon: Hexagon,
   },
   {
-    title: "Smart Contracts & Solidity",
-    desc: "Writing, deploying, and testing on-chain logic end-to-end",
+    title: "Bitcoin",
+    desc: "Satoshi, history, core architecture and future",
     Icon: FileCode2,
   },
   {
