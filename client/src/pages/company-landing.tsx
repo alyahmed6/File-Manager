@@ -15,11 +15,11 @@ function ParticleCanvas() {
 
     let animId: number;
     const particles: { x: number; y: number; vx: number; vy: number; r: number; alpha: number }[] = [];
-    const COUNT = 60;
+    const COUNT = 90;
 
     const resize = () => {
-      canvas.width = canvas.offsetWidth;
-      canvas.height = canvas.offsetHeight;
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
     };
     resize();
     window.addEventListener("resize", resize);
@@ -56,9 +56,9 @@ function ParticleCanvas() {
           const dx = a.x - b.x;
           const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 120) {
+          if (dist < 130) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(59, 181, 232, ${0.08 * (1 - dist / 120)})`;
+            ctx.strokeStyle = `rgba(59, 181, 232, ${0.09 * (1 - dist / 130)})`;
             ctx.lineWidth = 0.5;
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
@@ -77,7 +77,13 @@ function ParticleCanvas() {
     };
   }, []);
 
-  return <canvas ref={canvasRef} className="absolute inset-0 w-full h-full" />;
+  return (
+    <canvas
+      ref={canvasRef}
+      className="fixed inset-0 w-full h-full pointer-events-none"
+      style={{ zIndex: 0 }}
+    />
+  );
 }
 
 const roadmapModules = [
@@ -362,19 +368,23 @@ function RoadmapGrid() {
 export default function CompanyLanding() {
   return (
     <div className="min-h-screen flex flex-col" style={{ background: "#04060e", color: "#e2e8f0" }}>
+      {/* ── GLOBAL PARTICLE CANVAS — fixed behind everything ── */}
+      <ParticleCanvas />
+
       <Header />
       <main className="flex-1">
 
         {/* ── HERO ── */}
-        <section className="relative overflow-hidden flex flex-col items-center justify-start min-h-[100svh] text-center px-4 pt-[18vh]">
-          <ParticleCanvas />
+        <section className="relative flex flex-col items-center justify-start min-h-[100svh] text-center px-4 pt-[18vh]">
+          {/* Soft hero radial glow */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
               background: "radial-gradient(ellipse 70% 55% at 50% 20%, rgba(59,181,232,0.11) 0%, transparent 65%)",
+              zIndex: 1,
             }}
           />
-          <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center gap-5">
+          <div className="relative max-w-3xl mx-auto flex flex-col items-center gap-5" style={{ zIndex: 2 }}>
             <h1
               className="text-5xl md:text-7xl font-bold tracking-tight leading-tight"
               style={{
@@ -401,25 +411,13 @@ export default function CompanyLanding() {
             </div>
           </div>
 
-          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce" style={{ zIndex: 2 }}>
             <div className="w-px h-10 rounded-full" style={{ background: "linear-gradient(to bottom, rgba(59,181,232,0.6), transparent)" }} />
           </div>
-          {/* Bottom dissolve into services */}
-          <div className="absolute bottom-0 left-0 right-0 h-36 pointer-events-none" style={{
-            background: "linear-gradient(to bottom, transparent, #04060e)",
-          }} />
         </section>
 
         {/* ── SERVICES ── */}
         <section className="relative py-28 px-4" data-testid="section-services">
-          {/* Ambient glow — left side */}
-          <div className="absolute inset-0 pointer-events-none" style={{
-            background: "radial-gradient(ellipse 65% 80% at -5% 50%, rgba(59,181,232,0.07) 0%, transparent 60%)",
-          }} />
-          {/* Ambient glow — top blend from hero */}
-          <div className="absolute top-0 left-0 right-0 h-40 pointer-events-none" style={{
-            background: "linear-gradient(to bottom, rgba(59,181,232,0.025), transparent)",
-          }} />
           <div className="max-w-5xl mx-auto relative z-10">
             <FadeIn className="text-center mb-16">
               <p className="text-xs font-semibold tracking-[0.2em] uppercase mb-3" style={{ color: "#3bb5e8" }}>What We Do</p>
@@ -433,14 +431,6 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ── */}
         <section className="relative py-28 px-4" data-testid="section-course-showcase">
-          {/* Ambient glow — right side */}
-          <div className="absolute inset-0 pointer-events-none" style={{
-            background: "radial-gradient(ellipse 65% 80% at 105% 50%, rgba(59,181,232,0.065) 0%, transparent 60%)",
-          }} />
-          {/* Center glow pulse */}
-          <div className="absolute inset-0 pointer-events-none" style={{
-            background: "radial-gradient(ellipse 50% 40% at 50% 50%, rgba(59,181,232,0.028) 0%, transparent 70%)",
-          }} />
           <div className="max-w-5xl mx-auto relative z-10">
             <FadeIn className="text-center mb-16">
               <p className="text-xs font-semibold tracking-[0.2em] uppercase mb-3" style={{ color: "#3bb5e8" }}>Upcoming Program</p>
@@ -457,14 +447,6 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ── */}
         <section className="relative py-28 px-4" data-testid="section-testimonials">
-          {/* Ambient glow — bottom center, fades upward */}
-          <div className="absolute inset-0 pointer-events-none" style={{
-            background: "radial-gradient(ellipse 80% 65% at 50% 100%, rgba(59,181,232,0.06) 0%, transparent 60%)",
-          }} />
-          {/* Left accent */}
-          <div className="absolute inset-0 pointer-events-none" style={{
-            background: "radial-gradient(ellipse 40% 60% at 100% 20%, rgba(59,181,232,0.04) 0%, transparent 55%)",
-          }} />
           <div className="max-w-5xl mx-auto relative z-10">
             <FadeIn className="text-center mb-16">
               <p className="text-xs font-semibold tracking-[0.2em] uppercase mb-3" style={{ color: "#3bb5e8" }}>Testimonials</p>
