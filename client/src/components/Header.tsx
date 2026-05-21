@@ -190,7 +190,7 @@ export default function Header() {
 
             <div className="flex items-center gap-2">
               {!isHome && (
-                <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer">
+                <a href="https://forms.gle/DMo848mtY8u2UbC1A" target="_blank" rel="noopener noreferrer" className="hidden md:inline-flex">
                   <Button size="sm" className="md:h-9 md:px-4 bg-accent hover:bg-accent/90 text-accent-foreground border border-accent" data-testid="button-header-register">
                     Get Early Access
                   </Button>
