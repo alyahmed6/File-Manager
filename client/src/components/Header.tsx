@@ -120,12 +120,12 @@ export default function Header() {
               className="flex items-center gap-2 hover:opacity-80 transition-opacity"
               data-testid="button-logo-home"
             >
-              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary">
+              <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary flex-shrink-0">
                 <svg viewBox="0 0 24 24" className="h-5 w-5 text-primary-foreground" fill="currentColor">
                   <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
                 </svg>
               </div>
-              <div className="flex flex-col">
+              <div className="hidden md:flex flex-col">
                 <span
                   className="text-sm font-bold leading-tight"
                   style={isHome ? { color: "#e2e8f0" } : undefined}
@@ -135,6 +135,29 @@ export default function Header() {
                 </span>
               </div>
             </button>
+
+            {/* Mobile-only inline nav links */}
+            <nav className="flex md:hidden items-center gap-1">
+              {baseNavItems.map((item) => {
+                const isActive = isNavItemActive(item.href);
+                return (
+                  <button
+                    key={item.label}
+                    onClick={() => handleNavigation(item.href)}
+                    className="text-sm font-medium px-3 py-1.5 rounded-md transition-colors"
+                    style={{
+                      color: isActive
+                        ? isHome ? "#3bb5e8" : "hsl(var(--foreground))"
+                        : isHome ? "rgba(148,163,184,0.85)" : "hsl(var(--muted-foreground))",
+                      borderBottom: isActive ? `2px solid ${isHome ? "#3bb5e8" : "hsl(var(--primary))"}` : undefined,
+                    }}
+                    data-testid={`link-mobile-inline-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
+                  >
+                    {item.label}
+                  </button>
+                );
+              })}
+            </nav>
 
             <nav className="hidden md:flex items-center gap-6">
               {navItems.map((item) => {
