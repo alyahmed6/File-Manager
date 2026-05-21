@@ -196,17 +196,6 @@ export default function Header() {
                   </Button>
                 </a>
               )}
-              <Button
-                ref={triggerRef}
-                variant="ghost"
-                size="icon"
-                className="md:hidden"
-                style={isHome ? { color: "#e2e8f0" } : undefined}
-                onClick={toggleMenu}
-                data-testid="button-mobile-menu"
-              >
-                {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-              </Button>
             </div>
           </div>
       </header>
