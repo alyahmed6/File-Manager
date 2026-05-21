@@ -10,7 +10,7 @@ const socialLinks = [
 ];
 
 export default function Footer() {
-  const [location] = useLocation();
+  const [location, navigate] = useLocation();
 
   const scrollToSection = (anchor: string) => {
     if (location !== "/course") {
@@ -65,19 +65,19 @@ export default function Footer() {
             <h4 className="font-semibold mb-4">Navigate</h4>
             <ul className="space-y-2 text-sm text-muted-foreground">
               <li>
-                <Link href="/" className="hover:text-foreground transition-colors" data-testid="link-footer-home">
+                <button onClick={() => { navigate("/"); window.scrollTo({ top: 0, behavior: "instant" }); }} className="hover:text-foreground transition-colors" data-testid="link-footer-home">
                   Home
-                </Link>
+                </button>
               </li>
               <li>
-                <Link href="/course" className="hover:text-foreground transition-colors" data-testid="link-footer-course">
+                <button onClick={() => { navigate("/course"); window.scrollTo({ top: 0, behavior: "instant" }); }} className="hover:text-foreground transition-colors" data-testid="link-footer-course">
                   Course
-                </Link>
+                </button>
               </li>
               <li>
-                <Link href="/about-us" className="hover:text-foreground transition-colors" data-testid="link-footer-about">
+                <button onClick={() => { navigate("/about-us"); window.scrollTo({ top: 0, behavior: "instant" }); }} className="hover:text-foreground transition-colors" data-testid="link-footer-about">
                   About Us
-                </Link>
+                </button>
               </li>
             </ul>
           </div>

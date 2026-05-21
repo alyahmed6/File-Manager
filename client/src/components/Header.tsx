@@ -76,6 +76,7 @@ export default function Header() {
 
     if (href.startsWith("/")) {
       navigate(href);
+      window.scrollTo({ top: 0, behavior: "instant" });
       return;
     }
 
