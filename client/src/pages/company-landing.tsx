@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import qasimPhoto from "@assets/QAsim_1780246728761.jpeg";
 import { motion, useInView } from "framer-motion";
 import {
   Link2,
@@ -154,18 +155,19 @@ const testimonials = [
       "The incubation environment helped me grow from a beginner freelancer into a professional service provider.",
   },
   {
-    initials: "SM",
+    initials: "MH",
     name: "Matloob Hussain",
     role: "Startup Founder",
     comment:
       "The Blockchain Pulse delivered excellent environment and services with great professionalism and communication.",
   },
   {
-    initials: "KA",
-    name: "Farhan",
-    role: "Truck Dispatcher",
+    initials: "QA",
+    photo: qasimPhoto,
+    name: "Qasim Ali",
+    role: "Bookkeeper and Financial Assistant",
     comment:
-      "The Blockchain pulse provided us with important tools (dialer and load board) and helped us in obtaining jobs and also creating jobs for others.",
+      "Professional environment, reliable support, and excellent communication throughout the work.",
   },
 ];
 
@@ -757,17 +759,27 @@ export default function CompanyLanding() {
 
                     {/* Author */}
                     <div className="flex items-center gap-3">
-                      <div
-                        className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
-                        style={{
-                          background: "rgba(59,181,232,0.12)",
-                          color: "#3bb5e8",
-                          border: "1px solid rgba(59,181,232,0.2)",
-                        }}
-                        data-testid={`testimonial-avatar-${i}`}
-                      >
-                        {t.initials}
-                      </div>
+                      {(t as any).photo ? (
+                        <img
+                          src={(t as any).photo}
+                          alt={t.name}
+                          className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                          style={{ border: "1px solid rgba(59,181,232,0.2)" }}
+                          data-testid={`testimonial-avatar-${i}`}
+                        />
+                      ) : (
+                        <div
+                          className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
+                          style={{
+                            background: "rgba(59,181,232,0.12)",
+                            color: "#3bb5e8",
+                            border: "1px solid rgba(59,181,232,0.2)",
+                          }}
+                          data-testid={`testimonial-avatar-${i}`}
+                        >
+                          {t.initials}
+                        </div>
+                      )}
                       <div>
                         <p
                           className="text-sm font-semibold text-white"
