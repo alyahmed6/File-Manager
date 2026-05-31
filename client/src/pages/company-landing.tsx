@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import qasimPhoto from "@assets/QAsim_1780246728761.jpeg";
+import salmanPhoto from "@assets/Screenshot_2026-05-31_220657_1780247305242.png";
 import { motion, useInView } from "framer-motion";
 import {
   Link2,
@@ -149,6 +150,7 @@ const roadmapModules = [
 const testimonials = [
   {
     initials: "SA",
+    photo: salmanPhoto,
     name: "Salman Ali",
     role: "Freelancer",
     comment:
