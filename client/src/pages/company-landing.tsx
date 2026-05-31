@@ -11,9 +11,93 @@ import {
   Cpu,
   Scale,
   BarChart2,
+  TrendingUp,
+  Users,
+  Target,
+  GraduationCap,
+  Rocket,
+  Wifi,
+  Search,
+  BookOpen,
+  Box,
+  DollarSign,
+  Megaphone,
+  MessageSquare,
+  ChevronLeft,
+  ChevronRight,
+  Link,
 } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+
+/* ─── DATA ──────────────────────────────────────────────────────────── */
+
+const moduleColors = [
+  "#3bb5e8",
+  "#8b5cf6",
+  "#f59e0b",
+  "#06b6d4",
+  "#ec4899",
+  "#6366f1",
+  "#14b8a6",
+  "#f43f5e",
+];
+
+const roadmapModules = [
+  { title: "Blockchain Fundamentals", desc: "Distributed ledgers, consensus mechanisms, and how blockchains work", Icon: Link2 },
+  { title: "Ethereum & Smart Contracts", desc: "Accounts, gas, the EVM, and Ethereum's core architecture", Icon: Hexagon },
+  { title: "Bitcoin", desc: "Satoshi, history, core architecture and future", Icon: FileCode2 },
+  { title: "DeFi & Layer 2s", desc: "Protocols, liquidity pools, and blockchain scaling solutions", Icon: Layers },
+  { title: "Tokenization", desc: "Asset digitization and real-world use cases", Icon: Tag },
+  { title: "AI in Blockchains", desc: "Integrating machine learning with on-chain data and systems", Icon: Cpu },
+  { title: "Stablecoins", desc: "Mechanisms, risks, and the evolving stablecoin landscape", Icon: Scale },
+  { title: "Exchange Tutorials", desc: "CEX vs DEX, trading mechanics, and navigating order books", Icon: BarChart2 },
+];
+
+const testimonials = [
+  {
+    initials: "SA",
+    photo: salmanPhoto,
+    name: "Salman Ali",
+    role: "Freelancer",
+    comment: "The incubation environment helped me grow from a beginner freelancer into a professional service provider.",
+  },
+  {
+    initials: "MH",
+    name: "Matloob Hussain",
+    role: "Startup Founder",
+    comment: "The Blockchain Pulse delivered excellent environment and services with great professionalism and communication.",
+  },
+  {
+    initials: "QA",
+    photo: qasimPhoto,
+    name: "Qasim Ali",
+    role: "Bookkeeper & Financial Assistant",
+    comment: "Professional environment, reliable support, and excellent communication throughout the work.",
+  },
+];
+
+const incubationItems = [
+  { label: "Freelancer Growth", Icon: TrendingUp },
+  { label: "Mentorship & Guidance", Icon: Users },
+  { label: "Supportive Freelancer Ecosystem", Icon: Users },
+  { label: "Growth-Focused Environment", Icon: Target },
+  { label: "Skill Development", Icon: GraduationCap },
+  { label: "Startup Support", Icon: Rocket },
+  { label: "Reliable Power & High-Speed Internet", Icon: Wifi },
+];
+
+const blockchainItems = [
+  { label: "In-Depth Analysis for Web3 Projects", Icon: Search },
+  { label: "Discord Moderation", Icon: MessageSquare },
+  { label: "Web3 Education", Icon: BookOpen },
+  { label: "Blockchain Consulting", Icon: Box },
+  { label: "Crypto Research", Icon: BarChart2 },
+  { label: "Crypto Finance", Icon: DollarSign },
+  { label: "Research/News Updates on Socials", Icon: Megaphone },
+];
+
+/* ─── PARTICLE CANVAS ───────────────────────────────────────────────── */
 
 function ParticleCanvas() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -25,14 +109,7 @@ function ParticleCanvas() {
     if (!ctx) return;
 
     let animId: number;
-    const particles: {
-      x: number;
-      y: number;
-      vx: number;
-      vy: number;
-      r: number;
-      alpha: number;
-    }[] = [];
+    const particles: { x: number; y: number; vx: number; vy: number; r: number; alpha: number }[] = [];
     const COUNT = 90;
 
     const resize = () => {
@@ -62,13 +139,11 @@ function ParticleCanvas() {
         if (p.x > canvas.width) p.x = 0;
         if (p.y < 0) p.y = canvas.height;
         if (p.y > canvas.height) p.y = 0;
-
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fillStyle = `rgba(59, 181, 232, ${p.alpha})`;
         ctx.fill();
       });
-
       particles.forEach((a, i) => {
         particles.slice(i + 1).forEach((b) => {
           const dx = a.x - b.x;
@@ -84,7 +159,6 @@ function ParticleCanvas() {
           }
         });
       });
-
       animId = requestAnimationFrame(draw);
     };
     draw();
@@ -104,103 +178,9 @@ function ParticleCanvas() {
   );
 }
 
-const roadmapModules = [
-  {
-    title: "Blockchain Fundamentals",
-    desc: "Distributed ledgers, consensus mechanisms, and how blockchains work",
-    Icon: Link2,
-  },
-  {
-    title: "Ethereum & Smart Contracts",
-    desc: "Accounts, gas, the EVM, and Ethereum's core architecture",
-    Icon: Hexagon,
-  },
-  {
-    title: "Bitcoin",
-    desc: "Satoshi, history, core architecture and future",
-    Icon: FileCode2,
-  },
-  {
-    title: "DeFi & Layer 2s",
-    desc: "Protocols, liquidity pools, and blockchain scaling solutions",
-    Icon: Layers,
-  },
-  {
-    title: "Tokenization",
-    desc: "Asset digitization and real-world use cases",
-    Icon: Tag,
-  },
-  {
-    title: "AI in Blockchains",
-    desc: "Integrating machine learning with on-chain data and systems",
-    Icon: Cpu,
-  },
-  {
-    title: "Stablecoins",
-    desc: "Mechanisms, risks, and the evolving stablecoin landscape",
-    Icon: Scale,
-  },
-  {
-    title: "Exchange Tutorials",
-    desc: "CEX vs DEX, trading mechanics, and navigating order books",
-    Icon: BarChart2,
-  },
-];
+/* ─── FADE IN ───────────────────────────────────────────────────────── */
 
-const testimonials = [
-  {
-    initials: "SA",
-    photo: salmanPhoto,
-    name: "Salman Ali",
-    role: "Freelancer",
-    comment:
-      "The incubation environment helped me grow from a beginner freelancer into a professional service provider.",
-  },
-  {
-    initials: "MH",
-    name: "Matloob Hussain",
-    role: "Startup Founder",
-    comment:
-      "The Blockchain Pulse delivered excellent environment and services with great professionalism and communication.",
-  },
-  {
-    initials: "QA",
-    photo: qasimPhoto,
-    name: "Qasim Ali",
-    role: "Bookkeeper and Financial Assistant",
-    comment:
-      "Professional environment, reliable support, and excellent communication throughout the work.",
-  },
-];
-
-const incubationItems = [
-  "Freelancer Growth",
-  "Mentorship & Guidance",
-  "Supportive Freelancer Ecosystem",
-  "Growth-Focused Environment",
-  "Skill Development",
-  "Startup Support",
-  "Reliable Power & High-Speed Internet",
-];
-const blockchainItems = [
-  "In-Depth Analysis for Web3 Projects",
-  "Discord Moderation",
-  "Web3 Education",
-  "Blockchain Consulting",
-  "Crypto Research",
-  "Crypto Finance",
-  "Research/News Updates on Socials",
-];
-
-function FadeIn({
-  children,
-  delay = 0,
-  className = "",
-}: {
-  children: React.ReactNode;
-  delay?: number;
-  className?: string;
-}) {
+function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
   const [visible, setVisible] = useState(false);
 
@@ -208,13 +188,8 @@ function FadeIn({
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 },
+      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+      { threshold: 0.1 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -235,571 +210,587 @@ function FadeIn({
   );
 }
 
-const svcContainerLeft = {
-  hidden: { x: -72, opacity: 0 },
-  visible: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.95,
-      ease: [0.22, 1, 0.36, 1],
-      staggerChildren: 0.14,
-      delayChildren: 0.05,
-    },
-  },
-};
-const svcContainerRight = {
-  hidden: { x: 72, opacity: 0 },
-  visible: {
-    x: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.95,
-      ease: [0.22, 1, 0.36, 1],
-      staggerChildren: 0.14,
-      delayChildren: 0.15,
-    },
-  },
-};
-const svcChild = {
-  hidden: { opacity: 0, y: 14 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-const bulletLeft = {
-  hidden: { opacity: 0, x: -12 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-const bulletRight = {
-  hidden: { opacity: 0, x: 12 },
-  visible: {
-    opacity: 1,
-    x: 0,
-    transition: { duration: 0.55, ease: [0.22, 1, 0.36, 1] },
-  },
-};
-const bulletList = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.09, delayChildren: 0.08 } },
-};
+/* ─── SECTION LABEL ─────────────────────────────────────────────────── */
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <div className="flex items-center justify-center gap-3 mb-4">
+      <div className="h-px w-8" style={{ background: "rgba(59,181,232,0.5)" }} />
+      <p className="text-xs font-semibold tracking-[0.22em] uppercase" style={{ color: "#3bb5e8" }}>
+        {children}
+      </p>
+      <div className="h-px w-8" style={{ background: "rgba(59,181,232,0.5)" }} />
+    </div>
+  );
+}
+
+/* ─── SERVICES GRID ─────────────────────────────────────────────────── */
 
 function ServicesGrid() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-80px" });
-  const animate = inView ? "visible" : "hidden";
 
   return (
-    <div ref={ref} className="grid md:grid-cols-2 gap-0">
+    <div ref={ref} className="grid md:grid-cols-2 gap-6">
       {/* Left: Incubation */}
       <motion.div
-        className="pr-0 md:pr-12 pb-12 md:pb-0"
-        variants={svcContainerLeft}
-        initial="hidden"
-        animate={animate}
+        initial={{ opacity: 0, x: -60 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+        className="rounded-2xl p-6 flex flex-col"
+        style={{
+          background: "linear-gradient(140deg, rgba(8,14,30,0.95) 0%, rgba(4,8,20,0.98) 100%)",
+          border: "1px solid rgba(59,181,232,0.25)",
+          boxShadow: "0 0 40px rgba(59,181,232,0.06), inset 0 1px 0 rgba(59,181,232,0.08)",
+        }}
       >
-        <motion.div variants={svcChild} className="mb-5">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{
-                background: "rgba(59,181,232,0.12)",
-                border: "1px solid rgba(59,181,232,0.2)",
-              }}
-            >
-              <svg
-                className="w-4 h-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#3bb5e8"
-                strokeWidth="1.8"
-              >
-                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
-                <circle cx="9" cy="7" r="4" />
-                <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
-                <path d="M16 3.13a4 4 0 0 1 0 7.75" />
-              </svg>
-            </div>
-            <h3
-              className="text-xl font-semibold text-white"
-              data-testid="text-incubation-heading"
-            >
-              Incubation Services
-            </h3>
+        {/* Card header */}
+        <div className="flex items-center gap-4 mb-4">
+          <div
+            className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
+            style={{ background: "rgba(59,181,232,0.15)", border: "1px solid rgba(59,181,232,0.3)" }}
+          >
+            <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#3bb5e8" strokeWidth="1.8">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+              <circle cx="9" cy="7" r="4" />
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+              <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+            </svg>
           </div>
-        </motion.div>
-        <motion.p
-          variants={svcChild}
-          className="text-sm leading-relaxed mb-6"
-          style={{ color: "#64748b" }}
-        >
-          We support freelancers, individuals, and startups through mentorship,
-          skill development, collaboration, and real-world opportunities.
-        </motion.p>
-        <motion.ul className="space-y-3" variants={bulletList}>
-          {incubationItems.map((item) => (
+          <h3 className="text-xl font-bold text-white" data-testid="text-incubation-heading">
+            Incubation Services
+          </h3>
+        </div>
+        <div className="h-px w-full mb-4" style={{ background: "rgba(59,181,232,0.15)" }} />
+        <p className="text-sm leading-relaxed mb-6" style={{ color: "#64748b" }}>
+          We support freelancers, individuals, and startups through mentorship, skill development, collaboration, and real-world opportunities.
+        </p>
+        <ul className="space-y-3">
+          {incubationItems.map(({ label, Icon }) => (
             <motion.li
-              key={item}
-              variants={bulletLeft}
+              key={label}
+              initial={{ opacity: 0, x: -10 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
               className="flex items-center gap-3 text-sm group cursor-default"
-              data-testid={`item-incubation-${item.toLowerCase().replace(/\s+/g, "-")}`}
+              data-testid={`item-incubation-${label.toLowerCase().replace(/\s+/g, "-")}`}
             >
-              <span
-                className="w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all group-hover:scale-150"
-                style={{ background: "#3bb5e8" }}
-              />
-              <span
-                className="transition-colors group-hover:text-white"
-                style={{ color: "#94a3b8" }}
+              <div
+                className="w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0"
+                style={{ background: "rgba(59,181,232,0.1)" }}
               >
-                {item}
+                <Icon className="w-3.5 h-3.5" style={{ color: "#3bb5e8" }} />
+              </div>
+              <span className="flex-1 transition-colors group-hover:text-white" style={{ color: "#94a3b8" }}>
+                {label}
               </span>
+              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "rgba(59,181,232,0.5)" }} />
             </motion.li>
           ))}
-        </motion.ul>
+        </ul>
       </motion.div>
-      {/* Divider */}
-      <div
-        className="hidden md:block absolute left-1/2 -translate-x-px"
-        style={{
-          width: "1px",
-          top: "auto",
-          height: "100%",
-          background:
-            "linear-gradient(to bottom, transparent, rgba(59,181,232,0.3), transparent)",
-        }}
-      />
-      <div
-        className="md:hidden h-px w-full my-8"
-        style={{
-          background:
-            "linear-gradient(to right, transparent, rgba(59,181,232,0.3), transparent)",
-        }}
-      />
+
       {/* Right: Blockchain */}
       <motion.div
-        className="pl-0 md:pl-12"
-        variants={svcContainerRight}
-        initial="hidden"
-        animate={animate}
+        initial={{ opacity: 0, x: 60 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+        className="rounded-2xl p-6 flex flex-col"
+        style={{
+          background: "linear-gradient(140deg, rgba(10,6,30,0.95) 0%, rgba(4,4,20,0.98) 100%)",
+          border: "1px solid rgba(139,92,246,0.3)",
+          boxShadow: "0 0 40px rgba(139,92,246,0.07), inset 0 1px 0 rgba(139,92,246,0.1)",
+        }}
       >
-        <motion.div variants={svcChild} className="mb-5">
-          <div className="inline-flex items-center gap-2 mb-4">
-            <div
-              className="w-8 h-8 rounded-lg flex items-center justify-center"
-              style={{
-                background: "rgba(59,181,232,0.12)",
-                border: "1px solid rgba(59,181,232,0.2)",
-              }}
-            >
-              <svg
-                className="w-4 h-4"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#3bb5e8"
-                strokeWidth="1.8"
-              >
-                <rect x="2" y="3" width="20" height="14" rx="2" />
-                <path d="M8 21h8M12 17v4" />
-              </svg>
-            </div>
-            <h3
-              className="text-xl font-semibold text-white"
-              data-testid="text-blockchain-heading"
-            >
-              Blockchain & Web3 Solutions
-            </h3>
+        {/* Card header */}
+        <div className="flex items-center gap-4 mb-4">
+          <div
+            className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
+            style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.35)" }}
+          >
+            <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" strokeWidth="1.8">
+              <rect x="2" y="3" width="20" height="14" rx="2" />
+              <path d="M8 21h8M12 17v4" />
+            </svg>
           </div>
-        </motion.div>
-        <motion.p
-          variants={svcChild}
-          className="text-sm leading-relaxed mb-6"
-          style={{ color: "#64748b" }}
-        >
-          We provide blockchain development and Web3 technical solutions for
-          startups, businesses, and digital products.
-        </motion.p>
-        <motion.ul className="space-y-3" variants={bulletList}>
-          {blockchainItems.map((item) => (
+          <h3 className="text-xl font-bold text-white" data-testid="text-blockchain-heading">
+            Blockchain & Web3 Solutions
+          </h3>
+        </div>
+        <div className="h-px w-full mb-4" style={{ background: "rgba(139,92,246,0.2)" }} />
+        <p className="text-sm leading-relaxed mb-6" style={{ color: "#64748b" }}>
+          We provide blockchain development and Web3 technical solutions for startups, businesses, and digital products.
+        </p>
+        <ul className="space-y-3">
+          {blockchainItems.map(({ label, Icon }) => (
             <motion.li
-              key={item}
-              variants={bulletRight}
+              key={label}
+              initial={{ opacity: 0, x: 10 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
               className="flex items-center gap-3 text-sm group cursor-default"
-              data-testid={`item-blockchain-${item.toLowerCase().replace(/\s+/g, "-")}`}
+              data-testid={`item-blockchain-${label.toLowerCase().replace(/\s+/g, "-")}`}
             >
-              <span
-                className="w-1.5 h-1.5 rounded-full flex-shrink-0 transition-all group-hover:scale-150"
-                style={{ background: "#3bb5e8" }}
-              />
-              <span
-                className="transition-colors group-hover:text-white"
-                style={{ color: "#94a3b8" }}
+              <div
+                className="w-7 h-7 rounded-md flex items-center justify-center flex-shrink-0"
+                style={{ background: "rgba(139,92,246,0.12)" }}
               >
-                {item}
+                <Icon className="w-3.5 h-3.5" style={{ color: "#8b5cf6" }} />
+              </div>
+              <span className="flex-1 transition-colors group-hover:text-white" style={{ color: "#94a3b8" }}>
+                {label}
               </span>
+              <span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{ background: "rgba(139,92,246,0.5)" }} />
             </motion.li>
           ))}
-        </motion.ul>
+        </ul>
       </motion.div>
     </div>
   );
 }
+
+/* ─── ROADMAP GRID ──────────────────────────────────────────────────── */
 
 function RoadmapGrid() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <div
-      ref={ref}
-      className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-3xl mx-auto"
-    >
-      {roadmapModules.map(({ title, desc, Icon }, index) => (
-        <motion.div
-          key={title}
-          initial={{ opacity: 0, y: 36 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
-          transition={{
-            duration: 0.72,
-            ease: [0.22, 1, 0.36, 1],
-            delay: index * 0.07,
-          }}
-          whileHover={{
-            scale: 1.025,
-            borderColor: "rgba(59,181,232,0.38)",
-            boxShadow: "0 0 28px rgba(59,181,232,0.1)",
-          }}
-          className="relative overflow-hidden rounded-2xl px-6 py-5 cursor-default group"
-          style={{
-            background:
-              "linear-gradient(140deg, rgba(8,14,26,0.95) 0%, rgba(4,6,14,0.98) 100%)",
-            border: "1px solid rgba(59,181,232,0.12)",
-          }}
-          data-testid={`roadmap-item-${index + 1}`}
-        >
-          {/* Decorative large module number */}
-          <span
-            className="absolute top-2 right-4 font-black select-none pointer-events-none leading-none"
-            style={{ fontSize: "5rem", color: "rgba(59,181,232,0.05)" }}
-          >
-            {String(index + 1).padStart(2, "0")}
-          </span>
-
-          {/* Top row: icon + module badge */}
-          <div className="flex items-center justify-between mb-4 relative z-10">
-            <div
-              className="w-9 h-9 rounded-xl flex items-center justify-center flex-shrink-0"
-              style={{
-                background: "rgba(59,181,232,0.1)",
-                border: "1px solid rgba(59,181,232,0.2)",
-              }}
-            >
-              <Icon className="w-4 h-4" style={{ color: "#3bb5e8" }} />
-            </div>
-          </div>
-
-          {/* Title */}
-          <h4
-            className="text-sm font-semibold mb-1.5 relative z-10 transition-colors duration-300 group-hover:text-[#3bb5e8]"
-            style={{ color: "#e2e8f0" }}
-          >
-            {title}
-          </h4>
-
-          {/* Description */}
-          <p
-            className="text-xs leading-relaxed relative z-10"
-            style={{ color: "#475569" }}
-          >
-            {desc}
-          </p>
-
-          {/* Bottom accent line that sweeps in on hover */}
+    <div ref={ref} className="grid grid-cols-1 md:grid-cols-2 gap-4 max-w-4xl mx-auto">
+      {roadmapModules.map(({ title, desc, Icon }, index) => {
+        const color = moduleColors[index];
+        return (
           <motion.div
-            className="absolute bottom-0 left-0 h-[1.5px]"
+            key={title}
+            initial={{ opacity: 0, y: 36 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
+            transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: index * 0.07 }}
+            className="relative overflow-hidden rounded-2xl px-5 py-5 cursor-default group"
             style={{
-              background:
-                "linear-gradient(to right, transparent, #3bb5e8, transparent)",
+              background: "linear-gradient(140deg, rgba(8,14,28,0.97) 0%, rgba(4,6,18,0.99) 100%)",
+              border: `1px solid rgba(${hexToRgb(color)},0.18)`,
             }}
-            initial={{ width: "0%" }}
-            whileHover={{ width: "100%" }}
-            transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          />
-        </motion.div>
-      ))}
+            data-testid={`roadmap-item-${index + 1}`}
+          >
+            {/* Top-left colored dot */}
+            <div
+              className="absolute top-3.5 left-3.5 w-1.5 h-1.5 rounded-full"
+              style={{ background: color, boxShadow: `0 0 6px ${color}` }}
+            />
+
+            {/* Large watermark number */}
+            <span
+              className="absolute top-1 right-3 font-black select-none pointer-events-none leading-none"
+              style={{ fontSize: "5.5rem", color: `rgba(${hexToRgb(color)},0.07)` }}
+            >
+              {String(index + 1).padStart(2, "0")}
+            </span>
+
+            {/* Icon in hex-style container */}
+            <div className="flex items-start gap-4 relative z-10 mt-3">
+              <div
+                className="w-14 h-14 flex items-center justify-center flex-shrink-0 rounded-xl"
+                style={{
+                  background: `linear-gradient(135deg, rgba(${hexToRgb(color)},0.25) 0%, rgba(${hexToRgb(color)},0.08) 100%)`,
+                  border: `1px solid rgba(${hexToRgb(color)},0.3)`,
+                  boxShadow: `0 0 20px rgba(${hexToRgb(color)},0.12)`,
+                }}
+              >
+                <Icon className="w-6 h-6" style={{ color }} />
+              </div>
+
+              <div className="flex-1 min-w-0">
+                <h4
+                  className="text-base font-bold mb-1.5 transition-colors duration-300 group-hover:opacity-90"
+                  style={{ color: "#e2e8f0" }}
+                >
+                  {title}
+                </h4>
+                <p className="text-xs leading-relaxed" style={{ color: "#475569" }}>
+                  {desc}
+                </p>
+              </div>
+            </div>
+
+            {/* Bottom accent dashes */}
+            <div className="flex items-center gap-1 mt-5 relative z-10">
+              <div className="h-px flex-1" style={{ background: `rgba(${hexToRgb(color)},0.25)` }} />
+              <div className="w-2 h-px" style={{ background: `rgba(${hexToRgb(color)},0.5)` }} />
+              <div className="w-1 h-px" style={{ background: `rgba(${hexToRgb(color)},0.3)` }} />
+            </div>
+          </motion.div>
+        );
+      })}
     </div>
   );
 }
 
-export default function CompanyLanding() {
-  return (
-    <div
-      className="min-h-screen flex flex-col"
-      style={{ background: "#04060e", color: "#e2e8f0" }}
-    >
-      {/* ── GLOBAL PARTICLE CANVAS — fixed behind everything ── */}
-      <ParticleCanvas />
+/* helper */
+function hexToRgb(hex: string) {
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
+  return `${r},${g},${b}`;
+}
 
+/* ─── MAIN PAGE ─────────────────────────────────────────────────────── */
+
+export default function CompanyLanding() {
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+
+  const prev = () => setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
+  const next = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
+
+  return (
+    <div className="min-h-screen flex flex-col" style={{ background: "#04060e", color: "#e2e8f0" }}>
+      <ParticleCanvas />
       <Header />
       <main className="flex-1">
-        {/* ── HERO ── */}
-        <section className="relative flex flex-col items-center justify-start min-h-[100svh] text-center px-4 pt-[18vh]">
-          {/* Soft hero radial glow */}
+
+        {/* ── HERO ─────────────────────────────────────────────────── */}
+        <section className="relative flex flex-col items-center justify-center min-h-[100svh] text-center px-4 overflow-hidden">
+          {/* Radial arc glow behind icon */}
           <div
-            className="absolute inset-0 pointer-events-none"
+            className="absolute pointer-events-none"
             style={{
-              background:
-                "radial-gradient(ellipse 70% 55% at 50% 20%, rgba(59,181,232,0.11) 0%, transparent 65%)",
+              top: "18%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "420px",
+              height: "420px",
+              borderRadius: "50%",
+              background: "radial-gradient(ellipse at center, rgba(59,181,232,0.13) 0%, transparent 65%)",
               zIndex: 1,
             }}
           />
+          {/* Arc ring */}
           <div
-            className="relative max-w-3xl mx-auto flex flex-col items-center gap-5"
-            style={{ zIndex: 2 }}
+            className="absolute pointer-events-none"
+            style={{
+              top: "22%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "320px",
+              height: "160px",
+              borderRadius: "160px 160px 0 0",
+              border: "1px solid rgba(59,181,232,0.12)",
+              zIndex: 1,
+            }}
+          />
+
+          {/* Globe / world-map bottom effect */}
+          <div
+            className="absolute bottom-0 left-0 right-0 pointer-events-none"
+            style={{ zIndex: 1 }}
           >
+            {/* Globe ellipse */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "-120px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "900px",
+                height: "400px",
+                borderRadius: "50%",
+                border: "1px solid rgba(59,181,232,0.15)",
+                background: "radial-gradient(ellipse at 50% 30%, rgba(59,181,232,0.08) 0%, rgba(4,6,14,0.6) 55%, transparent 75%)",
+              }}
+            />
+            {/* Globe glow center point */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "115px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "8px",
+                height: "8px",
+                borderRadius: "50%",
+                background: "#3bb5e8",
+                boxShadow: "0 0 40px 12px rgba(59,181,232,0.4), 0 0 120px 40px rgba(59,181,232,0.15)",
+              }}
+            />
+            {/* Horizon lines */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "118px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "600px",
+                height: "1px",
+                background: "linear-gradient(to right, transparent, rgba(59,181,232,0.4), transparent)",
+              }}
+            />
+            <div
+              style={{
+                position: "absolute",
+                bottom: "90px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "400px",
+                height: "1px",
+                background: "linear-gradient(to right, transparent, rgba(59,181,232,0.2), transparent)",
+              }}
+            />
+          </div>
+
+          {/* Content */}
+          <div className="relative flex flex-col items-center gap-6" style={{ zIndex: 2 }}>
+            {/* Logo icon */}
+            <div
+              className="w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center"
+              style={{
+                background: "linear-gradient(135deg, #1a8fd1 0%, #3bb5e8 50%, #2196c8 100%)",
+                boxShadow: "0 0 40px rgba(59,181,232,0.4), 0 0 80px rgba(59,181,232,0.15)",
+              }}
+            >
+              <svg viewBox="0 0 24 24" className="w-9 h-9 md:w-11 md:h-11 text-white" fill="currentColor">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              </svg>
+            </div>
+
+            {/* Title */}
             <h1
               className="text-5xl md:text-7xl font-bold tracking-tight leading-tight"
-              style={{
-                background:
-                  "linear-gradient(135deg, #ffffff 0%, #a8d8ea 50%, #3bb5e8 100%)",
-                WebkitBackgroundClip: "text",
-                WebkitTextFillColor: "transparent",
-                backgroundClip: "text",
-              }}
               data-testid="text-company-hero-heading"
             >
-              The Blockchain Pulse
+              <span className="text-white">The Blockchain </span>
+              <span style={{ color: "#3bb5e8" }}>Pulse</span>
             </h1>
 
             {/* Tagline */}
-            <div
-              className="flex items-center gap-4 mt-1"
-              data-testid="text-company-hero-subheading"
-            >
+            <div className="flex items-center gap-4 mt-1" data-testid="text-company-hero-subheading">
               <div
                 className="h-px w-10 flex-shrink-0"
-                style={{
-                  background:
-                    "linear-gradient(to right, transparent, rgba(59,181,232,0.5))",
-                }}
+                style={{ background: "linear-gradient(to right, transparent, rgba(59,181,232,0.5))" }}
               />
               <p
                 className="text-sm md:text-base font-medium tracking-[0.18em] uppercase"
-                style={{
-                  color: "rgba(148,163,184,0.85)",
-                  letterSpacing: "0.18em",
-                }}
+                style={{ color: "rgba(148,163,184,0.85)" }}
               >
                 Incubating Talent&nbsp;&nbsp;·&nbsp;&nbsp;Delivering World-Class
-                Freelance Solutions
+                <br className="hidden sm:block" /> Freelance Solutions
               </p>
               <div
                 className="h-px w-10 flex-shrink-0"
-                style={{
-                  background:
-                    "linear-gradient(to left, transparent, rgba(59,181,232,0.5))",
-                }}
+                style={{ background: "linear-gradient(to left, transparent, rgba(59,181,232,0.5))" }}
               />
             </div>
           </div>
 
+          {/* Scroll indicator */}
           <div
             className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce"
             style={{ zIndex: 2 }}
           >
             <div
               className="w-px h-10 rounded-full"
-              style={{
-                background:
-                  "linear-gradient(to bottom, rgba(59,181,232,0.6), transparent)",
-              }}
+              style={{ background: "linear-gradient(to bottom, rgba(59,181,232,0.6), transparent)" }}
             />
           </div>
         </section>
 
-        {/* ── SERVICES ── */}
+        {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section className="relative py-28 px-4" data-testid="section-services">
           <div className="max-w-5xl mx-auto relative z-10">
             <FadeIn className="text-center mb-16">
-              <p
-                className="text-xs font-semibold tracking-[0.2em] uppercase mb-3"
-                style={{ color: "#3bb5e8" }}
-              >
-                What We Do
-              </p>
-              <h2
-                className="text-3xl md:text-4xl font-bold text-white"
-                data-testid="text-services-heading"
-              >
+              <SectionLabel>What We Do</SectionLabel>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" data-testid="text-services-heading">
                 Our Services
               </h2>
-              <div
-                className="w-12 h-px mx-auto mt-4"
-                style={{
-                  background:
-                    "linear-gradient(to right, transparent, #3bb5e8, transparent)",
-                }}
-              />
+              <p className="text-base max-w-xl mx-auto" style={{ color: "#64748b" }}>
+                Empowering freelancers and businesses with the right environment, skills, and blockchain solutions to grow in the digital future.
+              </p>
             </FadeIn>
-
             <ServicesGrid />
           </div>
         </section>
 
-        {/* ── WEB3 COURSE ── */}
-        <section
-          className="relative py-28 px-4"
-          data-testid="section-course-showcase"
-        >
+        {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
+        <section className="relative py-28 px-4" data-testid="section-course-showcase">
           <div className="max-w-5xl mx-auto relative z-10">
             <FadeIn className="text-center mb-16">
-              <p
-                className="text-xs font-semibold tracking-[0.2em] uppercase mb-3"
-                style={{ color: "#3bb5e8" }}
-              >
-                Upcoming Program
-              </p>
-              <h2
-                className="text-3xl md:text-4xl font-bold text-white"
-                data-testid="text-course-showcase-heading"
-              >
-                Upcoming Web3 & Blockchain Program
+              <SectionLabel>Upcoming Program</SectionLabel>
+              <h2 className="text-3xl md:text-4xl font-bold mb-4" data-testid="text-course-showcase-heading">
+                <span className="text-white">Upcoming </span>
+                <span style={{ color: "#3bb5e8" }}>Web3 & Blockchain</span>
+                <span className="text-white"> Program</span>
               </h2>
-              <p
-                className="mt-4 text-base max-w-xl mx-auto"
-                style={{ color: "#64748b" }}
-              >
-                Learn blockchain fundamentals, Bitcoin architecture, Ethereum
-                architecture, smart contracts and more.
+              <p className="text-base max-w-xl mx-auto mb-5" style={{ color: "#64748b" }}>
+                Learn blockchain fundamentals, Bitcoin architecture, Ethereum architecture, smart contracts and more.
               </p>
-              <div
-                className="w-12 h-px mx-auto mt-4"
-                style={{
-                  background:
-                    "linear-gradient(to right, transparent, #3bb5e8, transparent)",
-                }}
-              />
+              {/* chain link separator */}
+              <div className="flex items-center justify-center">
+                <Link className="w-5 h-5" style={{ color: "rgba(59,181,232,0.4)" }} />
+              </div>
             </FadeIn>
 
             <RoadmapGrid />
+
+            {/* CTA banner */}
+            <FadeIn className="mt-8" delay={0.2}>
+              <div
+                className="flex items-center gap-4 rounded-2xl px-6 py-4 max-w-3xl mx-auto"
+                style={{
+                  background: "rgba(59,181,232,0.07)",
+                  border: "1px solid rgba(59,181,232,0.18)",
+                }}
+              >
+                <div
+                  className="w-10 h-10 rounded-lg flex items-center justify-center flex-shrink-0"
+                  style={{ background: "rgba(59,181,232,0.12)" }}
+                >
+                  <GraduationCap className="w-5 h-5" style={{ color: "#3bb5e8" }} />
+                </div>
+                <p className="text-sm" style={{ color: "#94a3b8" }}>
+                  From fundamentals to advanced concepts —{" "}
+                  <span style={{ color: "#3bb5e8" }}>your complete journey into Web3 starts here.</span>
+                </p>
+              </div>
+            </FadeIn>
           </div>
         </section>
 
-        {/* ── TESTIMONIALS ── */}
-        <section
-          className="relative py-28 px-4"
-          data-testid="section-testimonials"
-        >
+        {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
+        <section className="relative py-28 px-4" data-testid="section-testimonials">
           <div className="max-w-5xl mx-auto relative z-10">
             <FadeIn className="text-center mb-16">
-              <p
-                className="text-xs font-semibold tracking-[0.2em] uppercase mb-3"
-                style={{ color: "#3bb5e8" }}
-              >
-                Testimonials
-              </p>
-              <h2
-                className="text-3xl md:text-4xl font-bold text-white"
-                data-testid="text-testimonials-heading"
-              >
+              <SectionLabel>Testimonials</SectionLabel>
+              <h2 className="text-3xl md:text-4xl font-bold text-white mb-4" data-testid="text-testimonials-heading">
                 What People Say About Us
               </h2>
-              <div
-                className="w-12 h-px mx-auto mt-4"
-                style={{
-                  background:
-                    "linear-gradient(to right, transparent, #3bb5e8, transparent)",
-                }}
-              />
+              <div className="w-12 h-0.5 mx-auto" style={{ background: "#3bb5e8" }} />
             </FadeIn>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-              {testimonials.map((t, i) => (
-                <FadeIn key={i} delay={i * 0.1}>
-                  <div
-                    className="rounded-2xl p-6 flex flex-col gap-4 h-full transition-all duration-300 group"
-                    style={{
-                      background: "rgba(255,255,255,0.02)",
-                      border: "1px solid rgba(59,181,232,0.1)",
-                    }}
-                    data-testid={`testimonial-card-${i}`}
-                  >
-                    {/* Stars */}
-                    <div className="flex gap-0.5" data-testid={`stars-${i}`}>
-                      {Array.from({ length: 5 }).map((_, s) => (
-                        <svg
-                          key={s}
-                          className="w-4 h-4"
-                          viewBox="0 0 24 24"
-                          fill="#f59e0b"
-                        >
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
-                      ))}
-                    </div>
+            {/* Carousel wrapper */}
+            <div className="relative flex items-center gap-3">
+              {/* Left arrow */}
+              <button
+                onClick={prev}
+                className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+                style={{
+                  background: "rgba(8,14,28,0.9)",
+                  border: "1px solid rgba(59,181,232,0.2)",
+                  color: "#94a3b8",
+                }}
+                data-testid="button-testimonial-prev"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
 
-                    {/* Comment */}
-                    <p
-                      className="text-sm leading-relaxed flex-1"
-                      style={{ color: "#94a3b8" }}
-                      data-testid={`testimonial-text-${i}`}
-                    >
-                      "{t.comment}"
-                    </p>
-
-                    {/* Thin separator */}
+              {/* Cards */}
+              <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
+                {testimonials.map((t, i) => {
+                  const borderColor = i === 1 ? "rgba(139,92,246,0.35)" : "rgba(59,181,232,0.25)";
+                  const quoteColor = i === 1 ? "#8b5cf6" : "#3bb5e8";
+                  const isActive = activeTestimonial === i;
+                  return (
                     <div
-                      className="h-px w-full"
-                      style={{ background: "rgba(59,181,232,0.08)" }}
-                    />
+                      key={i}
+                      className="rounded-2xl p-5 flex flex-col gap-3 transition-all duration-300"
+                      style={{
+                        background: "rgba(8,14,28,0.8)",
+                        border: `1px solid ${borderColor}`,
+                        boxShadow: isActive ? `0 0 30px rgba(59,181,232,0.08)` : "none",
+                        opacity: 1,
+                      }}
+                      data-testid={`testimonial-card-${i}`}
+                    >
+                      {/* Large quote mark */}
+                      <div className="text-5xl font-serif leading-none -mb-1" style={{ color: quoteColor, opacity: 0.7 }}>
+                        "
+                      </div>
 
-                    {/* Author */}
-                    <div className="flex items-center gap-3">
-                      {(t as any).photo ? (
-                        <img
-                          src={(t as any).photo}
-                          alt={t.name}
-                          className="w-10 h-10 rounded-full object-cover flex-shrink-0"
-                          style={{ border: "1px solid rgba(59,181,232,0.2)" }}
-                          data-testid={`testimonial-avatar-${i}`}
-                        />
-                      ) : (
-                        <div
-                          className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
-                          style={{
-                            background: "rgba(59,181,232,0.12)",
-                            color: "#3bb5e8",
-                            border: "1px solid rgba(59,181,232,0.2)",
-                          }}
-                          data-testid={`testimonial-avatar-${i}`}
-                        >
-                          {t.initials}
+                      {/* Stars */}
+                      <div className="flex gap-0.5" data-testid={`stars-${i}`}>
+                        {Array.from({ length: 5 }).map((_, s) => (
+                          <svg key={s} className="w-4 h-4" viewBox="0 0 24 24" fill="#f59e0b">
+                            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                          </svg>
+                        ))}
+                      </div>
+
+                      {/* Comment */}
+                      <p
+                        className="text-sm leading-relaxed flex-1"
+                        style={{ color: "#94a3b8" }}
+                        data-testid={`testimonial-text-${i}`}
+                      >
+                        {t.comment}"
+                      </p>
+
+                      {/* Separator */}
+                      <div className="h-px w-full" style={{ background: `rgba(${i === 1 ? "139,92,246" : "59,181,232"},0.12)` }} />
+
+                      {/* Author */}
+                      <div className="flex items-center gap-3">
+                        {(t as any).photo ? (
+                          <img
+                            src={(t as any).photo}
+                            alt={t.name}
+                            className="w-10 h-10 rounded-full object-cover flex-shrink-0"
+                            style={{ border: `1px solid ${borderColor}` }}
+                            data-testid={`testimonial-avatar-${i}`}
+                          />
+                        ) : (
+                          <div
+                            className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0"
+                            style={{
+                              background: i === 1 ? "rgba(139,92,246,0.15)" : "rgba(59,181,232,0.12)",
+                              color: quoteColor,
+                              border: `1px solid ${borderColor}`,
+                            }}
+                            data-testid={`testimonial-avatar-${i}`}
+                          >
+                            {t.initials}
+                          </div>
+                        )}
+                        <div>
+                          <p className="text-sm font-semibold text-white" data-testid={`testimonial-name-${i}`}>
+                            {t.name}
+                          </p>
+                          <p className="text-xs" style={{ color: quoteColor }} data-testid={`testimonial-role-${i}`}>
+                            {t.role}
+                          </p>
                         </div>
-                      )}
-                      <div>
-                        <p
-                          className="text-sm font-semibold text-white"
-                          data-testid={`testimonial-name-${i}`}
-                        >
-                          {t.name}
-                        </p>
-                        <p
-                          className="text-xs"
-                          style={{ color: "#475569" }}
-                          data-testid={`testimonial-role-${i}`}
-                        >
-                          {t.role}
-                        </p>
                       </div>
                     </div>
-                  </div>
-                </FadeIn>
+                  );
+                })}
+              </div>
+
+              {/* Right arrow */}
+              <button
+                onClick={next}
+                className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-all hover:scale-110"
+                style={{
+                  background: "rgba(8,14,28,0.9)",
+                  border: "1px solid rgba(59,181,232,0.2)",
+                  color: "#94a3b8",
+                }}
+                data-testid="button-testimonial-next"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+            </div>
+
+            {/* Pagination dots */}
+            <div className="flex items-center justify-center gap-2 mt-6">
+              {testimonials.map((_, i) => (
+                <button
+                  key={i}
+                  onClick={() => setActiveTestimonial(i)}
+                  className="transition-all duration-300"
+                  style={{
+                    width: activeTestimonial === i ? "24px" : "8px",
+                    height: "8px",
+                    borderRadius: "4px",
+                    background: activeTestimonial === i ? "#3bb5e8" : "rgba(59,181,232,0.25)",
+                  }}
+                  data-testid={`dot-testimonial-${i}`}
+                />
               ))}
             </div>
           </div>
