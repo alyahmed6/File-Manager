@@ -110,7 +110,7 @@ function ParticleCanvas() {
 
     let animId: number;
     const particles: { x: number; y: number; vx: number; vy: number; r: number; alpha: number }[] = [];
-    const COUNT = 90;
+    const COUNT = 120;
 
     const resize = () => {
       canvas.width = window.innerWidth;
@@ -123,10 +123,10 @@ function ParticleCanvas() {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.3,
-        vy: (Math.random() - 0.5) * 0.3,
-        r: Math.random() * 1.5 + 0.5,
-        alpha: Math.random() * 0.5 + 0.1,
+        vx: (Math.random() - 0.5) * 0.35,
+        vy: (Math.random() - 0.5) * 0.35,
+        r: Math.random() * 2 + 0.8,
+        alpha: Math.random() * 0.6 + 0.3,
       });
     }
 
@@ -149,10 +149,10 @@ function ParticleCanvas() {
           const dx = a.x - b.x;
           const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
-          if (dist < 130) {
+          if (dist < 160) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(59, 181, 232, ${0.09 * (1 - dist / 130)})`;
-            ctx.lineWidth = 0.5;
+            ctx.strokeStyle = `rgba(59, 181, 232, ${0.22 * (1 - dist / 160)})`;
+            ctx.lineWidth = 0.8;
             ctx.moveTo(a.x, a.y);
             ctx.lineTo(b.x, b.y);
             ctx.stroke();
@@ -239,16 +239,16 @@ function ServicesGrid() {
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
         className="rounded-2xl p-6 flex flex-col"
         style={{
-          background: "linear-gradient(140deg, rgba(8,14,30,0.95) 0%, rgba(4,8,20,0.98) 100%)",
-          border: "1px solid rgba(59,181,232,0.25)",
-          boxShadow: "0 0 40px rgba(59,181,232,0.06), inset 0 1px 0 rgba(59,181,232,0.08)",
+          background: "linear-gradient(140deg, rgba(8,14,30,0.97) 0%, rgba(4,8,20,0.99) 100%)",
+          border: "1px solid rgba(59,181,232,0.45)",
+          boxShadow: "0 0 60px rgba(59,181,232,0.18), 0 0 120px rgba(59,181,232,0.07), inset 0 1px 0 rgba(59,181,232,0.2)",
         }}
       >
         {/* Card header */}
         <div className="flex items-center gap-4 mb-4">
           <div
             className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: "rgba(59,181,232,0.15)", border: "1px solid rgba(59,181,232,0.3)" }}
+            style={{ background: "rgba(59,181,232,0.2)", border: "1px solid rgba(59,181,232,0.55)", boxShadow: "0 0 24px rgba(59,181,232,0.45), inset 0 0 12px rgba(59,181,232,0.1)" }}
           >
             <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#3bb5e8" strokeWidth="1.8">
               <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -297,16 +297,16 @@ function ServicesGrid() {
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
         className="rounded-2xl p-6 flex flex-col"
         style={{
-          background: "linear-gradient(140deg, rgba(10,6,30,0.95) 0%, rgba(4,4,20,0.98) 100%)",
-          border: "1px solid rgba(139,92,246,0.3)",
-          boxShadow: "0 0 40px rgba(139,92,246,0.07), inset 0 1px 0 rgba(139,92,246,0.1)",
+          background: "linear-gradient(140deg, rgba(10,6,30,0.97) 0%, rgba(4,4,20,0.99) 100%)",
+          border: "1px solid rgba(139,92,246,0.5)",
+          boxShadow: "0 0 60px rgba(139,92,246,0.2), 0 0 120px rgba(139,92,246,0.08), inset 0 1px 0 rgba(139,92,246,0.2)",
         }}
       >
         {/* Card header */}
         <div className="flex items-center gap-4 mb-4">
           <div
             className="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0"
-            style={{ background: "rgba(139,92,246,0.15)", border: "1px solid rgba(139,92,246,0.35)" }}
+            style={{ background: "rgba(139,92,246,0.2)", border: "1px solid rgba(139,92,246,0.6)", boxShadow: "0 0 24px rgba(139,92,246,0.5), inset 0 0 12px rgba(139,92,246,0.12)" }}
           >
             <svg className="w-7 h-7" viewBox="0 0 24 24" fill="none" stroke="#8b5cf6" strokeWidth="1.8">
               <rect x="2" y="3" width="20" height="14" rx="2" />
@@ -368,7 +368,8 @@ function RoadmapGrid() {
             className="relative overflow-hidden rounded-2xl px-5 py-5 cursor-default group"
             style={{
               background: "linear-gradient(140deg, rgba(8,14,28,0.97) 0%, rgba(4,6,18,0.99) 100%)",
-              border: `1px solid rgba(${hexToRgb(color)},0.18)`,
+              border: `1px solid rgba(${hexToRgb(color)},0.45)`,
+              boxShadow: `0 0 30px rgba(${hexToRgb(color)},0.14), 0 0 1px rgba(${hexToRgb(color)},0.6) inset`,
             }}
             data-testid={`roadmap-item-${index + 1}`}
           >
@@ -381,7 +382,7 @@ function RoadmapGrid() {
             {/* Large watermark number */}
             <span
               className="absolute top-1 right-3 font-black select-none pointer-events-none leading-none"
-              style={{ fontSize: "5.5rem", color: `rgba(${hexToRgb(color)},0.07)` }}
+              style={{ fontSize: "5.5rem", color: `rgba(${hexToRgb(color)},0.13)` }}
             >
               {String(index + 1).padStart(2, "0")}
             </span>
@@ -391,9 +392,9 @@ function RoadmapGrid() {
               <div
                 className="w-14 h-14 flex items-center justify-center flex-shrink-0 rounded-xl"
                 style={{
-                  background: `linear-gradient(135deg, rgba(${hexToRgb(color)},0.25) 0%, rgba(${hexToRgb(color)},0.08) 100%)`,
-                  border: `1px solid rgba(${hexToRgb(color)},0.3)`,
-                  boxShadow: `0 0 20px rgba(${hexToRgb(color)},0.12)`,
+                  background: `linear-gradient(135deg, rgba(${hexToRgb(color)},0.35) 0%, rgba(${hexToRgb(color)},0.12) 100%)`,
+                  border: `1px solid rgba(${hexToRgb(color)},0.55)`,
+                  boxShadow: `0 0 24px rgba(${hexToRgb(color)},0.45), 0 0 6px rgba(${hexToRgb(color)},0.8) inset`,
                 }}
               >
                 <Icon className="w-6 h-6" style={{ color }} />
@@ -453,27 +454,42 @@ export default function CompanyLanding() {
           <div
             className="absolute pointer-events-none"
             style={{
-              top: "18%",
+              top: "14%",
               left: "50%",
               transform: "translateX(-50%)",
-              width: "420px",
-              height: "420px",
+              width: "520px",
+              height: "520px",
               borderRadius: "50%",
-              background: "radial-gradient(ellipse at center, rgba(59,181,232,0.13) 0%, transparent 65%)",
+              background: "radial-gradient(ellipse at center, rgba(59,181,232,0.28) 0%, rgba(59,181,232,0.08) 40%, transparent 68%)",
               zIndex: 1,
             }}
           />
-          {/* Arc ring */}
+          {/* Outer arc ring */}
           <div
             className="absolute pointer-events-none"
             style={{
-              top: "22%",
+              top: "19%",
               left: "50%",
               transform: "translateX(-50%)",
-              width: "320px",
-              height: "160px",
-              borderRadius: "160px 160px 0 0",
-              border: "1px solid rgba(59,181,232,0.12)",
+              width: "380px",
+              height: "190px",
+              borderRadius: "190px 190px 0 0",
+              border: "1px solid rgba(59,181,232,0.45)",
+              boxShadow: "0 0 18px rgba(59,181,232,0.18)",
+              zIndex: 1,
+            }}
+          />
+          {/* Inner arc ring */}
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              top: "23%",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "260px",
+              height: "130px",
+              borderRadius: "130px 130px 0 0",
+              border: "1px solid rgba(59,181,232,0.2)",
               zIndex: 1,
             }}
           />
@@ -490,48 +506,75 @@ export default function CompanyLanding() {
                 bottom: "-120px",
                 left: "50%",
                 transform: "translateX(-50%)",
-                width: "900px",
-                height: "400px",
+                width: "1000px",
+                height: "450px",
                 borderRadius: "50%",
-                border: "1px solid rgba(59,181,232,0.15)",
-                background: "radial-gradient(ellipse at 50% 30%, rgba(59,181,232,0.08) 0%, rgba(4,6,14,0.6) 55%, transparent 75%)",
+                border: "1.5px solid rgba(59,181,232,0.35)",
+                boxShadow: "0 0 40px rgba(59,181,232,0.1), inset 0 0 60px rgba(59,181,232,0.05)",
+                background: "radial-gradient(ellipse at 50% 25%, rgba(59,181,232,0.14) 0%, rgba(4,6,14,0.5) 50%, transparent 72%)",
+              }}
+            />
+            {/* Globe inner ellipse */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "-60px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "700px",
+                height: "300px",
+                borderRadius: "50%",
+                border: "1px solid rgba(59,181,232,0.12)",
               }}
             />
             {/* Globe glow center point */}
             <div
               style={{
                 position: "absolute",
-                bottom: "115px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "8px",
-                height: "8px",
-                borderRadius: "50%",
-                background: "#3bb5e8",
-                boxShadow: "0 0 40px 12px rgba(59,181,232,0.4), 0 0 120px 40px rgba(59,181,232,0.15)",
-              }}
-            />
-            {/* Horizon lines */}
-            <div
-              style={{
-                position: "absolute",
                 bottom: "118px",
                 left: "50%",
                 transform: "translateX(-50%)",
-                width: "600px",
-                height: "1px",
-                background: "linear-gradient(to right, transparent, rgba(59,181,232,0.4), transparent)",
+                width: "10px",
+                height: "10px",
+                borderRadius: "50%",
+                background: "#3bb5e8",
+                boxShadow: "0 0 30px 10px rgba(59,181,232,0.7), 0 0 80px 30px rgba(59,181,232,0.35), 0 0 200px 80px rgba(59,181,232,0.12)",
               }}
             />
+            {/* Horizon line 1 */}
             <div
               style={{
                 position: "absolute",
-                bottom: "90px",
+                bottom: "122px",
                 left: "50%",
                 transform: "translateX(-50%)",
-                width: "400px",
+                width: "700px",
                 height: "1px",
-                background: "linear-gradient(to right, transparent, rgba(59,181,232,0.2), transparent)",
+                background: "linear-gradient(to right, transparent, rgba(59,181,232,0.6), transparent)",
+              }}
+            />
+            {/* Horizon line 2 */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "95px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "500px",
+                height: "1px",
+                background: "linear-gradient(to right, transparent, rgba(59,181,232,0.3), transparent)",
+              }}
+            />
+            {/* Horizon line 3 */}
+            <div
+              style={{
+                position: "absolute",
+                bottom: "70px",
+                left: "50%",
+                transform: "translateX(-50%)",
+                width: "320px",
+                height: "1px",
+                background: "linear-gradient(to right, transparent, rgba(59,181,232,0.15), transparent)",
               }}
             />
           </div>
@@ -543,7 +586,7 @@ export default function CompanyLanding() {
               className="w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center"
               style={{
                 background: "linear-gradient(135deg, #1a8fd1 0%, #3bb5e8 50%, #2196c8 100%)",
-                boxShadow: "0 0 40px rgba(59,181,232,0.4), 0 0 80px rgba(59,181,232,0.15)",
+                boxShadow: "0 0 30px rgba(59,181,232,0.9), 0 0 70px rgba(59,181,232,0.55), 0 0 140px rgba(59,181,232,0.25)",
               }}
             >
               <svg viewBox="0 0 24 24" className="w-9 h-9 md:w-11 md:h-11 text-white" fill="currentColor">
@@ -693,7 +736,9 @@ export default function CompanyLanding() {
                       style={{
                         background: "rgba(8,14,28,0.8)",
                         border: `1px solid ${borderColor}`,
-                        boxShadow: isActive ? `0 0 30px rgba(59,181,232,0.08)` : "none",
+                        boxShadow: i === 1
+                          ? "0 0 40px rgba(139,92,246,0.22), 0 0 80px rgba(139,92,246,0.08)"
+                          : "0 0 40px rgba(59,181,232,0.18), 0 0 80px rgba(59,181,232,0.06)",
                         opacity: 1,
                       }}
                       data-testid={`testimonial-card-${i}`}
