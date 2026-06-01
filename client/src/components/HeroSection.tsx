@@ -39,19 +39,9 @@ export default function HeroSection() {
             From zero to confident in 8 weeks
           </h2>
 
-          {/* Desktop: Original paragraph */}
-          <p
-            className="hidden md:block text-lg md:text-xl text-muted-foreground max-w-2xl"
-            data-testid="text-hero-description"
-          >
-            Learn how crypto actually works — Bitcoin, Ethereum, wallets,
-            exchanges, and real-world use cases, explained simply for
-            beginners.
-          </p>
-
-          {/* Mobile: Pill-style topic tags */}
-          <div className="md:hidden w-full max-w-xs mx-auto">
-            <div className="grid grid-cols-2 gap-2.5">
+          {/* Pill-style topic tags — all screen sizes */}
+          <div className="w-full max-w-sm md:max-w-md mx-auto">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5">
               {["Bitcoin", "Ethereum", "Wallets", "Stable Coins", "Tokenization", "AI", "DeFi", "Exchanges"].map((topic) => (
                 <div
                   key={topic}
