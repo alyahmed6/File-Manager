@@ -178,6 +178,103 @@ function ParticleCanvas() {
   );
 }
 
+/* ─── GLOBE CANVAS ──────────────────────────────────────────────────── */
+
+function GlobeCanvas() {
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const draw = () => {
+      const w = (canvas.width = canvas.offsetWidth);
+      const h = (canvas.height = canvas.offsetHeight);
+      ctx.clearRect(0, 0, w, h);
+
+      const cx = w / 2;
+      // Ellipse center well below canvas so only top arc is visible
+      const rx = w * 1.1;
+      const ry = h * 3.8;
+      const cy = h * 3.8; // below canvas bottom
+
+      // Clip to globe ellipse shape
+      ctx.save();
+      ctx.beginPath();
+      ctx.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
+      ctx.clip();
+
+      // Globe body gradient — dark navy surface
+      const bodyGrad = ctx.createRadialGradient(cx, 0, 0, cx, h * 0.6, w * 0.85);
+      bodyGrad.addColorStop(0, "rgba(6, 20, 55, 0.96)");
+      bodyGrad.addColorStop(0.45, "rgba(3, 10, 30, 0.97)");
+      bodyGrad.addColorStop(1, "rgba(2, 4, 14, 0.99)");
+      ctx.fillStyle = bodyGrad;
+      ctx.fillRect(0, 0, w, h);
+
+      // Dot grid — world-map-style points on globe surface
+      const spacing = 15;
+      for (let row = 0; row <= Math.ceil(h / spacing); row++) {
+        const y = row * spacing;
+        const rowOffset = (row % 2) * (spacing / 2);
+        for (let col = 0; col <= Math.ceil(w / spacing); col++) {
+          const x = col * spacing + rowOffset;
+          // Brightness: strongest near horizon center, fades toward bottom & edges
+          const dxN = (x - cx) / (w * 0.5);
+          const dyN = y / h;
+          const distFromHorizonCenter = Math.sqrt(dxN * dxN + dyN * dyN * 0.4);
+          const brightness = Math.max(0, 1 - distFromHorizonCenter * 1.2);
+          const alpha = 0.04 + brightness * 0.28;
+          ctx.beginPath();
+          ctx.arc(x, y, 1.1, 0, Math.PI * 2);
+          ctx.fillStyle = `rgba(59,181,232,${alpha})`;
+          ctx.fill();
+        }
+      }
+
+      ctx.restore();
+
+      // Horizon glow line — bright electric blue edge at top of globe
+      const horizGrad = ctx.createLinearGradient(0, 0, w, 0);
+      horizGrad.addColorStop(0, "transparent");
+      horizGrad.addColorStop(0.15, "rgba(59,181,232,0.35)");
+      horizGrad.addColorStop(0.42, "rgba(80,190,255,0.85)");
+      horizGrad.addColorStop(0.50, "rgba(140,225,255,1.0)");
+      horizGrad.addColorStop(0.58, "rgba(80,190,255,0.85)");
+      horizGrad.addColorStop(0.85, "rgba(59,181,232,0.35)");
+      horizGrad.addColorStop(1, "transparent");
+      ctx.beginPath();
+      ctx.moveTo(0, 1);
+      ctx.lineTo(w, 1);
+      ctx.strokeStyle = horizGrad;
+      ctx.lineWidth = 2.5;
+      ctx.stroke();
+
+      // Horizon center radial bloom
+      const bloom = ctx.createRadialGradient(cx, 0, 0, cx, 0, w * 0.38);
+      bloom.addColorStop(0, "rgba(120,215,255,0.38)");
+      bloom.addColorStop(0.25, "rgba(59,181,232,0.18)");
+      bloom.addColorStop(1, "transparent");
+      ctx.fillStyle = bloom;
+      ctx.fillRect(0, 0, w, h * 0.55);
+    };
+
+    draw();
+    const ro = new ResizeObserver(draw);
+    ro.observe(canvas);
+    return () => ro.disconnect();
+  }, []);
+
+  return (
+    <canvas
+      ref={canvasRef}
+      style={{ position: "absolute", inset: 0, width: "100%", height: "100%", pointerEvents: "none" }}
+    />
+  );
+}
+
 /* ─── FADE IN ───────────────────────────────────────────────────────── */
 
 function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
@@ -449,189 +546,145 @@ export default function CompanyLanding() {
       <main className="flex-1">
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
-        <section className="relative flex flex-col items-center justify-center min-h-[100svh] text-center px-4 overflow-hidden">
-          {/* Radial arc glow behind icon */}
-          <div
-            className="absolute pointer-events-none"
-            style={{
-              top: "14%",
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "520px",
-              height: "520px",
-              borderRadius: "50%",
-              background: "radial-gradient(ellipse at center, rgba(59,181,232,0.28) 0%, rgba(59,181,232,0.08) 40%, transparent 68%)",
-              zIndex: 1,
-            }}
-          />
-          {/* Outer arc ring */}
-          <div
-            className="absolute pointer-events-none"
-            style={{
-              top: "19%",
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "380px",
-              height: "190px",
-              borderRadius: "190px 190px 0 0",
-              border: "1px solid rgba(59,181,232,0.45)",
-              boxShadow: "0 0 18px rgba(59,181,232,0.18)",
-              zIndex: 1,
-            }}
-          />
-          {/* Inner arc ring */}
-          <div
-            className="absolute pointer-events-none"
-            style={{
-              top: "23%",
-              left: "50%",
-              transform: "translateX(-50%)",
-              width: "260px",
-              height: "130px",
-              borderRadius: "130px 130px 0 0",
-              border: "1px solid rgba(59,181,232,0.2)",
-              zIndex: 1,
-            }}
-          />
+        <section className="relative flex flex-col items-center min-h-[100svh] text-center px-4 overflow-hidden" style={{ justifyContent: "flex-start", paddingTop: "10vh" }}>
 
-          {/* Globe / world-map bottom effect */}
+          {/* ── Globe hemisphere — bottom 46% ── */}
           <div
             className="absolute bottom-0 left-0 right-0 pointer-events-none"
-            style={{ zIndex: 1 }}
+            style={{ height: "46%", zIndex: 1 }}
           >
-            {/* Globe ellipse */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: "-120px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "1000px",
-                height: "450px",
-                borderRadius: "50%",
-                border: "1.5px solid rgba(59,181,232,0.35)",
-                boxShadow: "0 0 40px rgba(59,181,232,0.1), inset 0 0 60px rgba(59,181,232,0.05)",
-                background: "radial-gradient(ellipse at 50% 25%, rgba(59,181,232,0.14) 0%, rgba(4,6,14,0.5) 50%, transparent 72%)",
-              }}
-            />
-            {/* Globe inner ellipse */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: "-60px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "700px",
-                height: "300px",
-                borderRadius: "50%",
-                border: "1px solid rgba(59,181,232,0.12)",
-              }}
-            />
-            {/* Globe glow center point */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: "118px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "10px",
-                height: "10px",
-                borderRadius: "50%",
-                background: "#3bb5e8",
-                boxShadow: "0 0 30px 10px rgba(59,181,232,0.7), 0 0 80px 30px rgba(59,181,232,0.35), 0 0 200px 80px rgba(59,181,232,0.12)",
-              }}
-            />
-            {/* Horizon line 1 */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: "122px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "700px",
-                height: "1px",
-                background: "linear-gradient(to right, transparent, rgba(59,181,232,0.6), transparent)",
-              }}
-            />
-            {/* Horizon line 2 */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: "95px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "500px",
-                height: "1px",
-                background: "linear-gradient(to right, transparent, rgba(59,181,232,0.3), transparent)",
-              }}
-            />
-            {/* Horizon line 3 */}
-            <div
-              style={{
-                position: "absolute",
-                bottom: "70px",
-                left: "50%",
-                transform: "translateX(-50%)",
-                width: "320px",
-                height: "1px",
-                background: "linear-gradient(to right, transparent, rgba(59,181,232,0.15), transparent)",
-              }}
-            />
+            <GlobeCanvas />
+
+            {/* Light beams radiating from horizon center */}
+            {([-32, -20, -10, 10, 20, 32] as const).map((angle, i) => {
+              const fade = 1 - Math.abs(angle) / 45;
+              return (
+                <div
+                  key={i}
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: "50%",
+                    width: "2px",
+                    height: "90%",
+                    background: `linear-gradient(to bottom, rgba(59,181,232,${0.55 * fade}) 0%, rgba(59,181,232,${0.18 * fade}) 40%, transparent 100%)`,
+                    transformOrigin: "top center",
+                    transform: `translateX(-50%) rotate(${angle}deg)`,
+                    pointerEvents: "none",
+                  }}
+                />
+              );
+            })}
+
+            {/* Extra wide outer beams */}
+            {([-52, 52] as const).map((angle, i) => (
+              <div
+                key={i}
+                style={{
+                  position: "absolute",
+                  top: 0,
+                  left: "50%",
+                  width: "1px",
+                  height: "80%",
+                  background: "linear-gradient(to bottom, rgba(59,181,232,0.22) 0%, transparent 100%)",
+                  transformOrigin: "top center",
+                  transform: `translateX(-50%) rotate(${angle}deg)`,
+                  pointerEvents: "none",
+                }}
+              />
+            ))}
           </div>
 
-          {/* Content */}
-          <div className="relative flex flex-col items-center gap-6" style={{ zIndex: 2 }}>
-            {/* Logo icon */}
+          {/* ── Single subtle arc ring behind icon ── */}
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              top: "8vh",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "420px",
+              height: "210px",
+              borderRadius: "210px 210px 0 0",
+              border: "1px solid rgba(59,181,232,0.18)",
+              zIndex: 1,
+            }}
+          />
+
+          {/* ── Soft dark disc behind the icon for contrast ── */}
+          <div
+            className="absolute pointer-events-none"
+            style={{
+              top: "2vh",
+              left: "50%",
+              transform: "translateX(-50%)",
+              width: "500px",
+              height: "500px",
+              borderRadius: "50%",
+              background: "radial-gradient(ellipse at center, rgba(2,4,14,0.82) 0%, transparent 68%)",
+              zIndex: 1,
+            }}
+          />
+
+          {/* ── Hero content ── */}
+          <div className="relative flex flex-col items-center" style={{ zIndex: 2, gap: "1.4rem" }}>
+
+            {/* Floating isometric layers icon — no box, pure glow */}
             <div
-              className="w-16 h-16 md:w-20 md:h-20 rounded-xl flex items-center justify-center"
               style={{
-                background: "linear-gradient(135deg, #1a8fd1 0%, #3bb5e8 50%, #2196c8 100%)",
-                boxShadow: "0 0 30px rgba(59,181,232,0.9), 0 0 70px rgba(59,181,232,0.55), 0 0 140px rgba(59,181,232,0.25)",
+                filter:
+                  "drop-shadow(0 0 18px rgba(59,181,232,1)) drop-shadow(0 0 50px rgba(59,181,232,0.65)) drop-shadow(0 0 110px rgba(59,181,232,0.3))",
               }}
             >
-              <svg viewBox="0 0 24 24" className="w-9 h-9 md:w-11 md:h-11 text-white" fill="currentColor">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
+              <svg viewBox="0 0 60 48" className="w-16 h-12 md:w-24 md:h-20" fill="none">
+                {/* Top layer (lightest) */}
+                <polygon points="30,1 56,12 30,23 4,12" fill="#a8e6f8" />
+                <polygon points="4,12 4,19 30,30 30,23" fill="#3fafd4" />
+                <polygon points="56,12 56,19 30,30 30,23" fill="#2d90b8" />
+                {/* Middle layer */}
+                <polygon points="30,17 56,28 30,39 4,28" fill="#3bb5e8" />
+                <polygon points="4,28 4,35 30,46 30,39" fill="#2080b0" />
+                <polygon points="56,28 56,35 30,46 30,39" fill="#196898" />
+                {/* Bottom layer (darkest) */}
+                <polygon points="30,33 56,44 30,55 4,44" fill="#1e8bca" />
+                <polygon points="4,44 4,51 30,62 30,55" fill="#0f5a88" />
+                <polygon points="56,44 56,51 30,62 30,55" fill="#0a4a75" />
               </svg>
             </div>
 
             {/* Title */}
             <h1
-              className="text-5xl md:text-7xl font-bold tracking-tight leading-tight"
+              className="font-black tracking-tight leading-none"
+              style={{ fontSize: "clamp(2.8rem, 8vw, 6rem)" }}
               data-testid="text-company-hero-heading"
             >
               <span className="text-white">The Blockchain </span>
               <span style={{ color: "#3bb5e8" }}>Pulse</span>
             </h1>
 
-            {/* Tagline */}
-            <div className="flex items-center gap-4 mt-1" data-testid="text-company-hero-subheading">
-              <div
-                className="h-px w-10 flex-shrink-0"
-                style={{ background: "linear-gradient(to right, transparent, rgba(59,181,232,0.5))" }}
-              />
-              <p
-                className="text-sm md:text-base font-medium tracking-[0.18em] uppercase"
-                style={{ color: "rgba(148,163,184,0.85)" }}
-              >
-                Incubating Talent&nbsp;&nbsp;·&nbsp;&nbsp;Delivering World-Class
-                <br className="hidden sm:block" /> Freelance Solutions
+            {/* Tagline with flanking lines */}
+            <div
+              className="flex flex-col items-center gap-0.5"
+              data-testid="text-company-hero-subheading"
+            >
+              <div className="flex items-center gap-3">
+                <div className="h-px w-12 md:w-20" style={{ background: "linear-gradient(to right, transparent, rgba(59,181,232,0.55))" }} />
+                <p className="text-xs md:text-sm font-semibold tracking-[0.22em] uppercase" style={{ color: "rgba(148,163,184,0.88)" }}>
+                  Incubating Talent&nbsp;&nbsp;·&nbsp;&nbsp;Delivering World-Class
+                </p>
+                <div className="h-px w-12 md:w-20" style={{ background: "linear-gradient(to left, transparent, rgba(59,181,232,0.55))" }} />
+              </div>
+              <p className="text-xs md:text-sm font-semibold tracking-[0.22em] uppercase" style={{ color: "rgba(148,163,184,0.88)" }}>
+                Freelance Solutions
               </p>
-              <div
-                className="h-px w-10 flex-shrink-0"
-                style={{ background: "linear-gradient(to left, transparent, rgba(59,181,232,0.5))" }}
-              />
             </div>
           </div>
 
           {/* Scroll indicator */}
           <div
-            className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce"
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce"
             style={{ zIndex: 2 }}
           >
-            <div
-              className="w-px h-10 rounded-full"
-              style={{ background: "linear-gradient(to bottom, rgba(59,181,232,0.6), transparent)" }}
-            />
+            <div className="w-px h-10 rounded-full mx-auto" style={{ background: "linear-gradient(to bottom, rgba(59,181,232,0.6), transparent)" }} />
           </div>
         </section>
 
