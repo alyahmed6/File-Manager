@@ -556,28 +556,6 @@ export default function CompanyLanding() {
             <GlobeCanvas />
           </div>
 
-          {/* ── Soft atmospheric horizon glow (no hard line) ── */}
-          <div
-            className="absolute left-0 right-0 pointer-events-none"
-            style={{ bottom: "44%", zIndex: 2 }}
-          >
-            {/* Very faint diffuse glow — atmospheric, not structural */}
-            <div style={{
-              position: "absolute",
-              top: 0,
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "70vw",
-              height: "220px",
-              background: "radial-gradient(ellipse at 50% 100%, rgba(59,181,232,0.12) 0%, rgba(59,181,232,0.04) 50%, transparent 80%)",
-            }} />
-          </div>
-
-          {/* ── Smooth gradient fade at hero bottom — NO hard cut ── */}
-          <div
-            className="absolute bottom-0 left-0 right-0 pointer-events-none"
-            style={{ height: "35%", zIndex: 4, background: "linear-gradient(to bottom, transparent 0%, rgba(4,6,14,0.55) 50%, rgba(4,6,14,0.95) 85%, #04060e 100%)" }}
-          />
 
           {/* ── Single subtle arc ring behind icon ── */}
           <div
