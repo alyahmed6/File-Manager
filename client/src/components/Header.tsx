@@ -1,7 +1,6 @@
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useHeaderVisibility } from "@/hooks/useHeaderVisibility";
-import { useActiveSection } from "@/hooks/useActiveSection";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -12,38 +11,19 @@ const navItems = [
 export default function Header() {
   const [location, navigate] = useLocation();
   const isHeaderVisible = useHeaderVisibility();
-  const activeSection = useActiveSection();
 
-  const isOnCourse = location === "/course";
   const isHome = location === "/";
 
   const isNavItemActive = (href: string) => {
-    if (href.startsWith("#")) {
-      if (!isOnCourse) return false;
-      return activeSection === href.slice(1);
-    }
     if (href === "/") return location === "/";
-    if (href === "/course") return isOnCourse;
+    if (href === "/course") return location === "/course";
     if (href === "/about-us") return location === "/about-us";
     return false;
   };
 
   const handleNavigation = (href: string) => {
-    if (href.startsWith("/")) {
-      navigate(href);
-      window.scrollTo({ top: 0, behavior: "instant" });
-      return;
-    }
-    if (!isOnCourse && href.startsWith("#")) {
-      navigate("/course");
-      setTimeout(() => {
-        const element = document.querySelector(href);
-        if (element) element.scrollIntoView({ behavior: "smooth" });
-      }, 100);
-      return;
-    }
-    const element = document.querySelector(href);
-    if (element) element.scrollIntoView({ behavior: "smooth" });
+    navigate(href);
+    window.scrollTo({ top: 0, behavior: "instant" });
   };
 
   return (
