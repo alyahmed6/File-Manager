@@ -3,12 +3,11 @@ import qasimPhoto from "@assets/QAsim_1780246728761.jpeg";
 import salmanPhoto from "@assets/Screenshot_2026-05-31_220657_1780247305242.png";
 import { motion, useInView } from "framer-motion";
 import {
-  Link2,
-  Hexagon,
-  FileCode2,
+  Boxes,
+  BrainCircuit,
+  CandlestickChart,
   Layers,
   Tag,
-  Cpu,
   Scale,
   BarChart2,
   TrendingUp,
@@ -27,6 +26,7 @@ import {
   ChevronRight,
   Link,
 } from "lucide-react";
+import { SiEthereum, SiBitcoin } from "react-icons/si";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -44,14 +44,14 @@ const moduleColors = [
 ];
 
 const roadmapModules = [
-  { title: "Blockchain Fundamentals", desc: "Distributed ledgers, consensus mechanisms, and how blockchains work", Icon: Link2 },
-  { title: "Ethereum & Smart Contracts", desc: "Accounts, gas, the EVM, and Ethereum's core architecture", Icon: Hexagon },
-  { title: "Bitcoin", desc: "Satoshi, history, core architecture and future", Icon: FileCode2 },
+  { title: "Blockchain Fundamentals", desc: "Distributed ledgers, consensus mechanisms, and how blockchains work", Icon: Boxes },
+  { title: "Ethereum & Smart Contracts", desc: "Accounts, gas, the EVM, and Ethereum's core architecture", Icon: SiEthereum },
+  { title: "Bitcoin", desc: "Satoshi, history, core architecture and future", Icon: SiBitcoin },
   { title: "DeFi & Layer 2s", desc: "Protocols, liquidity pools, and blockchain scaling solutions", Icon: Layers },
   { title: "Tokenization", desc: "Asset digitization and real-world use cases", Icon: Tag },
-  { title: "AI in Blockchains", desc: "Integrating machine learning with on-chain data and systems", Icon: Cpu },
+  { title: "AI in Blockchains", desc: "Integrating machine learning with on-chain data and systems", Icon: BrainCircuit },
   { title: "Stablecoins", desc: "Mechanisms, risks, and the evolving stablecoin landscape", Icon: Scale },
-  { title: "Exchange Tutorials", desc: "CEX vs DEX, trading mechanics, and navigating order books", Icon: BarChart2 },
+  { title: "Exchange Tutorials", desc: "CEX vs DEX, trading mechanics, and navigating order books", Icon: CandlestickChart },
 ];
 
 const testimonials = [
