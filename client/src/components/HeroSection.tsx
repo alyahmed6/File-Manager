@@ -41,7 +41,7 @@ export default function HeroSection() {
 
           {/* Pill-style topic tags — 2 columns on all screen sizes */}
           <div className="w-full max-w-xs mx-auto">
-            <div className="grid grid-cols-2 gap-2.5">
+            <div className="grid grid-cols-2 gap-x-5 gap-y-2.5">
               {["Bitcoin", "Ethereum", "Wallets", "Stable Coins", "Tokenization", "AI", "DeFi", "Exchanges"].map((topic) => (
                 <div
                   key={topic}
