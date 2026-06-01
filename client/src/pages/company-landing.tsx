@@ -546,87 +546,38 @@ export default function CompanyLanding() {
       <main className="flex-1">
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
-        <section className="relative flex flex-col items-center min-h-[100svh] text-center px-4 overflow-hidden" style={{ justifyContent: "flex-start", paddingTop: "10vh" }}>
+        <section className="relative flex flex-col items-center min-h-[100svh] text-center px-4" style={{ justifyContent: "flex-start", paddingTop: "10vh" }}>
 
-          {/* ── Globe hemisphere — bottom 44% ── */}
+          {/* ── Globe hemisphere — bottom 44%, atmospheric opacity ── */}
           <div
             className="absolute bottom-0 left-0 right-0 pointer-events-none"
-            style={{ height: "44%", zIndex: 1 }}
+            style={{ height: "44%", zIndex: 1, opacity: 0.28 }}
           >
             <GlobeCanvas />
           </div>
 
-          {/* ── Horizon glow system — at the globe's top edge ── */}
+          {/* ── Soft atmospheric horizon glow (no hard line) ── */}
           <div
             className="absolute left-0 right-0 pointer-events-none"
-            style={{ bottom: "44%", zIndex: 3 }}
+            style={{ bottom: "44%", zIndex: 2 }}
           >
-            {/* Horizontal glow line across horizon */}
-            <div style={{
-              height: "2px",
-              background: "linear-gradient(to right, transparent 0%, rgba(59,181,232,0.45) 18%, rgba(90,200,255,0.9) 40%, rgba(200,245,255,1) 50%, rgba(90,200,255,0.9) 60%, rgba(59,181,232,0.45) 82%, transparent 100%)",
-              boxShadow: "0 0 12px 4px rgba(59,181,232,0.5), 0 0 30px 8px rgba(59,181,232,0.2)",
-            }} />
-
-            {/* Centre flare — intense white-blue star point */}
+            {/* Very faint diffuse glow — atmospheric, not structural */}
             <div style={{
               position: "absolute",
-              top: "1px",
+              top: 0,
               left: "50%",
               transform: "translate(-50%, -50%)",
-              width: "10px",
-              height: "10px",
-              borderRadius: "50%",
-              background: "rgba(230,248,255,1)",
-              boxShadow: [
-                "0 0 6px 3px rgba(220,245,255,1)",
-                "0 0 20px 8px rgba(120,215,255,0.95)",
-                "0 0 50px 18px rgba(59,181,232,0.75)",
-                "0 0 120px 45px rgba(59,181,232,0.45)",
-                "0 0 280px 100px rgba(59,181,232,0.18)",
-              ].join(", "),
-            }} />
-
-            {/* Light beams — horizontal rays spreading outward from center */}
-            {[
-              { angle: 0,   opacity: 0.30, h: 3   },
-              { angle: 10,  opacity: 0.22, h: 1.5 },
-              { angle: -10, opacity: 0.22, h: 1.5 },
-              { angle: 22,  opacity: 0.16, h: 1.5 },
-              { angle: -22, opacity: 0.16, h: 1.5 },
-              { angle: 36,  opacity: 0.11, h: 1   },
-              { angle: -36, opacity: 0.11, h: 1   },
-              { angle: 52,  opacity: 0.07, h: 1   },
-              { angle: -52, opacity: 0.07, h: 1   },
-            ].map(({ angle, opacity, h }, i) => (
-              <div
-                key={i}
-                style={{
-                  position: "absolute",
-                  top: "1px",
-                  left: "50%",
-                  width: "200vw",
-                  height: `${h}px`,
-                  /* gradient bright in centre, fading to both ends */
-                  background: `linear-gradient(to right, transparent 0%, rgba(59,181,232,${opacity * 0.6}) 30%, rgba(59,181,232,${opacity}) 48%, rgba(59,181,232,${opacity}) 52%, rgba(59,181,232,${opacity * 0.6}) 70%, transparent 100%)`,
-                  transformOrigin: "center center",
-                  transform: `translateX(-50%) translateY(-50%) rotate(${angle}deg)`,
-                }}
-              />
-            ))}
-
-            {/* Wide radial bloom above and below horizon */}
-            <div style={{
-              position: "absolute",
-              top: "1px",
-              left: "50%",
-              transform: "translate(-50%, -40%)",
-              width: "80vw",
-              height: "340px",
-              background: "radial-gradient(ellipse at 50% 10%, rgba(59,181,232,0.2) 0%, rgba(59,181,232,0.07) 40%, transparent 72%)",
-              pointerEvents: "none",
+              width: "70vw",
+              height: "220px",
+              background: "radial-gradient(ellipse at 50% 100%, rgba(59,181,232,0.12) 0%, rgba(59,181,232,0.04) 50%, transparent 80%)",
             }} />
           </div>
+
+          {/* ── Smooth gradient fade at hero bottom — NO hard cut ── */}
+          <div
+            className="absolute bottom-0 left-0 right-0 pointer-events-none"
+            style={{ height: "35%", zIndex: 4, background: "linear-gradient(to bottom, transparent 0%, rgba(4,6,14,0.55) 50%, rgba(4,6,14,0.95) 85%, #04060e 100%)" }}
+          />
 
           {/* ── Single subtle arc ring behind icon ── */}
           <div
