@@ -3,17 +3,10 @@ import { Button } from "@/components/ui/button";
 import { useHeaderVisibility } from "@/hooks/useHeaderVisibility";
 import { useActiveSection } from "@/hooks/useActiveSection";
 
-const baseNavItems = [
+const navItems = [
   { label: "Home", href: "/" },
   { label: "Course", href: "/course" },
   { label: "About Us", href: "/about-us" },
-];
-
-const courseNavItems = [
-  { label: "Overview", href: "#course" },
-  { label: "Curriculum", href: "#curriculum" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "FAQ", href: "#faq" },
 ];
 
 export default function Header() {
@@ -23,7 +16,6 @@ export default function Header() {
 
   const isOnCourse = location === "/course";
   const isHome = location === "/";
-  const navItems = isOnCourse ? [...baseNavItems, ...courseNavItems] : baseNavItems;
 
   const isNavItemActive = (href: string) => {
     if (href.startsWith("#")) {
@@ -98,7 +90,7 @@ export default function Header() {
 
         {/* Mobile inline nav */}
         <nav className="flex md:hidden items-center gap-1">
-          {baseNavItems.map((item) => {
+          {navItems.map((item) => {
             const isActive = isNavItemActive(item.href);
             return (
               <button
@@ -147,8 +139,10 @@ export default function Header() {
           })}
         </nav>
 
-        {/* Desktop CTA */}
-        {!isHome && (
+        {/* Desktop CTA — spacer keeps nav centred on home page */}
+        {isHome ? (
+          <div className="hidden md:block w-[130px]" />
+        ) : (
           <a
             href="https://forms.gle/DMo848mtY8u2UbC1A"
             target="_blank"
