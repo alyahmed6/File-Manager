@@ -548,51 +548,84 @@ export default function CompanyLanding() {
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section className="relative flex flex-col items-center min-h-[100svh] text-center px-4 overflow-hidden" style={{ justifyContent: "flex-start", paddingTop: "10vh" }}>
 
-          {/* ── Globe hemisphere — bottom 46% ── */}
+          {/* ── Globe hemisphere — bottom 44% ── */}
           <div
             className="absolute bottom-0 left-0 right-0 pointer-events-none"
-            style={{ height: "46%", zIndex: 1 }}
+            style={{ height: "44%", zIndex: 1 }}
           >
             <GlobeCanvas />
+          </div>
 
-            {/* Light beams radiating from horizon center */}
-            {([-32, -20, -10, 10, 20, 32] as const).map((angle, i) => {
-              const fade = 1 - Math.abs(angle) / 45;
-              return (
-                <div
-                  key={i}
-                  style={{
-                    position: "absolute",
-                    top: 0,
-                    left: "50%",
-                    width: "2px",
-                    height: "90%",
-                    background: `linear-gradient(to bottom, rgba(59,181,232,${0.55 * fade}) 0%, rgba(59,181,232,${0.18 * fade}) 40%, transparent 100%)`,
-                    transformOrigin: "top center",
-                    transform: `translateX(-50%) rotate(${angle}deg)`,
-                    pointerEvents: "none",
-                  }}
-                />
-              );
-            })}
+          {/* ── Horizon glow system — at the globe's top edge ── */}
+          <div
+            className="absolute left-0 right-0 pointer-events-none"
+            style={{ bottom: "44%", zIndex: 3 }}
+          >
+            {/* Horizontal glow line across horizon */}
+            <div style={{
+              height: "2px",
+              background: "linear-gradient(to right, transparent 0%, rgba(59,181,232,0.45) 18%, rgba(90,200,255,0.9) 40%, rgba(200,245,255,1) 50%, rgba(90,200,255,0.9) 60%, rgba(59,181,232,0.45) 82%, transparent 100%)",
+              boxShadow: "0 0 12px 4px rgba(59,181,232,0.5), 0 0 30px 8px rgba(59,181,232,0.2)",
+            }} />
 
-            {/* Extra wide outer beams */}
-            {([-52, 52] as const).map((angle, i) => (
+            {/* Centre flare — intense white-blue star point */}
+            <div style={{
+              position: "absolute",
+              top: "1px",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              width: "10px",
+              height: "10px",
+              borderRadius: "50%",
+              background: "rgba(230,248,255,1)",
+              boxShadow: [
+                "0 0 6px 3px rgba(220,245,255,1)",
+                "0 0 20px 8px rgba(120,215,255,0.95)",
+                "0 0 50px 18px rgba(59,181,232,0.75)",
+                "0 0 120px 45px rgba(59,181,232,0.45)",
+                "0 0 280px 100px rgba(59,181,232,0.18)",
+              ].join(", "),
+            }} />
+
+            {/* Light beams — horizontal rays spreading outward from center */}
+            {[
+              { angle: 0,   opacity: 0.30, h: 3   },
+              { angle: 10,  opacity: 0.22, h: 1.5 },
+              { angle: -10, opacity: 0.22, h: 1.5 },
+              { angle: 22,  opacity: 0.16, h: 1.5 },
+              { angle: -22, opacity: 0.16, h: 1.5 },
+              { angle: 36,  opacity: 0.11, h: 1   },
+              { angle: -36, opacity: 0.11, h: 1   },
+              { angle: 52,  opacity: 0.07, h: 1   },
+              { angle: -52, opacity: 0.07, h: 1   },
+            ].map(({ angle, opacity, h }, i) => (
               <div
                 key={i}
                 style={{
                   position: "absolute",
-                  top: 0,
+                  top: "1px",
                   left: "50%",
-                  width: "1px",
-                  height: "80%",
-                  background: "linear-gradient(to bottom, rgba(59,181,232,0.22) 0%, transparent 100%)",
-                  transformOrigin: "top center",
-                  transform: `translateX(-50%) rotate(${angle}deg)`,
-                  pointerEvents: "none",
+                  width: "200vw",
+                  height: `${h}px`,
+                  /* gradient bright in centre, fading to both ends */
+                  background: `linear-gradient(to right, transparent 0%, rgba(59,181,232,${opacity * 0.6}) 30%, rgba(59,181,232,${opacity}) 48%, rgba(59,181,232,${opacity}) 52%, rgba(59,181,232,${opacity * 0.6}) 70%, transparent 100%)`,
+                  transformOrigin: "center center",
+                  transform: `translateX(-50%) translateY(-50%) rotate(${angle}deg)`,
                 }}
               />
             ))}
+
+            {/* Wide radial bloom above and below horizon */}
+            <div style={{
+              position: "absolute",
+              top: "1px",
+              left: "50%",
+              transform: "translate(-50%, -40%)",
+              width: "80vw",
+              height: "340px",
+              background: "radial-gradient(ellipse at 50% 10%, rgba(59,181,232,0.2) 0%, rgba(59,181,232,0.07) 40%, transparent 72%)",
+              pointerEvents: "none",
+            }} />
           </div>
 
           {/* ── Single subtle arc ring behind icon ── */}
@@ -620,7 +653,7 @@ export default function CompanyLanding() {
               width: "500px",
               height: "500px",
               borderRadius: "50%",
-              background: "radial-gradient(ellipse at center, rgba(2,4,14,0.82) 0%, transparent 68%)",
+              background: "radial-gradient(ellipse at center, rgba(2,4,14,0.85) 0%, transparent 68%)",
               zIndex: 1,
             }}
           />
