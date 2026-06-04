@@ -32,8 +32,7 @@ export default function Header() {
       }}
       data-testid="header-sticky"
     >
-      {/* Top bar */}
-      <div className="container mx-auto flex h-14 md:h-16 items-center justify-between gap-4 px-4">
+      <div className="container mx-auto relative flex h-14 md:h-16 items-center justify-between gap-4 px-4">
         <button
           onClick={() => {
             if (location === "/") {
@@ -51,23 +50,14 @@ export default function Header() {
             </svg>
           </div>
           <span
-            className="hidden min-[380px]:inline text-sm font-bold leading-tight text-foreground md:hidden"
+            className="text-sm font-bold leading-tight text-foreground"
             data-testid="text-brand-name-mobile"
           >
             The Blockchain Pulse
           </span>
-          <div className="hidden md:flex flex-col">
-            <span
-              className="text-sm font-bold leading-tight text-foreground"
-              data-testid="text-brand-name"
-            >
-              The Blockchain Pulse
-            </span>
-          </div>
         </button>
 
-        {/* Desktop nav */}
-        <nav className="hidden md:flex items-center gap-6">
+        <nav className="hidden md:flex absolute left-1/2 -translate-x-1/2 items-center gap-6">
           {navItems.map((item) => {
             const isActive = isNavItemActive(item.href);
             return (
@@ -101,7 +91,6 @@ export default function Header() {
         </a>
       </div>
 
-      {/* Mobile nav bar — no hamburger */}
       <nav
         className="md:hidden border-t border-border/50 bg-background/80 backdrop-blur-sm"
         data-testid="mobile-menu-bar"

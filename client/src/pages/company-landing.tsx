@@ -297,46 +297,52 @@ export default function CompanyLanding() {
       <main className="flex-1">
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
-        <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/5 pt-6 pb-10 md:pt-10 md:pb-16">
-          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMzYmI1ZTgiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyem0wLTRWMjhoLTEydjJoMTJ6bTAtNFYyNGgtMTJ2Mmgxem0wLTRWMjBoLTEydjJoMTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
-          <div className="container relative z-10 mx-auto px-4">
-            <div className="grid items-center gap-8 lg:grid-cols-[1fr_0.95fr] lg:gap-12">
-              {/* Animated image first on mobile (top), right column on desktop */}
-              <div className="order-1 w-full lg:order-2">
-                <HeroAnimatedVisual />
-              </div>
+        <section
+  className="relative overflow-hidden pt-32 pb-32 md:pt-40 md:pb-40 min-h-[90vh] flex items-center"
+  data-testid="section-course-showcase"
+>
+  {/* Your blockchain bg image */}
+  <div
+    className="absolute inset-0 z-0"
+    style={{
+      backgroundImage: `url('/ChatGPT Image Jun 5, 2026, 12_44_38 AM.png')`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+    }}
+  />
 
-              <div className="order-2 flex flex-col items-center text-center lg:order-1 lg:items-start lg:text-left">
-                <div className="mb-6 hidden md:inline-flex items-center gap-2 rounded-full border border-primary/30 bg-card/80 px-3 py-1 text-xs font-semibold text-foreground shadow-sm">
-                  <Boxes className="h-3.5 w-3.5 text-primary" />
-                  The Blockchain Pulse Academy
-                </div>
+  {/* Dark overlay */}
+  <div className="absolute inset-0 z-0 bg-black/50" />
 
-                <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-foreground md:text-5xl lg:text-6xl">
-                  Blockchain courses for
-                  <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent"> Web3 learners</span>
-                </h1>
+  <div className="container relative z-10 mx-auto px-4">
+  <div className="flex flex-col items-center gap-8 text-center">
 
-                <p className="mt-6 max-w-2xl text-lg text-muted-foreground md:text-xl">
-                  Learn blockchain fundamentals, Bitcoin, Ethereum, wallets, crypto exchanges, and practical Web3 skills through a clear guided program.
-                </p>
+{/* Heading */}
+<h1
+  className="max-w-5xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl"
+  data-testid="text-hero-heading"
+>
+  <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+    The Blockchain Pulse
+  </span>
+</h1>
 
-                <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:items-start">
-                  <a href="/course" className="inline-flex">
-                    <button className="px-8 py-3 rounded-lg bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-colors border border-accent">
-                      Explore Our Course
-                    </button>
-                  </a>
-                  <a href="/about-us" className="inline-flex">
-                    <button className="px-8 py-3 rounded-lg bg-primary/10 hover:bg-primary/20 text-foreground font-semibold transition-colors border border-primary/30">
-                      Learn More
-                    </button>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+{/* Tagline */}
+<div
+  className="flex w-full max-w-3xl items-center justify-center gap-3"
+  data-testid="text-hero-tagline"
+>
+  <div className="h-px w-8 shrink-0 bg-primary/50 md:w-12" />
+  <p className="text-center text-[10px] font-semibold uppercase leading-snug tracking-[0.18em] text-white/70 sm:text-xs md:text-sm md:tracking-[0.22em] lg:text-base">
+    Incubating talent · Delivering world-class · freelance solutions
+  </p>
+  <div className="h-px w-8 shrink-0 bg-primary/50 md:w-12" />
+</div>
+
+</div>
+  </div>
+</section>
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
