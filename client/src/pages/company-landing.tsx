@@ -23,7 +23,6 @@ import {
   MessageSquare,
   ChevronLeft,
   ChevronRight,
-  ArrowRight,
   Clock,
 } from "lucide-react";
 import { SiEthereum, SiBitcoin } from "react-icons/si";
@@ -322,7 +321,7 @@ export default function CompanyLanding() {
                   Learn blockchain fundamentals, Bitcoin, Ethereum, wallets, crypto exchanges, and practical Web3 skills through a clear guided program.
                 </p>
 
-                <div className="mt-8 flex flex-col gap-4 sm:flex-row">
+                <div className="mt-8 flex flex-col items-center gap-4 sm:flex-row lg:items-start">
                   <a href="/course" className="inline-flex">
                     <button className="px-8 py-3 rounded-lg bg-accent hover:bg-accent/90 text-accent-foreground font-semibold transition-colors border border-accent">
                       Explore Our Course
@@ -372,10 +371,6 @@ export default function CompanyLanding() {
               <p className="text-base max-w-xl mx-auto mb-5" style={{ color: "#64748b" }}>
                 Learn blockchain fundamentals, Bitcoin architecture, Ethereum architecture, smart contracts and more.
               </p>
-              {/* arrow separator */}
-              <div className="flex items-center justify-center">
-                <ArrowRight className="w-5 h-5" style={{ color: "rgba(59,181,232,0.4)" }} />
-              </div>
             </FadeIn>
 
             <RoadmapGrid />
