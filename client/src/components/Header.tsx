@@ -1,8 +1,6 @@
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { useHeaderVisibility } from "@/hooks/useHeaderVisibility";
-import { Menu, X } from "lucide-react";
-import { useState } from "react";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -13,9 +11,6 @@ const navItems = [
 export default function Header() {
   const [location, navigate] = useLocation();
   const isHeaderVisible = useHeaderVisibility();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
-  const isHome = location === "/";
 
   const isNavItemActive = (href: string) => {
     if (href === "/") return location === "/";
@@ -37,8 +32,8 @@ export default function Header() {
       }}
       data-testid="header-sticky"
     >
-      <div className="container mx-auto flex h-16 items-center justify-between gap-4 px-4">
-        {/* Logo */}
+      {/* Top bar */}
+      <div className="container mx-auto flex h-14 md:h-16 items-center justify-between gap-4 px-4">
         <button
           onClick={() => {
             if (location === "/") {
@@ -55,6 +50,12 @@ export default function Header() {
               <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" />
             </svg>
           </div>
+          <span
+            className="text-sm font-bold leading-tight text-foreground md:hidden"
+            data-testid="text-brand-name-mobile"
+          >
+            The Blockchain Pulse
+          </span>
           <div className="hidden md:flex flex-col">
             <span
               className="text-sm font-bold leading-tight text-foreground"
@@ -63,19 +64,6 @@ export default function Header() {
               The Blockchain Pulse
             </span>
           </div>
-        </button>
-
-        {/* Mobile hamburger menu */}
-        <button
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-          className="md:hidden p-2 rounded-md transition-colors hover:bg-primary/10"
-          data-testid="button-mobile-menu"
-        >
-          {mobileMenuOpen ? (
-            <X className="h-6 w-6 text-foreground" />
-          ) : (
-            <Menu className="h-6 w-6 text-muted-foreground" />
-          )}
         </button>
 
         {/* Desktop nav */}
@@ -97,41 +85,38 @@ export default function Header() {
           })}
         </nav>
 
-        {/* Desktop CTA button */}
         <a
           href="https://forms.gle/DMo848mtY8u2UbC1A"
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden md:inline-flex"
+          className="inline-flex flex-shrink-0"
         >
           <Button
             size="sm"
-            className="md:h-9 md:px-4 bg-accent hover:bg-accent/90 text-accent-foreground border border-accent"
+            className="h-8 px-3 text-xs md:h-9 md:px-4 md:text-sm bg-accent hover:bg-accent/90 text-accent-foreground border border-accent"
             data-testid="button-header-register"
           >
-            Get Early Access
+            <span className="md:hidden">Register</span>
+            <span className="hidden md:inline">Get Early Access</span>
           </Button>
         </a>
       </div>
 
-      {/* Mobile dropdown menu */}
-      {mobileMenuOpen && (
-        <nav
-          className="md:hidden border-t border-border/50 flex flex-col gap-1 p-4 bg-gradient-to-br from-primary/5 via-background to-accent/5"
-          data-testid="mobile-menu-dropdown"
-        >
+      {/* Mobile nav bar — no hamburger */}
+      <nav
+        className="md:hidden border-t border-border/50 bg-background/80 backdrop-blur-sm"
+        data-testid="mobile-menu-bar"
+      >
+        <div className="container mx-auto flex items-center justify-around px-2 py-2">
           {navItems.map((item) => {
             const isActive = isNavItemActive(item.href);
             return (
               <button
                 key={item.label}
-                onClick={() => {
-                  handleNavigation(item.href);
-                  setMobileMenuOpen(false);
-                }}
-                className={`text-sm font-medium px-3 py-2.5 rounded-md transition-colors text-left ${
+                onClick={() => handleNavigation(item.href)}
+                className={`flex-1 py-1.5 text-center text-sm font-medium transition-colors ${
                   isActive
-                    ? "text-foreground bg-primary/10"
+                    ? "text-foreground"
                     : "text-muted-foreground hover:text-foreground"
                 }`}
                 data-testid={`link-mobile-menu-${item.label.toLowerCase().replace(/\s+/g, "-")}`}
@@ -140,8 +125,8 @@ export default function Header() {
               </button>
             );
           })}
-        </nav>
-      )}
+        </div>
+      </nav>
     </header>
   );
 }

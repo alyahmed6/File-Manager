@@ -8,7 +8,6 @@ import {
   Layers,
   Tag,
   Scale,
-  Shield,
   BarChart2,
   TrendingUp,
   Users,
@@ -30,6 +29,7 @@ import {
 import { SiEthereum, SiBitcoin } from "react-icons/si";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import HeroAnimatedVisual from "@/components/HeroAnimatedVisual";
 import { useRef } from "react";
 import qasimPhoto from "@assets/QAsim_1780246728761.jpeg";
 import salmanPhoto from "@assets/Screenshot_2026-05-31_220657_1780247305242.png";
@@ -103,34 +103,8 @@ const blockchainItems = [
 
 /* ─── FADE IN ───────────────────────────────────────────────────────── */
 
-function FadeIn({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
-  const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={className}
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? "translateY(0)" : "translateY(24px)",
-        transition: `opacity 0.7s ease ${delay}s, transform 0.7s ease ${delay}s`,
-      }}
-    >
-      {children}
-    </div>
-  );
+function FadeIn({ children, className = "" }: { children: React.ReactNode; delay?: number; className?: string }) {
+  return <div className={className}>{children}</div>;
 }
 
 /* ─── SECTION LABEL ─────────────────────────────────────────────────── */
@@ -319,29 +293,22 @@ export default function CompanyLanding() {
   const next = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
 
   return (
-    <div className="min-h-screen flex flex-col bg-gradient-to-br from-background via-background to-accent/5">
+    <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
 
-        {/* ── HERO SECTION WITH BLOCKCHAIN IMAGE ─────────────────────── */}
-        <section
-          className="relative overflow-hidden pt-[86px] pb-16 md:pt-24 md:pb-24"
-          style={{
-            backgroundImage:
-              "linear-gradient(rgba(59,181,232,0.10) 1px, transparent 1px), linear-gradient(90deg, rgba(59,181,232,0.10) 1px, transparent 1px)",
-            backgroundSize: "96px 96px",
-          }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-background via-background/90 to-accent/10" />
+        {/* ── HERO ─────────────────────────────────────────────────── */}
+        <section className="relative overflow-hidden bg-gradient-to-br from-primary/10 via-background to-accent/5 pt-6 pb-10 md:pt-10 md:pb-16">
+          <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiMzYmI1ZTgiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDM0djItSDI0di0yaDEyem0wLTRWMjhoLTEydjJoMTJ6bTAtNFYyNGgtMTJ2Mmgxem0wLTRWMjBoLTEydjJoMTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-50" />
           <div className="container relative z-10 mx-auto px-4">
-            <div className="grid items-center gap-12 lg:grid-cols-[1fr_0.95fr]">
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.8 }}
-                className="flex flex-col items-center text-center lg:items-start lg:text-left"
-              >
-                <div className="mb-6 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-card/80 px-3 py-1 text-xs font-semibold text-foreground shadow-sm">
+            <div className="grid items-center gap-8 lg:grid-cols-[1fr_0.95fr] lg:gap-12">
+              {/* Animated image first on mobile (top), right column on desktop */}
+              <div className="order-1 w-full lg:order-2">
+                <HeroAnimatedVisual />
+              </div>
+
+              <div className="order-2 flex flex-col items-center text-center lg:order-1 lg:items-start lg:text-left">
+                <div className="mb-6 hidden md:inline-flex items-center gap-2 rounded-full border border-primary/30 bg-card/80 px-3 py-1 text-xs font-semibold text-foreground shadow-sm">
                   <Boxes className="h-3.5 w-3.5 text-primary" />
                   The Blockchain Pulse Academy
                 </div>
@@ -367,85 +334,18 @@ export default function CompanyLanding() {
                     </button>
                   </a>
                 </div>
-              </motion.div>
-
-              <motion.div
-                initial={{ opacity: 0, x: 36 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.85, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
-                className="relative mx-auto w-full max-w-xl"
-              >
-                <div className="relative aspect-[1.18] overflow-hidden rounded-lg border border-primary/20 bg-card shadow-2xl">
-                  <div
-                    className="absolute inset-0 opacity-70"
-                    style={{
-                      backgroundImage:
-                        "linear-gradient(rgba(59,181,232,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(59,181,232,0.12) 1px, transparent 1px)",
-                      backgroundSize: "46px 46px",
-                    }}
-                  />
-                  <svg className="absolute inset-0 h-full w-full" viewBox="0 0 560 475" fill="none" aria-hidden="true">
-                    <path d="M112 118L280 238L448 118" stroke="rgba(59,181,232,0.32)" strokeWidth="2" />
-                    <path d="M104 355L280 238L456 355" stroke="rgba(245,158,11,0.28)" strokeWidth="2" />
-                    <path d="M112 118L104 355" stroke="rgba(59,181,232,0.18)" strokeWidth="2" />
-                    <path d="M448 118L456 355" stroke="rgba(59,181,232,0.18)" strokeWidth="2" />
-                  </svg>
-
-                  <motion.div
-                    className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/25"
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-                  />
-                  <motion.div
-                    className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/20"
-                    animate={{ rotate: -360 }}
-                    transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
-                  />
-
-                  <motion.div
-                    className="absolute left-1/2 top-1/2 flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg border border-primary/30 bg-gradient-to-br from-primary/20 to-accent/10 shadow-xl"
-                    animate={{ y: [0, -10, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                  >
-                    <Boxes className="h-12 w-12 text-primary" />
-                  </motion.div>
-
-                  {[
-                    { label: "Bitcoin", Icon: SiBitcoin, className: "left-[9%] top-[18%]", color: "#f59e0b" },
-                    { label: "Ethereum", Icon: SiEthereum, className: "right-[8%] top-[18%]", color: "#8b5cf6" },
-                    { label: "DeFi", Icon: Layers, className: "left-[8%] bottom-[18%]", color: "#06b6d4" },
-                    { label: "Wallets", Icon: Shield, className: "right-[8%] bottom-[18%]", color: "#3bb5e8" },
-                  ].map(({ label, Icon, className, color }, index) => (
-                    <motion.div
-                      key={label}
-                      className={`absolute ${className} flex items-center gap-2 rounded-lg border border-primary/20 bg-background/90 px-3 py-2 text-sm font-semibold text-foreground shadow-md backdrop-blur`}
-                      animate={{ y: [0, index % 2 === 0 ? -8 : 8, 0] }}
-                      transition={{ duration: 3.4 + index * 0.4, repeat: Infinity, ease: "easeInOut" }}
-                    >
-                      <Icon className="h-4 w-4" style={{ color }} />
-                      <span>{label}</span>
-                    </motion.div>
-                  ))}
-
-                  {[18, 32, 47, 64, 78].map((left, index) => (
-                    <motion.span
-                      key={left}
-                      className="absolute h-2 w-2 rounded-full bg-primary"
-                      style={{ left: `${left}%`, top: `${index % 2 === 0 ? 28 + index * 6 : 62 - index * 5}%` }}
-                      animate={{ opacity: [0.25, 1, 0.25], scale: [0.8, 1.35, 0.8] }}
-                      transition={{ duration: 2.2, repeat: Infinity, delay: index * 0.35, ease: "easeInOut" }}
-                    />
-                  ))}
-                </div>
-              </motion.div>
+              </div>
             </div>
           </div>
         </section>
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
-        <section className="relative py-28 px-4" data-testid="section-services">
-          <div className="max-w-5xl mx-auto relative z-10">
-            <FadeIn className="text-center mb-16">
+        <section
+          className="bg-card pt-12 pb-16 md:py-20"
+          data-testid="section-services"
+        >
+          <div className="container mx-auto px-4 max-w-5xl">
+            <FadeIn className="text-center mb-8 md:mb-12">
               <SectionLabel>What We Do</SectionLabel>
               <h2 className="text-3xl md:text-5xl font-bold mb-4" data-testid="text-services-heading">
                 <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Our Services</span>
@@ -459,9 +359,12 @@ export default function CompanyLanding() {
         </section>
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
-        <section className="relative py-28 px-4" data-testid="section-course-showcase">
-          <div className="max-w-5xl mx-auto relative z-10">
-            <FadeIn className="text-center mb-16">
+        <section
+          className="bg-background pt-12 pb-16 md:py-20"
+          data-testid="section-course-showcase"
+        >
+          <div className="container mx-auto px-4 max-w-5xl">
+            <FadeIn className="text-center mb-8 md:mb-12">
               <SectionLabel>Upcoming Program</SectionLabel>
               <h2 className="text-3xl md:text-5xl font-bold mb-4" data-testid="text-course-showcase-heading">
                 <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Web3 & Blockchain Program</span>
@@ -502,9 +405,12 @@ export default function CompanyLanding() {
         </section>
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
-        <section className="relative py-28 px-4" data-testid="section-testimonials">
-          <div className="max-w-5xl mx-auto relative z-10">
-            <FadeIn className="text-center mb-16">
+        <section
+          className="bg-card pt-12 pb-16 md:py-20"
+          data-testid="section-testimonials"
+        >
+          <div className="container mx-auto px-4 max-w-5xl">
+            <FadeIn className="text-center mb-8 md:mb-12">
               <SectionLabel>Testimonials</SectionLabel>
               <h2 className="text-3xl md:text-5xl font-bold mb-4" data-testid="text-testimonials-heading">
                 <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">What People Say About Us</span>
@@ -516,7 +422,7 @@ export default function CompanyLanding() {
               {/* Left arrow */}
               <button
                 onClick={prev}
-                className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center border border-primary/30 bg-primary/10 text-primary transition-all hover:scale-110 hover:bg-primary hover:text-primary-foreground"
+                className="hidden md:flex flex-shrink-0 w-10 h-10 rounded-full items-center justify-center border border-primary/30 bg-primary/10 text-primary transition-all hover:scale-110 hover:bg-primary hover:text-primary-foreground"
                 data-testid="button-testimonial-prev"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -596,7 +502,7 @@ export default function CompanyLanding() {
               {/* Right arrow */}
               <button
                 onClick={next}
-                className="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center border border-primary/30 bg-primary/10 text-primary transition-all hover:scale-110 hover:bg-primary hover:text-primary-foreground"
+                className="hidden md:flex flex-shrink-0 w-10 h-10 rounded-full items-center justify-center border border-primary/30 bg-primary/10 text-primary transition-all hover:scale-110 hover:bg-primary hover:text-primary-foreground"
                 data-testid="button-testimonial-next"
               >
                 <ChevronRight className="w-5 h-5" />
