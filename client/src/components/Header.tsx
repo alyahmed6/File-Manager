@@ -51,7 +51,7 @@ export default function Header() {
             </svg>
           </div>
           <span
-            className="text-sm font-bold leading-tight text-foreground md:hidden"
+            className="hidden min-[380px]:inline text-sm font-bold leading-tight text-foreground md:hidden"
             data-testid="text-brand-name-mobile"
           >
             The Blockchain Pulse
@@ -93,11 +93,10 @@ export default function Header() {
         >
           <Button
             size="sm"
-            className="h-8 px-3 text-xs md:h-9 md:px-4 md:text-sm bg-accent hover:bg-accent/90 text-accent-foreground border border-accent"
+            className="h-8 whitespace-nowrap px-2.5 text-xs bg-accent hover:bg-accent/90 text-accent-foreground border border-accent md:h-9 md:px-4 md:text-sm"
             data-testid="button-header-register"
           >
-            <span className="md:hidden">Register</span>
-            <span className="hidden md:inline">Get Early Access</span>
+            Get Early Access
           </Button>
         </a>
       </div>
