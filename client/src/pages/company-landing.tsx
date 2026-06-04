@@ -8,6 +8,7 @@ import {
   Layers,
   Tag,
   Scale,
+  Shield,
   BarChart2,
   TrendingUp,
   Users,
@@ -32,7 +33,6 @@ import Footer from "@/components/Footer";
 import { useRef } from "react";
 import qasimPhoto from "@assets/QAsim_1780246728761.jpeg";
 import salmanPhoto from "@assets/Screenshot_2026-05-31_220657_1780247305242.png";
-import coursePreviewImage from "@assets/img3_1780310286947.png";
 
 /* ─── DATA ──────────────────────────────────────────────────────────── */
 
@@ -375,13 +375,67 @@ export default function CompanyLanding() {
                 transition={{ duration: 0.85, delay: 0.15, ease: [0.22, 1, 0.36, 1] }}
                 className="relative mx-auto w-full max-w-xl"
               >
-                <div className="absolute -inset-6 rounded-full bg-primary/10 blur-3xl" />
-                <div className="relative overflow-hidden rounded-lg border border-primary/20 bg-card p-2 shadow-2xl">
-                  <img
-                    src={coursePreviewImage}
-                    alt="Blockchain course preview"
-                    className="aspect-[1.18] w-full rounded-md object-cover object-top"
+                <div className="relative aspect-[1.18] overflow-hidden rounded-lg border border-primary/20 bg-card shadow-2xl">
+                  <div
+                    className="absolute inset-0 opacity-70"
+                    style={{
+                      backgroundImage:
+                        "linear-gradient(rgba(59,181,232,0.12) 1px, transparent 1px), linear-gradient(90deg, rgba(59,181,232,0.12) 1px, transparent 1px)",
+                      backgroundSize: "46px 46px",
+                    }}
                   />
+                  <svg className="absolute inset-0 h-full w-full" viewBox="0 0 560 475" fill="none" aria-hidden="true">
+                    <path d="M112 118L280 238L448 118" stroke="rgba(59,181,232,0.32)" strokeWidth="2" />
+                    <path d="M104 355L280 238L456 355" stroke="rgba(245,158,11,0.28)" strokeWidth="2" />
+                    <path d="M112 118L104 355" stroke="rgba(59,181,232,0.18)" strokeWidth="2" />
+                    <path d="M448 118L456 355" stroke="rgba(59,181,232,0.18)" strokeWidth="2" />
+                  </svg>
+
+                  <motion.div
+                    className="absolute left-1/2 top-1/2 h-56 w-56 -translate-x-1/2 -translate-y-1/2 rounded-full border border-primary/25"
+                    animate={{ rotate: 360 }}
+                    transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+                  />
+                  <motion.div
+                    className="absolute left-1/2 top-1/2 h-72 w-72 -translate-x-1/2 -translate-y-1/2 rounded-full border border-accent/20"
+                    animate={{ rotate: -360 }}
+                    transition={{ duration: 26, repeat: Infinity, ease: "linear" }}
+                  />
+
+                  <motion.div
+                    className="absolute left-1/2 top-1/2 flex h-28 w-28 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-lg border border-primary/30 bg-gradient-to-br from-primary/20 to-accent/10 shadow-xl"
+                    animate={{ y: [0, -10, 0] }}
+                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
+                  >
+                    <Boxes className="h-12 w-12 text-primary" />
+                  </motion.div>
+
+                  {[
+                    { label: "Bitcoin", Icon: SiBitcoin, className: "left-[9%] top-[18%]", color: "#f59e0b" },
+                    { label: "Ethereum", Icon: SiEthereum, className: "right-[8%] top-[18%]", color: "#8b5cf6" },
+                    { label: "DeFi", Icon: Layers, className: "left-[8%] bottom-[18%]", color: "#06b6d4" },
+                    { label: "Wallets", Icon: Shield, className: "right-[8%] bottom-[18%]", color: "#3bb5e8" },
+                  ].map(({ label, Icon, className, color }, index) => (
+                    <motion.div
+                      key={label}
+                      className={`absolute ${className} flex items-center gap-2 rounded-lg border border-primary/20 bg-background/90 px-3 py-2 text-sm font-semibold text-foreground shadow-md backdrop-blur`}
+                      animate={{ y: [0, index % 2 === 0 ? -8 : 8, 0] }}
+                      transition={{ duration: 3.4 + index * 0.4, repeat: Infinity, ease: "easeInOut" }}
+                    >
+                      <Icon className="h-4 w-4" style={{ color }} />
+                      <span>{label}</span>
+                    </motion.div>
+                  ))}
+
+                  {[18, 32, 47, 64, 78].map((left, index) => (
+                    <motion.span
+                      key={left}
+                      className="absolute h-2 w-2 rounded-full bg-primary"
+                      style={{ left: `${left}%`, top: `${index % 2 === 0 ? 28 + index * 6 : 62 - index * 5}%` }}
+                      animate={{ opacity: [0.25, 1, 0.25], scale: [0.8, 1.35, 0.8] }}
+                      transition={{ duration: 2.2, repeat: Infinity, delay: index * 0.35, ease: "easeInOut" }}
+                    />
+                  ))}
                 </div>
               </motion.div>
             </div>
