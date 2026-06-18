@@ -21,25 +21,19 @@ export default function AboutUs() {
             </Link>
 
             <article className="prose prose-slate dark:prose-invert max-w-none">
-              <h1 data-testid="text-about-heading">About Us</h1>
+              <h1 data-testid="text-about-heading">Your Gateway to Blockchain</h1>
 
               <p>
-                The Blockchain Pulse is an Information Technology company registered with the Securities and Exchange Commission of Pakistan (SECP). We are dedicated to providing structured, easy-to-understand education on blockchain technology and cryptocurrencies for the general public, beginners, and crypto enthusiasts.
+                The Blockchain Pulse is an Information Technology company registered with the Securities and Exchange Commission of Pakistan (SECP), dedicated to building a thriving ecosystem for innovation, entrepreneurship, and digital transformation. We provide professional co-working spaces, startup incubation services, and structured education in blockchain technology, Web3, and cryptocurrencies, creating a platform where individuals, freelancers, entrepreneurs, startups, and technology enthusiasts can learn, collaborate, and grow.
               </p>
 
-              <h2>Our Mission</h2>
               <p>
-                Our mission is to simplify blockchain and crypto concepts and make them accessible to anyone interested in understanding how decentralized technologies work. As the digital economy continues to evolve, we aim to equip learners with accurate knowledge, practical insights, and foundational skills—without technical complexity or misleading information.
+                Our mission is to bridge the gap between emerging technologies and practical opportunities by offering accessible blockchain and Web3 education, mentorship, skill development, and a supportive environment for innovation. Through our co-working and incubation ecosystem, we empower startups and professionals with the resources, guidance, networking opportunities, and collaborative workspace they need to transform ideas into successful ventures and contribute to the growth of the digital economy.
               </p>
 
-              <h2>What We Offer</h2>
+              <h2>Courses Offered</h2>
               <p>
                 We are launching a Blockchain & Cryptocurrency Basics course that combines recorded learning modules with live Q&A sessions, allowing learners to study at their own pace while still engaging directly for clarity and guidance. Upon successful completion of the course, participants will receive a certificate of completion from The Blockchain Pulse.
-              </p>
-
-              <h2>Education Over Speculation</h2>
-              <p>
-                At The Blockchain Pulse, we emphasize education over speculation. Our content is designed purely for learning purposes and does not constitute financial, investment, or trading advice. We encourage responsible learning and informed decision-making when exploring blockchain and digital assets.
               </p>
 
               <h2>Community Engagement</h2>
@@ -47,7 +41,7 @@ export default function AboutUs() {
 
               <h2>Your Starting Point</h2>
               <p>
-                Whether you are new to blockchain or looking to build a strong conceptual foundation, The Blockchain Pulse is your trusted starting point in understanding the future of decentralized technology.
+                The Blockchain Pulse is a hub for learning, collaboration, and innovation, offering blockchain and Web3 education alongside co-working and incubation services that help individuals and startups transform ideas into successful ventures.
               </p>
             </article>
           </div>

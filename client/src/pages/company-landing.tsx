@@ -145,9 +145,14 @@ function ServicesGrid() {
                   <path d="M16 3.13a4 4 0 0 1 0 7.75" />
                 </svg>
               </div>
+              <div>
               <h3 className="text-xl font-bold text-foreground" data-testid="text-incubation-heading">
-                Incubation Services
+                Incubation Services &
               </h3>
+              <h3 className="text-xl font-bold text-foreground" data-testid="text-incubation-heading">
+                Co-Working Space
+              </h3>
+              </div>
             </div>
             <p className="text-sm leading-relaxed mb-6 text-muted-foreground">
               We support freelancers, individuals, and startups through mentorship, skill development, collaboration, and real-world opportunities.

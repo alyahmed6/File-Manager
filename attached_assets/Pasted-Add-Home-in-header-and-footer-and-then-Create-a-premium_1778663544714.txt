@@ -122,7 +122,7 @@ Create a simple clean split layout with two service areas instead of cards.
 
 LEFT SIDE
 Heading:
-“Incubation Services”
+“Incubation Services & Co-worker ”
 Text:
 “We support freelancers, individuals, and startups through mentorship, skill development, collaboration, and real-world opportunities.”
 Include simple clean bullet points:
