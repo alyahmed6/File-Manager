@@ -8,9 +8,12 @@ import CompanyLanding from "@/pages/company-landing";
 import Course from "@/pages/course";
 import Register from "@/pages/register";
 import AboutUs from "@/pages/about-us";
+import Blog from "@/pages/blog";
+import BlogDetail from "@/pages/blog-detail";
 import PrivacyPolicy from "@/pages/privacy-policy";
 import TermsOfService from "@/pages/terms-of-service";
 import NotFound from "@/pages/not-found";
+import Admin from "@/pages/admin";
 
 function Router() {
   return (
@@ -19,6 +22,9 @@ function Router() {
       <Route path="/course" component={Course} />
       <Route path="/register" component={Register} />
       <Route path="/about-us" component={AboutUs} />
+      <Route path="/blog/:slug" component={BlogDetail} />
+      <Route path="/blog" component={Blog} />
+      <Route path="/admin" component={Admin} />
       <Route path="/privacy-policy" component={PrivacyPolicy} />
       <Route path="/terms-of-service" component={TermsOfService} />
       <Route component={NotFound} />

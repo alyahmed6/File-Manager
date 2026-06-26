@@ -5,6 +5,7 @@ import { useHeaderVisibility } from "@/hooks/useHeaderVisibility";
 const navItems = [
   { label: "Home", href: "/" },
   { label: "Course", href: "/course" },
+  { label: "Blog", href: "/blog" },
   { label: "About Us", href: "/about-us" },
 ];
 
@@ -15,6 +16,7 @@ export default function Header() {
   const isNavItemActive = (href: string) => {
     if (href === "/") return location === "/";
     if (href === "/course") return location === "/course";
+    if (href === "/blog") return location === "/blog";
     if (href === "/about-us") return location === "/about-us";
     return false;
   };

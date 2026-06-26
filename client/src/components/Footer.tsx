@@ -70,6 +70,11 @@ export default function Footer() {
                 </button>
               </li>
               <li>
+                <button onClick={() => { navigate("/blog"); window.scrollTo({ top: 0, behavior: "instant" }); }} className="hover:text-foreground transition-colors" data-testid="link-footer-blog">
+                  Blog
+                </button>
+              </li>
+              <li>
                 <button onClick={() => { navigate("/about-us"); window.scrollTo({ top: 0, behavior: "instant" }); }} className="hover:text-foreground transition-colors" data-testid="link-footer-about">
                   About Us
                 </button>
