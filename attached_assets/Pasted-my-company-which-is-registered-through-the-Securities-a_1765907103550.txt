@@ -1,0 +1,48 @@
+my company which is registered through the Securities and Exchange Commission of Pakistan (SECP) wants to launch a cryptocurrency and blockchain basics course (duration is 2 months) soon on our discord server for which i want to create a website so people can come there and see what i offer and be able to register to the course using my website. colors throughout the website should exactly be like the image i uploaded named colors (use them in mixture) and theme of the website should be like
+Unify design with:
+
+Softer gradients
+
+One consistent tech pattern
+
+Cleaner layout
+
+Stronger CTA
+
+Clear learning journey
+
+Modern crypto-academic look
+
+make 5 sections, hero section, course section, curriculum, pricing and faq. 
+
+hero section should include the introduction like, welcome to the course or master crypto and blockchain as heading and under add content like you will learn about blockchain basics, bitcoin, ethereum, wallets, crypto exchanges and more within 2 months through downloadable videos on our discord server  (the course duration is 2 months). you can edit the content under header to make it more professional.
+right side of the hero section should have space for a video like how to register. 
+
+course section should include the heading why choose us. under that write some eye catching crypto and financial market sentence like. get rid of fake crypto gurus or learn then earn and explain the course a little bit according to the curriculum. also add certification, hands on learning, flexible schedule and community support e.t.c. 
+
+curriculum should have 10 modules: 
+1 Introduction to Blockchain: Understanding the fundamentals of distributed ledger technology and how blockchain works.  ~1h 
+2 Bitcoin Deep Dive: Complete guide to Bitcoin, its history, mining, transactions, and use cases.  ~1h
+3 Ethereum & Smart Contracts: Learn about Ethereum, smart contracts, DApps, and the broader ecosystem.  ~1h
+4 Cryptocurrency Wallets: Creating wallet, Understanding wallets, security practices, and wallet management.  ~1h 
+5 Centralized Exchanges (CEX's): How to use major exchanges, trading basics, and security considerations.  ~1h 
+6 Decentralized Exchanges (DEX's): Understanding DEXs, liquidity pools, yield farming, and DeFi protocols.  ~1h 
+7 Narratives: Understanding Stablecoins, AI in blockchain, RWA's, Metaverse, NFT's and more. ~1h 
+8 Advanced Topics & Future: Emerging trends, regulatory landscape, and future of blockchain technology. ~1h  
+9 Important Research & Analytical Platforms: How to use analytical data provider platforms to analyze Cryptocurrency projects.  ~1h 
+10 Layer 2's, Rollups & Side Chains purpose: importance and differences, Proving mechanisms, Zk and Optimistic proofs. ~1h
+
+in the pricing section add pkr and usdt options. fee is 10000 pkr or 35 usdt. add 30% discount for early users(valid for 1 month only).
+also add simple lines like 10 modules, 10 videos, downloadable videos via discord e.t.c.
+
+every registration and early access button should redirect to a page where users should be able to register their email (add a button like notify me). after successful registration show them you will be notified about the updates and when the course start kind of thing. send their registered email to registration@theblockchainpulse.org . image is added named redirect page
+
+use the footer image and make the footer like the one in image except the colors. color scheme for whole website should be like what i described earlier.
+link x.com/theblockchainpulse to the x icon in footer.
+link https://www.instagram.com/theblockchainpulse/ to the Instagram icon in footer.
+in help center link this to help centre support@theblockchainpulse.org
+in help centre link this to contact us x.com/theblockchainpulse
+
+add the privacy policy and terms of service. text content is provided in the uploaded file.
+
+create some faqs according to the above given content.

@@ -1,0 +1,107 @@
+Use the exact same animated background design from the HERO section throughout the ENTIRE landing page.
+
+Right now, the sections are visually separated because the background changes between sections. The dark star/blockchain particle background from the hero section disappears, making the divide between sections very obvious on mobile and desktop.
+
+I want the entire website to feel like ONE continuous screen with the SAME background flowing naturally across all sections.
+
+==================================================
+IMPORTANT REQUIREMENT
+
+The animated blockchain/star particle background used in the HERO section must continue across the FULL PAGE including:
+
+Our Services
+Web3 Course
+Testimonials
+Footer
+
+Do NOT switch backgrounds between sections.
+
+The same:
+
+star-like node network
+glowing particles
+connecting blockchain lines
+dark futuristic texture
+animated ambient background
+
+should remain visible continuously from top to bottom.
+
+==================================================
+REMOVE ALL SECTION DIVIDES
+
+Currently there are visible horizontal divides between sections because:
+
+background colors are changing
+overlays are different
+sections have separate containers
+lighting abruptly changes
+
+Remove ALL visible section separation.
+
+The user should NOT be able to tell where one background ends and another begins.
+
+==================================================
+BACKGROUND BEHAVIOR
+
+Create ONE GLOBAL BACKGROUND for the entire page instead of separate section backgrounds.
+
+The background should:
+
+stay visually consistent
+scroll naturally with the page
+maintain the same star/blockchain design
+preserve the same lighting and texture everywhere
+
+Use:
+
+one continuous dark animated canvas/background layer
+low-opacity blockchain particles
+subtle glowing nodes
+faint connecting lines
+smooth gradient blending
+==================================================
+SECTION STYLING
+
+Do NOT give sections separate background colors.
+
+Instead:
+
+keep section backgrounds transparent
+let the global animated background show through
+use only spacing and typography to separate sections
+
+Avoid:
+
+boxed layouts
+hard background overlays
+dark blocks
+visible horizontal cuts
+obvious container backgrounds
+==================================================
+VISUAL GOAL
+
+The page should feel like:
+
+one continuous futuristic environment
+immersive and cinematic
+premium SaaS/Web3 website
+smooth and cohesive on mobile and desktop
+
+When scrolling, the user should always see the SAME animated blockchain/star background flowing seamlessly behind every section.
+
+==================================================
+MOBILE OPTIMIZATION
+
+Pay special attention to mobile devices.
+
+Currently the section divide is very visible on mobile.
+
+Ensure:
+
+identical background appearance across sections on mobile
+no visible color shift
+no dark blocks between sections
+no abrupt lighting changes
+smooth continuous scrolling experience
+
+The final result should look like one long futuristic page with a single uninterrupted animated blockchain/starfield background.
