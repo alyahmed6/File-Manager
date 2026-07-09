@@ -2,9 +2,9 @@ import { useState } from "react";
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
+import HeroAnimatedVisual from "@/components/HeroAnimatedVisual";
 
 // Sample data for grid items
 type CourseCard = {
@@ -138,24 +138,29 @@ export default function Home() {
     <main className="flex-1">
       {/* Hero Section */}
       <section className="py-20 bg-gradient-to-r from-primary/10 to-primary/5">
-        <div className="container mx-auto px-4 text-center">
-          <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-            Master Blockchain & Web3 Technologies
-          </h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-            Comprehensive courses designed by industry experts to help you build real-world blockchain applications
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-md mx-auto">
-            <Input
-              type="text"
-              placeholder="Search courses..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="flex-1"
-            />
-            <Button size="lg" className="w-full sm:w-auto">
-              Browse All Courses
-            </Button>
+        <div className="container mx-auto px-4">
+          <div className="grid gap-12 items-center lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="text-center lg:text-left">
+              <div className="mb-5 inline-flex items-center justify-center rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary shadow-sm lg:justify-start">
+                <span className="h-2.5 w-2.5 rounded-full bg-primary mr-2" />
+                Blockchain Pulse Blog
+              </div>
+              <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
+                Master Blockchain & Web3 Technologies
+              </h1>
+              <p className="text-xl text-muted-foreground mb-8 max-w-3xl">
+                Comprehensive courses designed by industry experts to help you build real-world blockchain applications.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+                <Button size="lg" className="w-full sm:w-auto">
+                  Browse All Courses
+                </Button>
+                <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                  Learn More
+                </Button>
+              </div>
+            </div>
+            <HeroAnimatedVisual />
           </div>
         </div>
       </section>

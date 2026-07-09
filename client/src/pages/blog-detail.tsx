@@ -1,20 +1,76 @@
 import { useEffect } from "react";
 import { Link, useRoute } from "wouter";
+import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Clock, Tag } from "lucide-react";
+import { marked } from "marked";
+import DOMPurify from "dompurify";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import NotFound from "@/pages/not-found";
-import { blogPosts } from "@/data/blog-posts";
+import type { BlogPost } from "@/data/blog-posts";
+import { fetchBlogPost, fetchBlogPosts } from "@/lib/blog-api";
 
 export default function BlogDetail() {
   const [, params] = useRoute<{ slug: string }>("/blog/:slug");
-  const post = blogPosts.find((blogPost) => blogPost.slug === params?.slug);
+  const slug = params?.slug ?? "";
+
+  const { data: remotePost, isLoading, isError } = useQuery({
+    queryKey: ["blog-post", slug],
+    queryFn: () => fetchBlogPost(slug),
+    enabled: Boolean(slug),
+  });
+
+  const { data: remotePosts } = useQuery({
+    queryKey: ["blog-posts"],
+    queryFn: fetchBlogPosts,
+  });
+
+  const post = remotePost;
+
+  const renderTextWithLineBreaks = (text: string) =>
+    text.split("\n").map((line, idx, arr) => (
+      <span key={idx}>
+        {line}
+        {idx < arr.length - 1 ? <br /> : null}
+      </span>
+    ));
+
+  const markdownToHtml = (md: string) => {
+    if (!md) return "";
+    try {
+      const raw = marked.parse(md) as string;
+      return DOMPurify.sanitize(raw);
+    } catch (e) {
+      return md.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [slug]);
+
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1 container mx-auto px-4 py-24 text-center text-muted-foreground">
+          Loading blog post...
+        </main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!post) return <NotFound />;
+
+  const author = {
+    name: "Nauman",
+    role: "Blockchain Analyst & Writer",
+    bio: "Nauman writes about DeFi, tokenomics, and crypto trends with a focus on practical market insights, research-led analysis, and responsible education.",
+    tags: ["Cryptocurrency", "Bitcoin", "Ethereum", "Blockchain", "Investing"],
+  };
+
+  const morePosts = remotePosts?.filter((item) => item.slug !== slug).slice(0, 2) ?? [];
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -25,7 +81,6 @@ export default function BlogDetail() {
             <div
               className="absolute inset-0 opacity-20"
               style={{
-                backgroundImage: `url('${post.image}')`,
                 backgroundSize: "cover",
                 backgroundPosition: "center",
               }}
@@ -70,27 +125,72 @@ export default function BlogDetail() {
                 <img src={post.image} alt="" className="h-full max-h-[420px] w-full object-cover" />
               </div>
 
-              <div className="mx-auto max-w-3xl rounded-lg border border-border bg-card p-5 md:p-8">
+              <div className="mx-auto max-w-3xl p-5 md:p-8">
                 <div className="prose prose-slate max-w-none dark:prose-invert">
-                  {post.sections.map((section) => (
+                  {post.sections.map((section: BlogPost["sections"][number]) => (
                     <div key={section.heading}>
                       <h2>{section.heading}</h2>
-                      <p>{section.body}</p>
+                      {section.image ? (
+                        <img src={section.image} alt="" className="my-4 rounded-lg border border-border" />
+                      ) : null}
+                      <div dangerouslySetInnerHTML={{ __html: markdownToHtml(section.body) }} />
                     </div>
                   ))}
                 </div>
 
-                {post.takeaways.length > 0 ? (
-                  <div className="mt-8 rounded-lg border border-accent/20 bg-accent/5 p-5">
-                    <h2 className="mb-3 text-base font-semibold text-foreground">Key takeaways</h2>
-                    <ul className="space-y-2 text-sm text-muted-foreground">
-                      {post.takeaways.map((takeaway) => (
-                        <li key={takeaway} className="flex gap-2">
-                          <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-accent" />
-                          <span>{takeaway}</span>
-                        </li>
+              
+
+                <div className="mt-10 rounded-2xl border border-border/80 bg-card p-6">
+                  <div className="flex flex-col gap-4">
+                    <div>
+                      <h2 className="text-lg font-semibold text-foreground">About the author</h2>
+                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                        {author.bio}
+                      </p>
+                    </div>
+                    <div className="flex flex-wrap gap-2">
+                      {author.tags.map((tag) => (
+                        <span key={tag} className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
+                          {tag}
+                        </span>
                       ))}
-                    </ul>
+                    </div>
+                  </div>
+                </div>
+
+                {morePosts.length > 0 ? (
+                  <div className="mt-10">
+                    <h2 className="mb-6 text-2xl font-semibold text-foreground">More from {author.name}</h2>
+                    <div className="grid gap-6 md:grid-cols-2">
+                      {morePosts.map((morePost) => (
+                        <Link
+                          key={morePost.slug}
+                          href={`/blog/${morePost.slug}`}
+                          className="group overflow-hidden rounded-2xl border border-border bg-background transition hover:border-foreground/20"
+                        >
+                          <div className="p-5">
+                            <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{morePost.category}</p>
+                            <h3 className="mt-3 text-lg font-semibold text-foreground group-hover:text-primary">
+                              {morePost.title}
+                            </h3>
+                            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                              {morePost.excerpt}
+                            </p>
+                          </div>
+                          <div className="h-40 overflow-hidden">
+                            <img src={morePost.image} alt={morePost.title} className="h-full w-full object-cover" />
+                          </div>
+                        </Link>
+                      ))}
+                    </div>
+                    <div className="mt-6">
+                      <Link
+                        href="/blog"
+                        className="inline-flex items-center rounded-full border border-border px-5 py-2 text-sm font-medium text-foreground transition hover:border-foreground/80 hover:bg-muted"
+                      >
+                        See all from {author.name}
+                      </Link>
+                    </div>
                   </div>
                 ) : null}
               </div>

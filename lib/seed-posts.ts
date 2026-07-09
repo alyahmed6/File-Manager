@@ -1,26 +1,6 @@
-export type BlogPost = {
-  slug: string;
-  title: string;
-  category: string;
-  date: string;
-  readTime: string;
-  excerpt: string;
-  image: string;
-  sourceUrl?: string;
-  sections: {
-    heading: string;
-    body: string;
-    image?: string;
-    bold?: boolean;
-    fontSize?: string;
-    fontFamily?: string;
-  }[];
-  takeaways: string[];
-};
+import type { BlogPostInput } from "./blog-types";
 
-export type BlogPostUpdate = Omit<BlogPost, "slug">;
-
-export const blogPosts: BlogPost[] = [
+export const seedPosts: BlogPostInput[] = [
   {
     slug: "crypto-token-unlocks",
     title: "More Than $1.5 Billion in Crypto Token Unlocks are About to Hit the Market in June 2026",
