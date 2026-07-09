@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 Privacy Policy — The Blockchain Pulse
 
 Last updated: August 9, 2025
@@ -91,3 +92,98 @@ The Service is not directed to children under 13 (or the local equivalent).
 11. Your Rights & Choices
 
 Deletion: request removal of your account to support@theblockchainpulse.com(subject to retention requirements).
+=======
+Privacy Policy — The Blockchain Pulse
+
+Last updated: August 9, 2025
+
+Introduction
+The Blockchain Pulse ("we", "us", "our") operates https://theblockchainpulse.com (the "Site") and provides online educational courses and associated community services (the "Service"). We take your privacy seriously. This Privacy Policy explains what information we collect, why we collect it, how we use it, and your rights.
+
+1. Information We Collect
+
+A. Information you provide directly
+
+Account information: name, email address, country, and any profile details when you register.
+
+Payment information: If you pay with crypto, we record wallet addresses used for purchase and the transaction hash; we do not have control over on-chain transaction data.
+
+Communications: messages you send to support, Discord handle, questions, and content you post in community channels when you opt in.
+
+Course submissions: files, assignments, quiz responses when submitted as part of a course.
+
+B. Information we collect automatically
+
+Usage data: IP address, device type, browser type, pages visited, timestamps, and analytics events collected via GA4 or similar tools.
+
+Cookies & tracking: session cookies, persistent cookies, and similar technologies to remember preferences and measure site performance.
+
+C. Third-party sources
+
+Third-party services: information from payment processors, identity verification services (if used), Discord (if you connect your account), and analytics providers.
+
+2. How We Use Your Information
+
+We use collected information to:
+
+Provide, maintain, and improve the Service.
+
+Process payments and fulfill course purchases (including issuing).
+
+Communicate about course updates, account information, and support requests.
+
+Personalize your experience and show relevant content.
+
+Detect, prevent, and respond to fraud, abuse, or other illegal activity.	
+
+When you pay with crypto, we will:
+
+Record the wallet address and transaction hash to verify payment and grant access.
+
+
+3. Legal Basis for Processing (If GDPR applies)
+
+We rely on: (a) performance of a contract to provide paid services; (b) legitimate interests such as site security, analytics, and fraud detection; and (c) consent where required (e.g., marketing emails). You have rights to access, correct, delete, and restrict processing as described below.
+
+
+4. Sharing & Disclosure
+
+We may share data with:
+
+Service providers (payment processors, email providers, host/CDN, analytics providers).
+
+Legal & safety: when required by law or to protect rights and safety.
+
+Acquirers: in the event of a merger, acquisition, or asset sale.
+
+We never sell your personal data for marketing.
+
+
+5. On-chain Data and Wallets
+
+
+Wallet addresses, public keys, and on-chain transaction hashes are public-by-design on the blockchain; we may display or link to those records for verification. Do not use a wallet address you wish to keep private.
+
+
+
+
+7. Data Retention
+
+We retain account and transactional data as needed to provide the Service, to comply with legal obligations, and to support dispute resolution. If you request account deletion, we will delete personal data except for information that we must retain for legal, tax, or operational reasons (e.g., transaction records for 6+ years where required by law).
+
+
+8. Security
+
+We implement reasonable organizational and technical measures to protect data. However, no system is 100% secure. If a data breach occurs, we will notify affected users and regulators where required.
+
+
+9. Children
+
+The Service is not directed to children under 13 (or the local equivalent).
+
+
+
+11. Your Rights & Choices
+
+Deletion: request removal of your account to support@theblockchainpulse.com(subject to retention requirements).
+>>>>>>> 424d6b20c90b5c4cbd91b08399657e29282195c3
