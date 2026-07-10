@@ -15,13 +15,17 @@ import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
 import { Card, CardContent } from "@/components/ui/card";
 
+type AdminParagraph = {
+  text: string;
+  image?: string;
+};
+
 type AdminSection = {
   heading: string;
   bold?: boolean;
   fontSize?: string;
   fontFamily?: string;
-  image?: string;
-  paragraphs: string[];
+  paragraphs: AdminParagraph[];
 };
 
 type AdminPost = Omit<BlogPost, "slug" | "sections"> & {
@@ -30,23 +34,37 @@ type AdminPost = Omit<BlogPost, "slug" | "sections"> & {
 
 const createEmptySection = (): AdminSection => ({
   heading: "",
-  paragraphs: [""],
-  image: "",
+  paragraphs: [{ text: "" }],
   bold: false,
   fontSize: "16px",
   fontFamily: "system-ui",
 });
+
+function paragraphToBody(paragraph: AdminParagraph): string {
+  const text = paragraph.text.trim();
+  if (paragraph.image && text) return `![image](${paragraph.image})\n\n${text}`;
+  if (paragraph.image) return `![image](${paragraph.image})`;
+  return text;
+}
+
+function bodyToParagraphs(body: string | undefined): AdminParagraph[] {
+  if (!body?.trim()) return [{ text: "" }];
+  const parts = body.split(/\n\n+/).filter(Boolean);
+  return parts.map((part) => {
+    const imgMatch = part.match(/^!\[image\]\(([^)]+)\)(?:\n\n)?/);
+    if (imgMatch) {
+      return { text: part.slice(imgMatch[0].length).trim(), image: imgMatch[1] };
+    }
+    return { text: part.trim() };
+  });
+}
 
 const sectionToAdminSection = (section: BlogPost["sections"][number]): AdminSection => ({
   heading: section.heading,
   bold: section.bold,
   fontSize: section.fontSize,
   fontFamily: section.fontFamily,
-  image: section.image,
-  paragraphs:
-    section.body?.trim().length > 0
-      ? section.body.split(/\n\n+/).map((paragraph) => paragraph.trim())
-      : [""],
+  paragraphs: bodyToParagraphs(section.body),
 });
 
 const adminSectionToBlogSection = (section: AdminSection): BlogPost["sections"][number] => ({
@@ -54,8 +72,8 @@ const adminSectionToBlogSection = (section: AdminSection): BlogPost["sections"][
   bold: section.bold,
   fontSize: section.fontSize,
   fontFamily: section.fontFamily,
-  image: section.image,
-  body: section.paragraphs.filter((paragraph) => paragraph.trim() !== "").join("\n\n"),
+  image: section.paragraphs.find((p) => p.image)?.image ?? "",
+  body: section.paragraphs.map(paragraphToBody).join("\n\n"),
 });
 
 const ADMIN_PASSWORD = "admin123";
@@ -180,7 +198,7 @@ export default function Admin() {
       ...prev,
       sections: prev.sections.map((section, i) =>
         i === sectionIndex
-          ? { ...section, paragraphs: [...section.paragraphs, ""] }
+          ? { ...section, paragraphs: [...section.paragraphs, { text: "" }] }
           : section,
       ),
     }));
@@ -193,8 +211,8 @@ export default function Admin() {
         i === sectionIndex
           ? {
               ...section,
-              paragraphs: section.paragraphs.map((paragraph, j) =>
-                j === paragraphIndex ? value : paragraph,
+              paragraphs: section.paragraphs.map((para, j) =>
+                j === paragraphIndex ? { ...para, text: value } : para,
               ),
             }
           : section,
@@ -214,6 +232,22 @@ export default function Admin() {
     });
   };
 
+  const updateParagraphImage = (sectionIndex: number, paragraphIndex: number, image: string) => {
+    setNewPost((prev) => ({
+      ...prev,
+      sections: prev.sections.map((section, i) =>
+        i === sectionIndex
+          ? {
+              ...section,
+              paragraphs: section.paragraphs.map((para, j) =>
+                j === paragraphIndex ? { ...para, image } : para,
+              ),
+            }
+          : section,
+      ),
+    }));
+  };
+
   const removeParagraph = (sectionIndex: number, paragraphIndex: number) => {
     setNewPost((prev) => ({
       ...prev,
@@ -223,7 +257,7 @@ export default function Admin() {
               ...section,
               paragraphs:
                 section.paragraphs.length === 1
-                  ? [""]
+                  ? [{ text: "" }]
                   : section.paragraphs.filter((_, j) => j !== paragraphIndex),
             }
           : section,
@@ -334,7 +368,7 @@ export default function Admin() {
       }
     }
     let { start, end } = sel;
-    const paragraph = newPost.sections[sectionIndex].paragraphs[paragraphIndex] ?? "";
+    const paragraph = newPost.sections[sectionIndex].paragraphs[paragraphIndex]?.text ?? "";
 
     // If user selected part of a word, expand selection to word boundaries
     const isWordChar = (ch: string) => /[A-Za-z0-9_\u00C0-\u024F]/.test(ch);
@@ -918,77 +952,19 @@ export default function Admin() {
                             placeholder="Enter section heading"
                           />
 
-                          <div className="space-y-2 mt-4">
-                            <label className="block text-sm font-medium text-muted-foreground">
-                              Section Image
-                            </label>
-                            <div className="flex items-center gap-2">
-                              <Input
-                                type="file"
-                                accept="image/*"
-                                className="hidden"
-                                id={`section-image-upload-${index}`}
-                                onChange={(e) => {
-                                  const file = e.target.files?.[0];
-                                  if (file) {
-                                    const reader = new FileReader();
-                                    reader.onload = (event) => {
-                                      const newSections = [...newPost.sections];
-                                      newSections[index] = {
-                                        ...newSections[index],
-                                        image: event.target?.result as string,
-                                      };
-                                      setNewPost({ ...newPost, sections: newSections });
-                                    };
-                                    reader.readAsDataURL(file);
-                                  }
-                                }}
-                              />
-                              <Button
-                                type="button"
-                                variant="outline"
-                                size="sm"
-                                onClick={() => document.getElementById(`section-image-upload-${index}`)?.click()}
-                                className="h-8 px-3 text-xs"
-                              >
-                                Upload Image
-                              </Button>
-                              {section.image && (
-                                <Button
-                                  type="button"
-                                  variant="outline"
-                                  size="sm"
-                                  onClick={() => {
-                                    const newSections = [...newPost.sections];
-                                    newSections[index] = { ...newSections[index], image: "" };
-                                    setNewPost({ ...newPost, sections: newSections });
-                                  }}
-                                  className="h-8 px-3 text-xs"
-                                >
-                                  Remove Image
-                                </Button>
-                              )}
-                            </div>
-                            {section.image && (
-                              <div className="mt-2 rounded-md border border-border/50 bg-muted p-2">
-                                <img src={section.image} alt="Section preview" className="max-h-48 max-w-full rounded" />
-                              </div>
-                            )}
-                          </div>
-
                           <div className="flex items-center justify-between gap-3 mt-2">
                             <label className="block text-sm font-medium text-muted-foreground">
-                              Section Paragraph
+                              Paragraphs
                             </label>
                             <div className="flex items-center gap-2">
-                              {section.paragraphs.some((paragraph) => paragraph.trim() !== "") ? (
+                              {section.paragraphs.some((para) => para.text.trim() !== "") ? (
                                 <Button
                                   variant="outline"
                                   size="sm"
                                   type="button"
                                   onClick={() => {
                                     const newSections = [...newPost.sections];
-                                    newSections[index] = { ...newSections[index], paragraphs: [""] };
+                                    newSections[index] = { ...newSections[index], paragraphs: [{ text: "" }] };
                                     setNewPost({ ...newPost, sections: newSections });
                                   }}
                                 >
@@ -1007,7 +983,7 @@ export default function Admin() {
                           </div>
                           <div className="space-y-3">
                             {section.paragraphs.map((paragraph, paragraphIndex) => (
-                              <div key={`${index}-${paragraphIndex}`} className="space-y-2 relative">
+                              <div key={`${index}-${paragraphIndex}`} className="space-y-2 relative border border-border/30 rounded-lg p-3">
                                 {activeSelection?.sectionIndex === index && activeSelection?.paragraphIndex === paragraphIndex && (
                                   <div onMouseDown={(e) => e.preventDefault()} className="absolute -top-12 left-4 z-50 flex items-center gap-2 rounded-md bg-black/90 text-white px-3 py-2 shadow-md">
                                     <button type="button" onMouseDown={(e) => e.preventDefault()} className="px-2 py-1 text-sm font-bold" onClick={() => { console.debug('toolbar bold', { index, paragraphIndex, activeSelection }); applyInlineFormat(index, paragraphIndex, 'bold') }}>B</button>
@@ -1019,56 +995,100 @@ export default function Admin() {
                                   </div>
                                 )}
 
-                                  <div className="flex gap-2">
-                                    <Textarea
-                                      id={`section-paragraph-${index}-${paragraphIndex}`}
-                                      value={paragraph}
-                                      onChange={(e) => updateParagraph(index, paragraphIndex, e.target.value)}
-                                      onSelect={(e) => handleParagraphSelect(e, index, paragraphIndex)}
-                                      onBlur={handleParagraphBlur}
-                                      placeholder="Enter paragraph text"
-                                      rows={3}
-                                      className="flex-1"
-                                    />
-                                    <div className="flex flex-col gap-1">
-                                      <Button
-                                        type="button"
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => moveParagraph(index, paragraphIndex, paragraphIndex - 1)}
-                                        disabled={paragraphIndex === 0}
-                                        className="h-8 w-8 p-0"
-                                        title="Move up"
-                                      >
-                                        ↑
-                                      </Button>
-                                      <Button
-                                        type="button"
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => moveParagraph(index, paragraphIndex, paragraphIndex + 1)}
-                                        disabled={paragraphIndex === section.paragraphs.length - 1}
-                                        className="h-8 w-8 p-0"
-                                        title="Move down"
-                                      >
-                                        ↓
-                                      </Button>
-                                      <Button
-                                        type="button"
-                                        variant="outline"
-                                        size="sm"
-                                        onClick={() => removeParagraph(index, paragraphIndex)}
-                                        className="h-8 w-8 p-0"
-                                        title="Delete"
-                                      >
-                                        ✕
-                                      </Button>
-                                    </div>
+                                <div className="flex gap-2">
+                                  <Textarea
+                                    id={`section-paragraph-${index}-${paragraphIndex}`}
+                                    value={paragraph.text}
+                                    onChange={(e) => updateParagraph(index, paragraphIndex, e.target.value)}
+                                    onSelect={(e) => handleParagraphSelect(e, index, paragraphIndex)}
+                                    onBlur={handleParagraphBlur}
+                                    placeholder="Enter paragraph text"
+                                    rows={3}
+                                    className="flex-1"
+                                  />
+                                  <div className="flex flex-col gap-1">
+                                    <Button
+                                      type="button"
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={() => moveParagraph(index, paragraphIndex, paragraphIndex - 1)}
+                                      disabled={paragraphIndex === 0}
+                                      className="h-8 w-8 p-0"
+                                      title="Move up"
+                                    >
+                                      ↑
+                                    </Button>
+                                    <Button
+                                      type="button"
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={() => moveParagraph(index, paragraphIndex, paragraphIndex + 1)}
+                                      disabled={paragraphIndex === section.paragraphs.length - 1}
+                                      className="h-8 w-8 p-0"
+                                      title="Move down"
+                                    >
+                                      ↓
+                                    </Button>
+                                    <Button
+                                      type="button"
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={() => removeParagraph(index, paragraphIndex)}
+                                      className="h-8 w-8 p-0"
+                                      title="Delete"
+                                    >
+                                      ✕
+                                    </Button>
                                   </div>
-                                {paragraph.trim() ? (
-                                  <div className="mt-4">
-                                    <div className="prose prose-slate max-w-none dark:prose-invert rounded-md border border-border/50 bg-white p-4">
-                                      <div dangerouslySetInnerHTML={{ __html: markdownToHtml(paragraph) }} />
+                                </div>
+
+                                <div className="flex items-center gap-2">
+                                  <Input
+                                    type="file"
+                                    accept="image/*"
+                                    className="hidden"
+                                    id={`para-image-upload-${index}-${paragraphIndex}`}
+                                    onChange={(e) => {
+                                      const file = e.target.files?.[0];
+                                      if (file) {
+                                        const reader = new FileReader();
+                                        reader.onload = (event) => {
+                                          updateParagraphImage(index, paragraphIndex, event.target?.result as string);
+                                        };
+                                        reader.readAsDataURL(file);
+                                      }
+                                    }}
+                                  />
+                                  <Button
+                                    type="button"
+                                    variant="outline"
+                                    size="sm"
+                                    onClick={() => document.getElementById(`para-image-upload-${index}-${paragraphIndex}`)?.click()}
+                                    className="h-7 px-2 text-xs"
+                                  >
+                                    {paragraph.image ? "Change Image" : "Add Image"}
+                                  </Button>
+                                  {paragraph.image ? (
+                                    <Button
+                                      type="button"
+                                      variant="outline"
+                                      size="sm"
+                                      onClick={() => updateParagraphImage(index, paragraphIndex, "")}
+                                      className="h-7 px-2 text-xs"
+                                    >
+                                      Remove
+                                    </Button>
+                                  ) : null}
+                                </div>
+                                {paragraph.image ? (
+                                  <div className="mt-1 rounded-md border border-border/50 bg-muted p-1">
+                                    <img src={paragraph.image} alt="" className="max-h-32 max-w-full rounded" />
+                                  </div>
+                                ) : null}
+                                {paragraph.text.trim() ? (
+                                  <div className="mt-1">
+                                    <div className="prose prose-slate max-w-none dark:prose-invert rounded-md border border-border/50 bg-white p-3 text-sm">
+                                      <div dangerouslySetInnerHTML={{ __html: markdownToHtml(paragraph.text) }} />
                                     </div>
                                   </div>
                                 ) : null}
