@@ -67,9 +67,12 @@ export default function BlogDetail() {
         <Header />
         <main className="flex-1 container mx-auto px-4 py-24 text-center">
           <h1 className="text-2xl font-bold text-foreground mb-4">Unable to load blog post</h1>
-          <p className="text-muted-foreground">
-            The blog post could not be loaded. The database may be unavailable.
+          <p className="text-muted-foreground mb-4">
+            The blog post could not be loaded. Check the API response below and visit <span className="font-mono">/api/debug</span> for diagnostics.
           </p>
+          <code className="block max-w-md mx-auto p-3 bg-muted rounded text-xs text-left whitespace-pre-wrap">
+            {slug}
+          </code>
           <a href="/blog" className="mt-6 inline-block text-primary hover:underline">
             &larr; Back to Blog
           </a>

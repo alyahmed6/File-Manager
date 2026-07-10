@@ -4,17 +4,15 @@ const API_BASE = "/api/blogs";
 
 async function parseResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
-    let message = "Request failed";
+    let message = `Request failed (${res.status})`;
     try {
-      // Some runtimes throw when res.json() is attempted on error bodies
-      // without a compatible stream implementation.
       const text = await res.text();
       if (text) {
         try {
           const body = JSON.parse(text) as { error?: string };
-          message = body.error ?? message;
+          message = body.error ?? `Request failed (${res.status}): ${text.slice(0, 200)}`;
         } catch {
-          message = text;
+          message = `Request failed (${res.status}): ${text.slice(0, 200)}`;
         }
       }
     } catch {
