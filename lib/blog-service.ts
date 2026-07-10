@@ -18,8 +18,37 @@ function toBlogPost(doc: Record<string, unknown>): BlogPost {
   };
 }
 
+let memoryPosts: BlogPost[] | null = null;
+
 function getFallbackPosts(): BlogPost[] {
-  return seedPosts.map((post) => toBlogPost(post as Record<string, unknown>));
+  if (!memoryPosts) {
+    memoryPosts = seedPosts.map((post) => toBlogPost(post as Record<string, unknown>));
+  }
+  return memoryPosts;
+}
+
+function getFallbackPostBySlug(slug: string): BlogPost | null {
+  return getFallbackPosts().find((post) => post.slug === slug) ?? null;
+}
+
+function getFallbackPostsBySlugMap() {
+  return new Map(getFallbackPosts().map((post) => [post.slug, post]));
+}
+
+function isConnectionError(error: unknown): boolean {
+  if (!(error instanceof Error)) return false;
+  const lower = error.message.toLowerCase();
+  return (
+    lower.includes("mongodb_uri") ||
+    lower.includes("connect") ||
+    lower.includes("timed out") ||
+    lower.includes("authentication failed") ||
+    lower.includes("econnrefused") ||
+    lower.includes("querysrv") ||
+    lower.includes("enotfound") ||
+    lower.includes("dns") ||
+    lower.includes("refused")
+  );
 }
 
 function formatDBError(error: unknown, fallbackMessage: string): Error {
@@ -37,7 +66,12 @@ function formatDBError(error: unknown, fallbackMessage: string): Error {
     lower.includes("failed to connect to server") ||
     lower.includes("timed out") ||
     lower.includes("network") ||
-    lower.includes("ip whitelist")
+    lower.includes("ip whitelist") ||
+    lower.includes("econnrefused") ||
+    lower.includes("querysrv") ||
+    lower.includes("enotfound") ||
+    lower.includes("dns") ||
+    lower.includes("refused")
   ) {
     return new Error(
       "Database connection failed. Ensure your Atlas cluster is reachable and your current IP is allowed."
@@ -93,6 +127,20 @@ export async function createBlogPost(input: BlogPostInput): Promise<BlogPost> {
     const post = await BlogPostModel.create(input);
     return toBlogPost(post.toObject() as Record<string, unknown>);
   } catch (error) {
+    if (isConnectionError(error)) {
+      const posts = getFallbackPosts();
+      const existing = posts.find((p) => p.slug === input.slug);
+      if (existing) {
+        throw new Error("A blog post with this slug already exists");
+      }
+      const newPost = {
+        ...input,
+        sections: input.sections ?? [],
+        takeaways: input.takeaways ?? [],
+      } as BlogPost;
+      posts.unshift(newPost);
+      return newPost;
+    }
     throw formatDBError(error, "Failed to create blog post");
   }
 }
@@ -109,6 +157,18 @@ export async function updateBlogPost(slug: string, input: BlogPostUpdate): Promi
     if (!post) return null;
     return toBlogPost(post as Record<string, unknown>);
   } catch (error) {
+    if (isConnectionError(error)) {
+      const posts = getFallbackPosts();
+      const idx = posts.findIndex((p) => p.slug === slug);
+      if (idx === -1) return null;
+      const updated = {
+        ...posts[idx],
+        ...input,
+        slug,
+      } as BlogPost;
+      posts[idx] = updated;
+      return updated;
+    }
     throw formatDBError(error, "Failed to update blog post");
   }
 }
@@ -120,6 +180,13 @@ export async function deleteBlogPost(slug: string): Promise<boolean> {
     const result = await BlogPostModel.deleteOne({ slug });
     return result.deletedCount === 1;
   } catch (error) {
+    if (isConnectionError(error)) {
+      const posts = getFallbackPosts();
+      const idx = posts.findIndex((p) => p.slug === slug);
+      if (idx === -1) return false;
+      posts.splice(idx, 1);
+      return true;
+    }
     throw formatDBError(error, "Failed to delete blog post");
   }
 }

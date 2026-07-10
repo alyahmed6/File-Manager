@@ -152,8 +152,8 @@ export function TestimonialsSection() {
             </svg>
           </button>
         </div>
+        </div>
       </div>
     </section>
-  );
   );
 }

@@ -1,17 +1,16 @@
 import mongoose from "mongoose";
 
-const MONGODB_URI = process.env.MONGODB_URI;
+function getMongoUri(): string | null {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) {
+    return null;
+  }
 
-if (!MONGODB_URI) {
-  console.error("ERROR: MONGODB_URI environment variable is not set!");
-  console.error("Available env vars:", Object.keys(process.env).filter(k => k.includes('MONGO') || k.includes('mongodb')));
-  throw new Error("MONGODB_URI environment variable is not set");
-}
+  if (!uri.startsWith("mongodb://") && !uri.startsWith("mongodb+srv://")) {
+    throw new Error("Invalid MongoDB connection string format");
+  }
 
-if (!MONGODB_URI.startsWith("mongodb://") && !MONGODB_URI.startsWith("mongodb+srv://")) {
-  console.error("ERROR: Invalid MongoDB URI format");
-  console.error("MONGODB_URI value:", MONGODB_URI.substring(0, 50) + "...");
-  throw new Error("Invalid MongoDB connection string format");
+  return uri;
 }
 
 interface MongooseCache {
@@ -46,9 +45,14 @@ export async function connectDB() {
     return cached.conn;
   }
 
+  const uri = getMongoUri();
+  if (!uri) {
+    throw new Error("MONGODB_URI environment variable is not set");
+  }
+
   if (!cached.promise) {
     cached.promise = mongoose
-      .connect(MONGODB_URI!, {
+      .connect(uri, {
         bufferCommands: false,
         maxPoolSize: 10,
         serverSelectionTimeoutMS: 10000,

@@ -4,11 +4,27 @@ const API_BASE = "/api/blogs";
 
 async function parseResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
-    const body = await res.json().catch(() => ({}));
-    throw new Error(body.error ?? "Request failed");
+    let message = "Request failed";
+    try {
+      // Some runtimes throw when res.json() is attempted on error bodies
+      // without a compatible stream implementation.
+      const text = await res.text();
+      if (text) {
+        try {
+          const body = JSON.parse(text) as { error?: string };
+          message = body.error ?? message;
+        } catch {
+          message = text;
+        }
+      }
+    } catch {
+      // ignore
+    }
+    throw new Error(message);
   }
   return res.json() as Promise<T>;
 }
+
 
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
   const res = await fetch(API_BASE);
