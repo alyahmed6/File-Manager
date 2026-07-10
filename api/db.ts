@@ -3,7 +3,15 @@ import mongoose from "mongoose";
 const MONGODB_URI = process.env.MONGODB_URI;
 
 if (!MONGODB_URI) {
+  console.error("ERROR: MONGODB_URI environment variable is not set!");
+  console.error("Available env vars:", Object.keys(process.env).filter(k => k.includes('MONGO') || k.includes('mongodb')));
   throw new Error("MONGODB_URI environment variable is not set");
+}
+
+if (!MONGODB_URI.startsWith("mongodb://") && !MONGODB_URI.startsWith("mongodb+srv://")) {
+  console.error("ERROR: Invalid MongoDB URI format");
+  console.error("MONGODB_URI value:", MONGODB_URI.substring(0, 50) + "...");
+  throw new Error("Invalid MongoDB connection string format");
 }
 
 interface MongooseCache {
