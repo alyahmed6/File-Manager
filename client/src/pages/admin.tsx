@@ -202,6 +202,18 @@ export default function Admin() {
     }));
   };
 
+  const moveParagraph = (sectionIndex: number, fromIndex: number, toIndex: number) => {
+    setNewPost((prev) => {
+      const sections = [...prev.sections];
+      const paragraphs = [...sections[sectionIndex].paragraphs];
+      const temp = paragraphs[fromIndex];
+      paragraphs[fromIndex] = paragraphs[toIndex];
+      paragraphs[toIndex] = temp;
+      sections[sectionIndex] = { ...sections[sectionIndex], paragraphs };
+      return { ...prev, sections };
+    });
+  };
+
   const removeParagraph = (sectionIndex: number, paragraphIndex: number) => {
     setNewPost((prev) => ({
       ...prev,
@@ -1007,27 +1019,52 @@ export default function Admin() {
                                   </div>
                                 )}
 
-                                <div className="flex gap-2">
-                                  <Textarea
-                                    id={`section-paragraph-${index}-${paragraphIndex}`}
-                                    value={paragraph}
-                                    onChange={(e) => updateParagraph(index, paragraphIndex, e.target.value)}
-                                    onSelect={(e) => handleParagraphSelect(e, index, paragraphIndex)}
-                                    onBlur={handleParagraphBlur}
-                                    placeholder="Enter paragraph text"
-                                    rows={3}
-                                    className="flex-1"
-                                  />
-                                  <Button
-                                    type="button"
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => removeParagraph(index, paragraphIndex)}
-                                    className="h-10 px-3"
-                                  >
-                                    Delete
-                                  </Button>
-                                </div>
+                                  <div className="flex gap-2">
+                                    <Textarea
+                                      id={`section-paragraph-${index}-${paragraphIndex}`}
+                                      value={paragraph}
+                                      onChange={(e) => updateParagraph(index, paragraphIndex, e.target.value)}
+                                      onSelect={(e) => handleParagraphSelect(e, index, paragraphIndex)}
+                                      onBlur={handleParagraphBlur}
+                                      placeholder="Enter paragraph text"
+                                      rows={3}
+                                      className="flex-1"
+                                    />
+                                    <div className="flex flex-col gap-1">
+                                      <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => moveParagraph(index, paragraphIndex, paragraphIndex - 1)}
+                                        disabled={paragraphIndex === 0}
+                                        className="h-8 w-8 p-0"
+                                        title="Move up"
+                                      >
+                                        ↑
+                                      </Button>
+                                      <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => moveParagraph(index, paragraphIndex, paragraphIndex + 1)}
+                                        disabled={paragraphIndex === section.paragraphs.length - 1}
+                                        className="h-8 w-8 p-0"
+                                        title="Move down"
+                                      >
+                                        ↓
+                                      </Button>
+                                      <Button
+                                        type="button"
+                                        variant="outline"
+                                        size="sm"
+                                        onClick={() => removeParagraph(index, paragraphIndex)}
+                                        className="h-8 w-8 p-0"
+                                        title="Delete"
+                                      >
+                                        ✕
+                                      </Button>
+                                    </div>
+                                  </div>
                                 {paragraph.trim() ? (
                                   <div className="mt-4">
                                     <div className="prose prose-slate max-w-none dark:prose-invert rounded-md border border-border/50 bg-white p-4">
