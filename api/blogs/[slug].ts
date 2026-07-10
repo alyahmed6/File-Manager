@@ -3,7 +3,7 @@ import {
   deleteBlogPost,
   getBlogPostBySlug,
   updateBlogPost,
-} from "../../lib/blog-service";
+} from "../blog-service";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   const slug = req.query.slug as string;
