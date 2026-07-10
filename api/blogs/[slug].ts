@@ -5,7 +5,32 @@ import {
   updateBlogPost,
 } from "../blog-service.js";
 
+const ALLOWED_ORIGINS = [
+  "https://www.theblockchainpulse.org",
+  "https://theblockchainpulse.org",
+  "http://localhost:5000",
+  "http://localhost:3001",
+];
+
+function setCorsHeaders(res: VercelResponse, origin: string | undefined) {
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader("Access-Control-Allow-Origin", origin);
+  } else {
+    res.setHeader("Access-Control-Allow-Origin", "https://www.theblockchainpulse.org");
+  }
+  res.setHeader("Access-Control-Allow-Methods", "GET, PUT, DELETE, OPTIONS");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.setHeader("Access-Control-Max-Age", "86400");
+}
+
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  const origin = req.headers.origin;
+  setCorsHeaders(res, origin);
+
+  if (req.method === "OPTIONS") {
+    return res.status(204).end();
+  }
+
   const slug = req.query.slug as string;
 
   console.log("API /api/blogs/[slug] handler called", {

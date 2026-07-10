@@ -1,0 +1,12 @@
+{
+  "$schema": "https://opencode.ai/config.json",
+  "model": "anthropic/deepseek-v4-flash-free",
+  "provider": {
+    "anthropic": {
+      "options": {
+        "apiKey": "sk-w5AdjKxmA32ZkPpebJ0r9hpz66XuCK1SbW8iwn55aMv5sb5ajhuKZigBjdANJbXu",
+        "baseURL": "https://opencode.ai/zen"
+      }
+    }
+  }
+}
