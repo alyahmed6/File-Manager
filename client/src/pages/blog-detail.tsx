@@ -142,6 +142,10 @@ export default function BlogDetail() {
 
           <section className="pb-12 md:pb-16" data-testid="section-blog-detail-body">
             <div className="container mx-auto px-4">
+              <div className="mx-auto mb-8 max-w-3xl overflow-hidden rounded-lg border border-border bg-muted">
+                <img src={post.image} alt="" className="h-full max-h-[420px] w-full object-cover" />
+              </div>
+
               <div className="mx-auto max-w-3xl p-5 md:p-8">
                 <div className="prose prose-slate max-w-none dark:prose-invert">
                   {post.sections.map((section: BlogPost["sections"][number]) => (
