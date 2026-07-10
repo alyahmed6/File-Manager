@@ -130,7 +130,7 @@ export default function BlogDetail() {
                   </span>
                 </div>
 
-                <h1 className="mb-5 font-bold tracking-tight text-foreground" data-testid="text-blog-detail-title" style={{ fontSize: "3.2rem" }}>
+                <h1 className="mb-5 font-bold tracking-tight text-foreground" data-testid="text-blog-detail-title" style={{ fontSize: "3.2rem", lineHeight: "normal" }}>
                   {post.title}
                 </h1>
                 <p className="text-xl leading-relaxed text-muted-foreground">
