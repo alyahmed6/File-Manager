@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { Check } from "lucide-react";
+import { useState } from "react";
 
 export default function HeroSection() {
+  const [isLoading, setIsLoading] = useState(false);
+
   const features = [
     "Downloadable videos",
     "Live Q&A",
@@ -22,15 +26,22 @@ export default function HeroSection() {
             Course Launching Soon
           </div>
 
-          <h1
-            className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight"
-            data-testid="text-hero-heading"
-          >
-            Master Crypto &<br />
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-              Blockchain (Web3)
-            </span>
-          </h1>
+          {isLoading ? (
+            <div className="space-y-4 w-full max-w-3xl">
+              <Skeleton className="h-20 w-3/4 mx-auto" />
+              <Skeleton className="h-8 w-2/3 mx-auto" />
+            </div>
+          ) : (
+            <h1
+              className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight"
+              data-testid="text-hero-heading"
+            >
+              Master Crypto &<br />
+              <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                Blockchain (Web3)
+              </span>
+            </h1>
+          )}
 
           <h2
             className="text-xl md:text-2xl font-semibold text-foreground"

@@ -49,10 +49,11 @@ export default function Blog() {
                 <span className="h-2.5 w-2.5 rounded-full bg-primary" />
                 Blockchain Pulse Blog
               </div>
-              <h1 className="mb-5 text-5xl font-extrabold tracking-tight text-foreground sm:text-6xl lg:text-7xl" data-testid="text-blog-heading">
-                Insights for Blockchain,
-                <span className="block text-sky-500">Web3,</span>
-                <span className="block text-amber-500">and Startup Growth</span>
+              <h1 className="max-w-5xl mx-auto text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl" data-testid="text-blog-heading">
+                Insights for Blockchain,<br />
+                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+                  Web3, and Startup Growth
+                </span>
               </h1>
               <p className="mx-auto max-w-2xl text-center text-base leading-relaxed text-muted-foreground sm:text-lg">
                 Original explainers, market education, and practical Web3 notes from The Blockchain Pulse.

@@ -20,6 +20,7 @@ type AdminSection = {
   bold?: boolean;
   fontSize?: string;
   fontFamily?: string;
+  image?: string;
   paragraphs: string[];
 };
 
@@ -30,6 +31,7 @@ type AdminPost = Omit<BlogPost, "slug" | "sections"> & {
 const createEmptySection = (): AdminSection => ({
   heading: "",
   paragraphs: [""],
+  image: "",
   bold: false,
   fontSize: "16px",
   fontFamily: "system-ui",
@@ -40,6 +42,7 @@ const sectionToAdminSection = (section: BlogPost["sections"][number]): AdminSect
   bold: section.bold,
   fontSize: section.fontSize,
   fontFamily: section.fontFamily,
+  image: section.image,
   paragraphs:
     section.body?.trim().length > 0
       ? section.body.split(/\n\n+/).map((paragraph) => paragraph.trim())
@@ -51,6 +54,7 @@ const adminSectionToBlogSection = (section: AdminSection): BlogPost["sections"][
   bold: section.bold,
   fontSize: section.fontSize,
   fontFamily: section.fontFamily,
+  image: section.image,
   body: section.paragraphs.filter((paragraph) => paragraph.trim() !== "").join("\n\n"),
 });
 
@@ -901,6 +905,64 @@ export default function Admin() {
                             }}
                             placeholder="Enter section heading"
                           />
+
+                          <div className="space-y-2 mt-4">
+                            <label className="block text-sm font-medium text-muted-foreground">
+                              Section Image
+                            </label>
+                            <div className="flex items-center gap-2">
+                              <Input
+                                type="file"
+                                accept="image/*"
+                                className="hidden"
+                                id={`section-image-upload-${index}`}
+                                onChange={(e) => {
+                                  const file = e.target.files?.[0];
+                                  if (file) {
+                                    const reader = new FileReader();
+                                    reader.onload = (event) => {
+                                      const newSections = [...newPost.sections];
+                                      newSections[index] = {
+                                        ...newSections[index],
+                                        image: event.target?.result as string,
+                                      };
+                                      setNewPost({ ...newPost, sections: newSections });
+                                    };
+                                    reader.readAsDataURL(file);
+                                  }
+                                }}
+                              />
+                              <Button
+                                type="button"
+                                variant="outline"
+                                size="sm"
+                                onClick={() => document.getElementById(`section-image-upload-${index}`)?.click()}
+                                className="h-8 px-3 text-xs"
+                              >
+                                Upload Image
+                              </Button>
+                              {section.image && (
+                                <Button
+                                  type="button"
+                                  variant="outline"
+                                  size="sm"
+                                  onClick={() => {
+                                    const newSections = [...newPost.sections];
+                                    newSections[index] = { ...newSections[index], image: "" };
+                                    setNewPost({ ...newPost, sections: newSections });
+                                  }}
+                                  className="h-8 px-3 text-xs"
+                                >
+                                  Remove Image
+                                </Button>
+                              )}
+                            </div>
+                            {section.image && (
+                              <div className="mt-2 rounded-md border border-border/50 bg-muted p-2">
+                                <img src={section.image} alt="Section preview" className="max-h-48 max-w-full rounded" />
+                              </div>
+                            )}
+                          </div>
 
                           <div className="flex items-center justify-between gap-3 mt-2">
                             <label className="block text-sm font-medium text-muted-foreground">
