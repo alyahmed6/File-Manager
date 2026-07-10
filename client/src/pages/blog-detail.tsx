@@ -130,10 +130,10 @@ export default function BlogDetail() {
                   </span>
                 </div>
 
-                <h1 className="mb-5 text-4xl font-bold tracking-tight text-foreground md:text-6xl" data-testid="text-blog-detail-title">
+                <h1 className="mb-5 font-bold tracking-tight text-foreground" data-testid="text-blog-detail-title" style={{ fontSize: "3.2rem" }}>
                   {post.title}
                 </h1>
-                <p className="text-lg leading-relaxed text-muted-foreground">
+                <p className="text-xl leading-relaxed text-muted-foreground">
                   {post.excerpt}
                 </p>
               </div>
@@ -142,18 +142,11 @@ export default function BlogDetail() {
 
           <section className="pb-12 md:pb-16" data-testid="section-blog-detail-body">
             <div className="container mx-auto px-4">
-              <div className="mx-auto mb-8 max-w-3xl overflow-hidden rounded-lg border border-border bg-muted">
-                <img src={post.image} alt="" className="h-full max-h-[420px] w-full object-cover" />
-              </div>
-
               <div className="mx-auto max-w-3xl p-5 md:p-8">
                 <div className="prose prose-slate max-w-none dark:prose-invert">
                   {post.sections.map((section: BlogPost["sections"][number]) => (
                     <div key={section.heading}>
                       <h2>{section.heading}</h2>
-                      {section.image ? (
-                        <img src={section.image} alt="" className="my-4 rounded-lg border border-border" />
-                      ) : null}
                       <div dangerouslySetInnerHTML={{ __html: markdownToHtml(section.body) }} />
                     </div>
                   ))}
