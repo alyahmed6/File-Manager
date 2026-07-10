@@ -61,6 +61,24 @@ export default function BlogDetail() {
     );
   }
 
+  if (isError) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1 container mx-auto px-4 py-24 text-center">
+          <h1 className="text-2xl font-bold text-foreground mb-4">Unable to load blog post</h1>
+          <p className="text-muted-foreground">
+            The blog post could not be loaded. The database may be unavailable.
+          </p>
+          <a href="/blog" className="mt-6 inline-block text-primary hover:underline">
+            &larr; Back to Blog
+          </a>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   if (!post) return <NotFound />;
 
   const author = {
