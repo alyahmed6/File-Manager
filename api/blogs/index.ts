@@ -2,7 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import {
   createBlogPost,
   getAllBlogPosts,
-} from "../blog-service";
+} from "../blog-service.js";
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {

@@ -1,7 +1,7 @@
-import { connectDB } from "./db";
-import { BlogPostModel } from "./models/blog";
-import { seedPosts } from "./seed-posts";
-import type { BlogPost, BlogPostInput, BlogPostUpdate } from "./blog-types";
+import { connectDB } from "./db.js";
+import { BlogPostModel } from "./models/blog.js";
+import { seedPosts } from "./seed-posts.js";
+import type { BlogPost, BlogPostInput, BlogPostUpdate } from "./blog-types.js";
 
 function toBlogPost(doc: Record<string, unknown>): BlogPost {
   return {

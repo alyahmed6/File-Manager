@@ -1,4 +1,4 @@
-import type { BlogPostInput } from "./blog-types";
+import type { BlogPostInput } from "./blog-types.js";
 
 export const seedPosts: BlogPostInput[] = [
   {
