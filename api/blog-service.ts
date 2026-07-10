@@ -48,9 +48,11 @@ function formatDBError(error: unknown, fallbackMessage: string): Error {
 }
 
 async function seedIfEmpty() {
-  const count = await BlogPostModel.countDocuments();
-  if (count === 0) {
-    await BlogPostModel.insertMany(seedPosts);
+  const existing = await BlogPostModel.find({ slug: { $in: seedPosts.map((p) => p.slug) } }, { slug: 1 }).lean();
+  const existingSlugs = new Set(existing.map((p) => p.slug));
+  const missing = seedPosts.filter((p) => !existingSlugs.has(p.slug));
+  if (missing.length > 0) {
+    await BlogPostModel.insertMany(missing);
   }
 }
 
@@ -73,7 +75,9 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
     await seedIfEmpty();
 
     const post = await BlogPostModel.findOne({ slug }).lean();
-    if (!post) return null;
+    if (!post) {
+      return getFallbackPosts().find((post) => post.slug === slug) ?? null;
+    }
     return toBlogPost(post as Record<string, unknown>);
   } catch (error) {
     console.error(`Using fallback post for slug ${slug} because database is unavailable:`, error);
