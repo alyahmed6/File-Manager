@@ -297,14 +297,23 @@ export default function CompanyLanding() {
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
+      <style>{`
+        .bg-video::-webkit-media-controls { display: none !important; }
+        .bg-video::-webkit-media-controls-start-playback-button { display: none !important; }
+        .bg-video::-webkit-media-controls-overlay-play-button { display: none !important; }
+        .bg-video::-webkit-media-controls-panel { display: none !important; }
+        .bg-video::-webkit-media-controls-enclosure { display: none !important; }
+      `}</style>
+
       {/* Background Video */}
       <video
         autoPlay
         muted
         loop
         playsInline
+        webkit-playsinline
         preload="auto"
-        className="fixed inset-0 w-full h-full object-cover"
+        className="bg-video fixed inset-0 w-full h-full object-cover"
         style={{ zIndex: 0 }}
       >
         <source src="/WhatsApp.mp4" type="video/mp4" />
