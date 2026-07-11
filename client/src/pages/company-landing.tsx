@@ -297,7 +297,20 @@ export default function CompanyLanding() {
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
-      <div className="relative flex flex-col min-h-screen" style={{ zIndex: 2 }}>
+      {/* Background Video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="fixed inset-0 w-full h-full object-cover"
+        style={{ zIndex: 0, pointerEvents: "none" }}
+      >
+        <source src="/WhatsApp.mp4" type="video/mp4" />
+      </video>
+      {/* Touch interceptor — prevents native video controls */}
+      <div className="fixed inset-0" style={{ zIndex: 2 }} />
+      <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <Header />
         <main className="flex-1">
 
