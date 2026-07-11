@@ -41,7 +41,10 @@
       if(!v)return;
       v.play().catch(function(){});
       if(window.innerWidth<768){
-        window.addEventListener('scroll',function(){v.play().catch(function(){})},{once:true,passive:false});
+        var play=function(){v.play().catch(function(){})};
+        document.addEventListener('touchstart',play,{once:true,passive:false});
+        document.addEventListener('click',play,{once:true,passive:false});
+        window.addEventListener('scroll',play,{once:true,passive:false});
       }
     })();
     </script>

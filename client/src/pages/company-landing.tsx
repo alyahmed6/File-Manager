@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -290,24 +290,12 @@ function hexToRgb(hex: string) {
 
 export default function CompanyLanding() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const playVideo = () => {
-    const vid = document.getElementById("bg-video") as HTMLVideoElement;
-    if (vid) vid.play().catch(() => {});
-  };
 
   const prev = () => setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
   const next = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
-      {/* Invisible touch layer — tapping the video area plays it */}
-      <div
-        className="fixed inset-0 md:hidden"
-        style={{ zIndex: 2 }}
-        onClick={playVideo}
-      />
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <Header />
         <main className="flex-1">
