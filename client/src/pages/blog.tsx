@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Newspaper, Clock, Tag } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Skeleton } from "@/components/ui/skeleton";
 import { fetchBlogPosts } from "@/lib/blog-api";
 
 export default function Blog() {
@@ -18,12 +19,45 @@ export default function Blog() {
 
   const featuredPost = posts?.[0];
 
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex flex-col">
+        <Header />
+        <main className="flex-1">
+          <section className="relative overflow-hidden bg-background py-16 md:py-24">
+            <div className="container relative mx-auto px-4">
+              <div className="mx-auto max-w-3xl text-center">
+                <Skeleton className="mx-auto mb-6 h-10 w-48 rounded-full" />
+                <Skeleton className="mx-auto mb-4 h-16 w-3/4" />
+                <Skeleton className="mx-auto h-6 w-2/3" />
+              </div>
+            </div>
+          </section>
+          <section className="bg-background py-12 md:py-16">
+            <div className="container mx-auto px-4">
+              <div className="grid gap-8 rounded-lg border p-5 md:grid-cols-[1.1fr_0.9fr] md:p-8">
+                <div className="space-y-4">
+                  <Skeleton className="h-5 w-40" />
+                  <Skeleton className="h-10 w-full" />
+                  <Skeleton className="h-6 w-5/6" />
+                  <Skeleton className="h-6 w-4/6" />
+                </div>
+                <Skeleton className="h-64 w-full rounded-md" />
+              </div>
+            </div>
+          </section>
+        </main>
+        <Footer />
+      </div>
+    );
+  }
+
   if (!featuredPost) {
     return (
       <div className="min-h-screen flex flex-col">
         <Header />
         <main className="flex-1 container mx-auto px-4 py-24 text-center text-muted-foreground">
-          {isLoading ? "Loading blog posts..." : "No blog posts available yet."}
+          No blog posts available yet.
         </main>
         <Footer />
       </div>
