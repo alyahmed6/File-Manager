@@ -6,6 +6,7 @@ import { marked } from "marked";
 import DOMPurify from "dompurify";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Skeleton } from "@/components/ui/skeleton";
 import NotFound from "@/pages/not-found";
 import type { BlogPost } from "@/data/blog-posts";
 import { fetchBlogPost, fetchBlogPosts } from "@/lib/blog-api";
@@ -53,8 +54,32 @@ export default function BlogDetail() {
     return (
       <div className="min-h-screen flex flex-col">
         <Header />
-        <main className="flex-1 container mx-auto px-4 py-24 text-center text-muted-foreground">
-          Loading blog post...
+        <main className="flex-1">
+          <section className="relative overflow-hidden py-12 md:py-20">
+            <div className="container relative mx-auto px-4">
+              <div className="mx-auto max-w-3xl">
+                <Skeleton className="mb-8 h-5 w-32" />
+                <Skeleton className="mb-4 h-5 w-48" />
+                <Skeleton className="mb-5 h-16 w-full" />
+                <Skeleton className="h-6 w-3/4" />
+              </div>
+            </div>
+          </section>
+          <section className="pb-12 md:pb-16">
+            <div className="container mx-auto px-4">
+              <Skeleton className="mx-auto mb-8 h-[420px] w-full max-w-3xl rounded-lg" />
+              <div className="mx-auto max-w-3xl space-y-4 p-5 md:p-8">
+                <Skeleton className="h-6 w-1/3" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-5/6" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-4/6" />
+                <Skeleton className="h-6 w-1/3 mt-8" />
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-3/4" />
+              </div>
+            </div>
+          </section>
         </main>
         <Footer />
       </div>
