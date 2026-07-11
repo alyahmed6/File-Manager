@@ -1,6 +1,4 @@
 import { useEffect } from "react";
-import { Link } from "wouter";
-import { ArrowLeft } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -15,13 +13,20 @@ export default function AboutUs() {
       <main className="flex-1 py-16">
         <div className="container mx-auto px-4">
           <div className="max-w-3xl mx-auto">
-            <Link href="/" className="inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors mb-8" data-testid="link-back-home">
-              <ArrowLeft className="h-4 w-4" />
-              Back to Home
-            </Link>
+            <div className="text-center mb-8">
+              <div className="flex items-center justify-center gap-3 mb-4">
+                <div className="h-px w-8" style={{ background: "rgba(59,181,232,0.5)" }} />
+                <p className="text-xs font-semibold tracking-[0.22em] uppercase" style={{ color: "#3bb5e8" }}>
+                  About Us
+                </p>
+                <div className="h-px w-8" style={{ background: "rgba(59,181,232,0.5)" }} />
+              </div>
+              <h1 className="text-3xl md:text-5xl font-bold" data-testid="text-about-heading">
+                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">About The Blockchain Pulse</span>
+              </h1>
+            </div>
 
             <article className="prose prose-slate dark:prose-invert max-w-none">
-              <h1 data-testid="text-about-heading">About The Blockchain Pulse</h1>
 
               <p>
                 The Blockchain Pulse is an Information Technology company registered with the Securities and Exchange Commission of Pakistan (SECP). We are dedicated to providing structured, accessible, and easy-to-understand education on blockchain technology, cryptocurrencies, and emerging digital innovations for the general public, beginners, professionals, and crypto enthusiasts.
