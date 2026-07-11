@@ -291,6 +291,21 @@ function hexToRgb(hex: string) {
 
 export default function CompanyLanding() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
+    vid.play().catch(() => {
+      const handler = () => {
+        vid.play().catch(() => {});
+        document.removeEventListener("touchstart", handler);
+        document.removeEventListener("click", handler);
+      };
+      document.addEventListener("touchstart", handler, { once: true });
+      document.addEventListener("click", handler, { once: true });
+    });
+  }, []);
 
   const prev = () => setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
   const next = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
@@ -307,11 +322,11 @@ export default function CompanyLanding() {
 
       {/* Background Video */}
       <video
+        ref={videoRef}
         autoPlay
         muted
         loop
         playsInline
-        webkit-playsinline
         preload="auto"
         className="bg-video fixed inset-0 w-full h-full object-cover"
         style={{ zIndex: 0 }}
