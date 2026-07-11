@@ -134,55 +134,56 @@ export default function Home() {
   );
 
   return (
-    <main className="flex-1">
+    <main className="flex-1 relative">
+      {/* Fixed Background Video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="fixed inset-0 w-full h-full object-cover"
+        style={{ zIndex: 0 }}
+      >
+        <source src="/WhatsApp%20Video%202026-07-03%20at%201.32.13%20PM.mp4" type="video/mp4" />
+      </video>
+      <div className="fixed inset-0 bg-black/60" style={{ zIndex: 1 }} />
+
       {/* Hero Section */}
-      <section className="py-20 bg-gradient-to-r from-primary/10 to-primary/5">
+      <section className="relative py-20" style={{ zIndex: 2 }}>
         <div className="container mx-auto px-4">
-          <div className="grid gap-12 items-center lg:grid-cols-[1.1fr_0.9fr]">
-            <div className="text-center lg:text-left">
-              <div className="mb-5 inline-flex items-center justify-center rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary shadow-sm lg:justify-start">
-                <span className="h-2.5 w-2.5 rounded-full bg-primary mr-2" />
-                Blockchain Pulse Blog
-              </div>
-              <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-                Master Blockchain & Web3 Technologies
-              </h1>
-              <p className="text-xl text-muted-foreground mb-8 max-w-3xl">
-                Comprehensive courses designed by industry experts to help you build real-world blockchain applications.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
-                <Button size="lg" className="w-full sm:w-auto">
-                  Browse All Courses
-                </Button>
-                <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                  Learn More
-                </Button>
-              </div>
+          <div className="max-w-3xl mx-auto text-center">
+            <div className="mb-5 inline-flex items-center justify-center rounded-full border border-white/25 bg-white/10 px-4 py-2 text-sm font-semibold text-white shadow-sm backdrop-blur-sm">
+              <span className="h-2.5 w-2.5 rounded-full bg-white mr-2" />
+              Blockchain Pulse Blog
             </div>
-            <video
-              autoPlay
-              muted
-              loop
-              playsInline
-              className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
-            >
-              <source src="/WhatsApp%20Video%202026-07-03%20at%201.32.13%20PM.mp4" type="video/mp4" />
-            </video>
+            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              Master Blockchain & Web3 Technologies
+            </h1>
+            <p className="text-xl text-white/80 mb-8 max-w-3xl mx-auto">
+              Comprehensive courses designed by industry experts to help you build real-world blockchain applications.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button size="lg" className="w-full sm:w-auto">
+                Browse All Courses
+              </Button>
+              <Button variant="outline" size="lg" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10">
+                Learn More
+              </Button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Featured Courses Grid */}
-      <section className="py-16">
+      <section className="relative py-16" style={{ zIndex: 2 }}>
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-foreground">
+          <h2 className="text-3xl font-bold text-center mb-12 text-white">
             Featured Courses
           </h2>
 
-          {/* This is the exact class you requested: */}
           <div className="flex-1 grid grid-cols-1 md:grid-cols-3 gap-4">
             {filteredCourses.map((course) => (
-              <Card key={course.id} className="bg-card border-border hover:shadow-lg transition-shadow">
+              <Card key={course.id} className="bg-white/10 backdrop-blur-md border-white/20 hover:shadow-lg transition-shadow text-white">
                 <div className="aspect-video bg-muted rounded-t-lg overflow-hidden">
                   <img
                     src={course.image}
@@ -193,24 +194,24 @@ export default function Home() {
                 <CardHeader>
                   <div className="flex justify-between items-start">
                     <div>
-                      <CardTitle className="text-lg">{course.title}</CardTitle>
-                      <CardDescription className="mt-2 line-clamp-2">{course.description}</CardDescription>
+                  <CardTitle className="text-lg text-white">{course.title}</CardTitle>
+                  <CardDescription className="mt-2 line-clamp-2 text-white/70">{course.description}</CardDescription>
                     </div>
-                    <Badge variant="outline" className="ml-2">
+                    <Badge variant="outline" className="ml-2 border-white/30 text-white">
                       {course.level}
                     </Badge>
                   </div>
                 </CardHeader>
                 <CardContent>
-                  <div className="flex items-center gap-4 text-sm text-muted-foreground">
+                  <div className="flex items-center gap-4 text-sm text-white/60">
                     <span>⏱️ {course.duration}</span>
                     <span>👥 {course.students} students</span>
                     <span>⭐ {course.rating}/5</span>
                   </div>
                 </CardContent>
                 <CardFooter className="flex justify-between">
-                  <span className="text-2xl font-bold text-primary">{course.price}</span>
-                  <Button asChild size="sm">
+                  <span className="text-2xl font-bold text-white">{course.price}</span>
+                  <Button asChild size="sm" variant="secondary">
                     <Link href={`/course/${course.id}`}>Enroll Now</Link>
                   </Button>
                 </CardFooter>
@@ -221,22 +222,24 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <TestimonialsSection />
+      <div className="relative" style={{ zIndex: 2 }}>
+        <TestimonialsSection />
+      </div>
 
       {/* CTA Section */}
-      <section className="py-16 bg-primary/10">
+      <section className="relative py-16 bg-black/40 backdrop-blur-sm" style={{ zIndex: 2 }}>
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl font-bold mb-6 text-foreground">
+          <h2 className="text-3xl font-bold mb-6 text-white">
             Ready to Start Your Blockchain Journey?
           </h2>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="text-xl text-white/80 mb-8 max-w-2xl mx-auto">
             Join thousands of students who have transformed their careers with our comprehensive blockchain courses
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="w-full sm:w-auto">
               <Link href="/courses">Browse All Courses</Link>
             </Button>
-            <Button variant="outline" size="lg" className="w-full sm:w-auto">
+            <Button variant="outline" size="lg" className="w-full sm:w-auto border-white/30 text-white hover:bg-white/10">
               <Link href="/about">Learn More</Link>
             </Button>
           </div>
