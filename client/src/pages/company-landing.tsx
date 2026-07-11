@@ -290,40 +290,12 @@ function hexToRgb(hex: string) {
 
 export default function CompanyLanding() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const [videoStarted, setVideoStarted] = useState(false);
-  const videoRef = useRef<HTMLVideoElement>(null);
-
-  const playVideo = () => {
-    const vid = videoRef.current;
-    if (!vid || videoStarted) return;
-    vid.muted = true;
-    vid.play().then(() => setVideoStarted(true)).catch(() => setVideoStarted(true));
-  };
 
   const prev = () => setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
   const next = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden" onClick={playVideo}>
-      <style>{`
-        .bg-video::-webkit-media-controls { display: none !important; }
-        .bg-video::-webkit-media-controls-start-playback-button { display: none !important; }
-        .bg-video::-webkit-media-controls-overlay-play-button { display: none !important; }
-        .bg-video::-webkit-media-controls-panel { display: none !important; }
-        .bg-video::-webkit-media-controls-enclosure { display: none !important; }
-      `}</style>
-
-      <video
-        ref={videoRef}
-        muted
-        loop
-        playsInline
-        preload="auto"
-        className="bg-video fixed inset-0 w-full h-full object-cover"
-        style={{ zIndex: 0 }}
-      >
-        <source src="/WhatsApp.mp4" type="video/mp4" />
-      </video>
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <Header />
         <main className="flex-1">
@@ -334,18 +306,6 @@ export default function CompanyLanding() {
           data-testid="section-course-showcase"
         >
           <div className="absolute inset-0 bg-black/10" />
-
-          {/* Mobile play overlay — tap to start video */}
-          {!videoStarted && (
-            <div className="md:hidden absolute inset-0 z-20 flex items-center justify-center bg-black/20">
-              <div className="flex flex-col items-center gap-3 text-white">
-                <svg className="w-16 h-16 drop-shadow-lg" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-                <span className="text-sm font-medium tracking-wide uppercase">Tap to Play</span>
-              </div>
-            </div>
-          )}
 
           <div className="container relative z-10 mx-auto px-4">
             <div className="flex flex-col items-center gap-8 text-center">

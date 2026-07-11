@@ -183,24 +183,6 @@ export default function BlogDetail() {
 
               
 
-                <div>
-                  <div className="flex flex-col gap-4">
-                    <div>
-                      <h2 className="text-lg font-semibold text-foreground">About the author</h2>
-                      <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
-                        {author.bio}
-                      </p>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {author.tags.map((tag) => (
-                        <span key={tag} className="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
                 {morePosts.length > 0 ? (
                   <div className="mt-10">
                     <h2 className="mb-6 text-2xl font-semibold text-foreground">More from {author.name}</h2>
