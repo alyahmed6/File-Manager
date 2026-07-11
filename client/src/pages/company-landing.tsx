@@ -304,7 +304,7 @@ export default function CompanyLanding() {
   const next = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden">
+    <div className="min-h-screen flex flex-col overflow-x-hidden" onClick={playVideo}>
       <style>{`
         .bg-video::-webkit-media-controls { display: none !important; }
         .bg-video::-webkit-media-controls-start-playback-button { display: none !important; }
@@ -330,9 +330,8 @@ export default function CompanyLanding() {
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section
-          className="relative overflow-hidden pt-32 pb-32 md:pt-40 md:pb-40 min-h-[90vh] flex items-center cursor-pointer"
+          className="relative overflow-hidden pt-32 pb-32 md:pt-40 md:pb-40 min-h-[90vh] flex items-center"
           data-testid="section-course-showcase"
-          onClick={playVideo}
         >
           <div className="absolute inset-0 bg-black/10" />
 
