@@ -28,7 +28,7 @@ export default function Header() {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full transition-transform duration-300 ease-out bg-gradient-to-br from-primary/10 via-background to-accent/5 border-b border-border/50"
+      className="sticky top-0 z-50 w-full transition-transform duration-300 ease-out bg-background border-b border-border/50"
       style={{
         transform: isHeaderVisible ? "translateY(0)" : "translateY(-100%)",
       }}
