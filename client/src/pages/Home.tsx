@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
-import HeroAnimatedVisual from "@/components/HeroAnimatedVisual";
 
 // Sample data for grid items
 type CourseCard = {
@@ -160,7 +159,15 @@ export default function Home() {
                 </Button>
               </div>
             </div>
-            <HeroAnimatedVisual />
+            <video
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="w-full max-w-md mx-auto rounded-2xl shadow-2xl"
+            >
+              <source src="/WhatsApp%20Video%202026-07-03%20at%201.32.13%20PM.mp4" type="video/mp4" />
+            </video>
           </div>
         </div>
       </section>
