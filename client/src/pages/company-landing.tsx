@@ -308,7 +308,7 @@ export default function CompanyLanding() {
       >
         <source src="/WhatsApp.mp4" type="video/mp4" />
       </video>
-      <div className="fixed inset-0 bg-black/50" style={{ zIndex: 1 }} />
+      <div className="fixed inset-0 bg-black/30" style={{ zIndex: 1 }} />
 
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 2 }}>
         <Header />
@@ -319,7 +319,7 @@ export default function CompanyLanding() {
           className="relative overflow-hidden pt-32 pb-32 md:pt-40 md:pb-40 min-h-[90vh] flex items-center"
           data-testid="section-course-showcase"
         >
-          <div className="absolute inset-0 bg-black/30" />
+          <div className="absolute inset-0 bg-black/10" />
 
           <div className="container relative z-10 mx-auto px-4">
             <div className="flex flex-col items-center gap-8 text-center">
