@@ -30,7 +30,7 @@ export default function Course() {
         <div className="snap-start"><PricingSection /></div>
         <div className="snap-start"><FAQSection /></div>
       </main>
-      <Footer />
+      <div className="snap-start"><Footer /></div>
     </div>
   );
 }
