@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -28,7 +28,6 @@ import {
 import { SiEthereum, SiBitcoin } from "react-icons/si";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import { useRef } from "react";
 import qasimPhoto from "@assets/QAsim_1780246728761.jpeg";
 import salmanPhoto from "@assets/Screenshot_2026-05-31_220657_1780247305242.png";
 
@@ -291,14 +290,59 @@ function hexToRgb(hex: string) {
 
 export default function CompanyLanding() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const vid = videoRef.current;
+    if (!vid) return;
+
+    const tryPlay = () => vid.play().catch(() => {});
+
+    tryPlay();
+    vid.addEventListener("canplay", tryPlay, { once: true });
+    vid.addEventListener("loadedmetadata", tryPlay, { once: true });
+
+    const onInteraction = () => {
+      tryPlay();
+      document.removeEventListener("touchstart", onInteraction);
+      document.removeEventListener("click", onInteraction);
+    };
+    document.addEventListener("touchstart", onInteraction, { once: true });
+    document.addEventListener("click", onInteraction, { once: true });
+
+    return () => {
+      vid.removeEventListener("canplay", tryPlay);
+      vid.removeEventListener("loadedmetadata", tryPlay);
+      document.removeEventListener("touchstart", onInteraction);
+      document.removeEventListener("click", onInteraction);
+    };
+  }, []);
 
   const prev = () => setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
   const next = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
-      {/* Touch interceptor — prevents native video controls from receiving taps */}
-      <div className="fixed inset-0" style={{ zIndex: 1, pointerEvents: "auto" }} />
+      <style>{`
+        .bg-video::-webkit-media-controls { display: none !important; }
+        .bg-video::-webkit-media-controls-start-playback-button { display: none !important; }
+        .bg-video::-webkit-media-controls-overlay-play-button { display: none !important; }
+        .bg-video::-webkit-media-controls-panel { display: none !important; }
+        .bg-video::-webkit-media-controls-enclosure { display: none !important; }
+      `}</style>
+
+      <video
+        ref={videoRef}
+        autoPlay
+        muted
+        loop
+        playsInline
+        preload="auto"
+        className="bg-video fixed inset-0 w-full h-full object-cover"
+        style={{ zIndex: 0 }}
+      >
+        <source src="/WhatsApp.mp4" type="video/mp4" />
+      </video>
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <Header />
         <main className="flex-1">
@@ -337,7 +381,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 backdrop-blur-sm pt-12 pb-16 md:py-20"
+          className="relative bg-card/85 pt-12 pb-16 md:py-20"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -356,7 +400,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 backdrop-blur-sm pt-12 pb-16 md:py-20"
+          className="relative bg-background/85 pt-12 pb-16 md:py-20"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
