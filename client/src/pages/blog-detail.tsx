@@ -183,7 +183,7 @@ export default function BlogDetail() {
 
               
 
-                <div className="mt-10 rounded-2xl border border-border/80 bg-card p-6">
+                <div>
                   <div className="flex flex-col gap-4">
                     <div>
                       <h2 className="text-lg font-semibold text-foreground">About the author</h2>
