@@ -5,6 +5,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion";
 import { SectionHeadingReveal } from "@/components/SectionHeadingReveal";
+import { MobileScrollReveal } from "@/components/MobileScrollReveal";
 
 const faqs = [
   {
@@ -59,20 +60,21 @@ export default function FAQSection() {
 
         <div className="max-w-3xl mx-auto">
           <Accordion type="single" collapsible className="space-y-4">
-            {faqs.map((faq, index) => (
-              <AccordionItem
-                key={index}
-                value={`item-${index}`}
-                className="bg-card/50 rounded-lg border border-border/50 px-6"
-                data-testid={`accordion-faq-${index}`}
-              >
-                <AccordionTrigger className="text-left hover:no-underline py-4">
-                  <span className="font-medium">{faq.question}</span>
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-4">
-                  {faq.answer}
-                </AccordionContent>
-              </AccordionItem>
+             {faqs.map((faq, index) => (
+              <MobileScrollReveal key={index} delay={index * 0.05}>
+                <AccordionItem
+                  value={`item-${index}`}
+                  className="bg-card/50 rounded-lg border border-border/50 px-6"
+                  data-testid={`accordion-faq-${index}`}
+                >
+                  <AccordionTrigger className="text-left hover:no-underline py-4">
+                    <span className="font-medium">{faq.question}</span>
+                  </AccordionTrigger>
+                  <AccordionContent className="text-muted-foreground pb-4">
+                    {faq.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              </MobileScrollReveal>
             ))}
           </Accordion>
         </div>
