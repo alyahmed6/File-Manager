@@ -125,7 +125,7 @@ function ServicesGrid() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <div ref={ref} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+    <div ref={ref} className="grid md:grid-cols-2 gap-6">
       {/* Left: Incubation */}
       <motion.div
         initial={{ opacity: 0, x: -60 }}
@@ -133,8 +133,8 @@ function ServicesGrid() {
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       >
         <Card className="h-full hover-elevate transition-all duration-300 border-primary/40 bg-gradient-to-br from-background to-primary/5">
-          <CardContent className="p-5">
-            <div className="flex items-start gap-4 mb-4">
+          <CardContent className="p-8">
+            <div className="flex items-start gap-4 mb-6">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/15 border border-primary/30">
                 <svg className="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -144,25 +144,25 @@ function ServicesGrid() {
                 </svg>
               </div>
               <div>
-              <h3 className="text-lg font-bold text-foreground" data-testid="text-incubation-heading">
+              <h3 className="text-xl font-bold text-foreground" data-testid="text-incubation-heading">
                 Incubation Services &
               </h3>
-              <h3 className="text-lg font-bold text-foreground" data-testid="text-incubation-heading">
+              <h3 className="text-xl font-bold text-foreground" data-testid="text-incubation-heading">
                 Co-Working Space
               </h3>
               </div>
             </div>
-            <p className="text-xs leading-relaxed mb-4 text-muted-foreground">
+            <p className="text-sm leading-relaxed mb-6 text-muted-foreground">
               We support freelancers, individuals, and startups through mentorship, skill development, collaboration, and real-world opportunities.
             </p>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {incubationItems.map(({ label, Icon }) => (
                 <motion.li
                   key={label}
                   initial={{ opacity: 0, x: -10 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-                  className="flex items-center gap-3 text-xs group cursor-default"
+                  className="flex items-center gap-3 text-sm group cursor-default"
                   data-testid={`item-incubation-${label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   <Icon className="w-4 h-4 text-primary flex-shrink-0" />
@@ -184,29 +184,29 @@ function ServicesGrid() {
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
       >
         <Card className="h-full hover-elevate transition-all duration-300 border-accent/40 bg-gradient-to-br from-background to-accent/5">
-          <CardContent className="p-5">
-            <div className="flex items-start gap-4 mb-4">
+          <CardContent className="p-8">
+            <div className="flex items-start gap-4 mb-6">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-accent/15 border border-accent/30">
                 <svg className="h-6 w-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <rect x="2" y="3" width="20" height="14" rx="2" />
                   <path d="M8 21h8M12 17v4" />
                 </svg>
               </div>
-              <h3 className="text-lg font-bold text-foreground" data-testid="text-blockchain-heading">
+              <h3 className="text-xl font-bold text-foreground" data-testid="text-blockchain-heading">
                 Blockchain & Web3 Solutions
               </h3>
             </div>
-            <p className="text-xs leading-relaxed mb-4 text-muted-foreground">
+            <p className="text-sm leading-relaxed mb-6 text-muted-foreground">
               We provide blockchain development and Web3 technical solutions for startups, businesses, and digital products.
             </p>
-            <ul className="space-y-2">
+            <ul className="space-y-3">
               {blockchainItems.map(({ label, Icon }) => (
                 <motion.li
                   key={label}
                   initial={{ opacity: 0, x: 10 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-                  className="flex items-center gap-3 text-xs group cursor-default"
+                  className="flex items-center gap-3 text-sm group cursor-default"
                   data-testid={`item-blockchain-${label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   <Icon className="w-4 h-4 text-accent flex-shrink-0" />
