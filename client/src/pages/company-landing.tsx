@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -291,82 +291,14 @@ function hexToRgb(hex: string) {
 
 export default function CompanyLanding() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const playedRef = useRef(false);
-
-  useEffect(() => {
-    const vid = videoRef.current;
-    if (!vid) return;
-
-    vid.setAttribute("playsinline", "");
-    vid.setAttribute("webkit-playsinline", "");
-    vid.muted = true;
-
-    // Preload the video via <link>
-    const link = document.createElement("link");
-    link.rel = "preload";
-    link.as = "video";
-    link.href = "/WhatsApp.mp4";
-    document.head.appendChild(link);
-
-    const tryPlay = () => {
-      if (playedRef.current) return;
-      vid.play().then(() => { playedRef.current = true; }).catch(() => {});
-    };
-
-    // Attempt on mount and when enough data loads
-    tryPlay();
-    vid.addEventListener("canplay", tryPlay, { once: true });
-    vid.addEventListener("loadedmetadata", tryPlay, { once: true });
-
-    // Aggressive retries — some iOS versions need time after load
-    const intervals = [100, 300, 600, 1000, 2000];
-    const timers = intervals.map((ms) => setTimeout(tryPlay, ms));
-
-    // First‑interaction fallback (required on iOS ≤15)
-    const onFirstTouch = () => {
-      tryPlay();
-      document.removeEventListener("touchstart", onFirstTouch);
-      document.removeEventListener("click", onFirstTouch);
-    };
-    document.addEventListener("touchstart", onFirstTouch, { once: true });
-    document.addEventListener("click", onFirstTouch, { once: true });
-
-    return () => {
-      timers.forEach(clearTimeout);
-      vid.removeEventListener("canplay", tryPlay);
-      vid.removeEventListener("loadedmetadata", tryPlay);
-      document.removeEventListener("touchstart", onFirstTouch);
-      document.removeEventListener("click", onFirstTouch);
-    };
-  }, []);
 
   const prev = () => setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
   const next = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
-      <style>{`
-        .bg-video::-webkit-media-controls { display: none !important; }
-        .bg-video::-webkit-media-controls-start-playback-button { display: none !important; }
-        .bg-video::-webkit-media-controls-overlay-play-button { display: none !important; }
-        .bg-video::-webkit-media-controls-panel { display: none !important; }
-        .bg-video::-webkit-media-controls-enclosure { display: none !important; }
-      `}</style>
-
-      {/* Background video */}
-      <video
-        ref={videoRef}
-        autoPlay
-        muted
-        loop
-        playsInline
-        preload="auto"
-        className="bg-video fixed inset-0 w-full h-full object-cover"
-        style={{ zIndex: 0, filter: "brightness(0.65)" }}
-      >
-        <source src="/WhatsApp.mp4" type="video/mp4" />
-      </video>
+      {/* Touch interceptor — prevents native video controls from receiving taps */}
+      <div className="fixed inset-0" style={{ zIndex: 1, pointerEvents: "auto" }} />
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <Header />
         <main className="flex-1">
