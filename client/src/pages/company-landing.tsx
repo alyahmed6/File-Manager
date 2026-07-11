@@ -125,7 +125,7 @@ function ServicesGrid() {
   const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <div ref={ref} className="grid md:grid-cols-2 gap-6">
+    <div ref={ref} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {/* Left: Incubation */}
       <motion.div
         initial={{ opacity: 0, x: -60 }}
@@ -133,8 +133,8 @@ function ServicesGrid() {
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
       >
         <Card className="h-full hover-elevate transition-all duration-300 border-primary/40 bg-gradient-to-br from-background to-primary/5">
-          <CardContent className="p-8">
-            <div className="flex items-start gap-4 mb-6">
+          <CardContent className="p-5">
+            <div className="flex items-start gap-4 mb-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-primary/15 border border-primary/30">
                 <svg className="h-6 w-6 text-primary" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
@@ -144,25 +144,25 @@ function ServicesGrid() {
                 </svg>
               </div>
               <div>
-              <h3 className="text-xl font-bold text-foreground" data-testid="text-incubation-heading">
+              <h3 className="text-lg font-bold text-foreground" data-testid="text-incubation-heading">
                 Incubation Services &
               </h3>
-              <h3 className="text-xl font-bold text-foreground" data-testid="text-incubation-heading">
+              <h3 className="text-lg font-bold text-foreground" data-testid="text-incubation-heading">
                 Co-Working Space
               </h3>
               </div>
             </div>
-            <p className="text-sm leading-relaxed mb-6 text-muted-foreground">
+            <p className="text-xs leading-relaxed mb-4 text-muted-foreground">
               We support freelancers, individuals, and startups through mentorship, skill development, collaboration, and real-world opportunities.
             </p>
-            <ul className="space-y-3">
+            <ul className="space-y-2">
               {incubationItems.map(({ label, Icon }) => (
                 <motion.li
                   key={label}
                   initial={{ opacity: 0, x: -10 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-                  className="flex items-center gap-3 text-sm group cursor-default"
+                  className="flex items-center gap-3 text-xs group cursor-default"
                   data-testid={`item-incubation-${label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   <Icon className="w-4 h-4 text-primary flex-shrink-0" />
@@ -184,29 +184,29 @@ function ServicesGrid() {
         transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
       >
         <Card className="h-full hover-elevate transition-all duration-300 border-accent/40 bg-gradient-to-br from-background to-accent/5">
-          <CardContent className="p-8">
-            <div className="flex items-start gap-4 mb-6">
+          <CardContent className="p-5">
+            <div className="flex items-start gap-4 mb-4">
               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-accent/15 border border-accent/30">
                 <svg className="h-6 w-6 text-accent" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                   <rect x="2" y="3" width="20" height="14" rx="2" />
                   <path d="M8 21h8M12 17v4" />
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-foreground" data-testid="text-blockchain-heading">
+              <h3 className="text-lg font-bold text-foreground" data-testid="text-blockchain-heading">
                 Blockchain & Web3 Solutions
               </h3>
             </div>
-            <p className="text-sm leading-relaxed mb-6 text-muted-foreground">
+            <p className="text-xs leading-relaxed mb-4 text-muted-foreground">
               We provide blockchain development and Web3 technical solutions for startups, businesses, and digital products.
             </p>
-            <ul className="space-y-3">
+            <ul className="space-y-2">
               {blockchainItems.map(({ label, Icon }) => (
                 <motion.li
                   key={label}
                   initial={{ opacity: 0, x: 10 }}
                   animate={inView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-                  className="flex items-center gap-3 text-sm group cursor-default"
+                  className="flex items-center gap-3 text-xs group cursor-default"
                   data-testid={`item-blockchain-${label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
                   <Icon className="w-4 h-4 text-accent flex-shrink-0" />
@@ -231,7 +231,7 @@ function RoadmapGrid() {
   const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <div ref={ref} className="grid grid-cols-1 lg:grid-cols-2 gap-4 max-w-4xl mx-auto">
+    <div ref={ref} className="grid grid-cols-2 gap-3 max-w-3xl mx-auto">
       {roadmapModules.map(({ title, desc, Icon, duration }, index) => {
         const color = moduleColors[index % moduleColors.length];
         return (
@@ -243,28 +243,28 @@ function RoadmapGrid() {
             data-testid={`roadmap-item-${index + 1}`}
           >
             <Card className="h-full bg-card/50 border border-border/50 hover-elevate transition-all duration-300">
-              <CardContent className="p-4 md:px-6 md:py-5">
-                <div className="flex items-start gap-3 md:gap-4">
+              <CardContent className="p-3">
+                <div className="flex items-start gap-2">
                   <div
-                    className="flex h-12 w-12 md:h-14 md:w-14 shrink-0 items-center justify-center rounded-lg"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
                     style={{
                       background: `rgba(${hexToRgb(color)},0.12)`,
                       border: `1px solid rgba(${hexToRgb(color)},0.35)`,
                     }}
                   >
-                    <Icon className="h-6 w-6 md:h-7 md:w-7" style={{ color }} />
+                    <Icon className="h-5 w-5" style={{ color }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
-                      <h4 className="font-semibold text-sm md:text-base text-foreground">
+                    <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
+                      <h4 className="font-semibold text-[13px] text-foreground">
                         {title}
                       </h4>
-                      <div className="flex items-center gap-1 text-xs text-muted-foreground bg-muted px-2 py-1 rounded-full shrink-0">
-                        <Clock className="h-3 w-3" />
+                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full shrink-0">
+                        <Clock className="h-2.5 w-2.5" />
                         <span>{duration}</span>
                       </div>
                     </div>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
+                    <p className="hidden sm:block text-xs leading-snug text-muted-foreground">
                       {desc}
                     </p>
                   </div>
@@ -310,7 +310,7 @@ export default function CompanyLanding() {
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section
-          className="relative overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24 min-h-[100dvh] flex items-center snap-start snap-always"
+          className="relative overflow-hidden pt-16 pb-10 md:pt-24 md:pb-12 min-h-[100dvh] flex items-center snap-start snap-always"
           data-testid="section-course-showcase"
         >
           <div className="absolute inset-0 bg-black/10" />
@@ -342,11 +342,11 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-20 snap-start snap-always"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start snap-always"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
-            <FadeIn className="text-center mb-8 md:mb-12">
+            <FadeIn className="text-center mb-4 md:mb-6">
               <SectionLabel>What We Do</SectionLabel>
               <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground" data-testid="text-services-heading">
                 Our Services
@@ -361,12 +361,12 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-20 snap-start snap-always"
+          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start snap-always"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
             <motion.div
-              className="text-center mb-8 md:mb-12"
+              className="text-center mb-4 md:mb-6"
               initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
@@ -385,7 +385,7 @@ export default function CompanyLanding() {
 
             {/* CTA banner */}
             <motion.div
-              className="mt-8"
+              className="mt-4"
               initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-60px" }}
@@ -415,7 +415,7 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-20 snap-start snap-always"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start snap-always"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
