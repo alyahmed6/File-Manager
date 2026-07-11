@@ -292,13 +292,40 @@ function hexToRgb(hex: string) {
 export default function CompanyLanding() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const vid = videoRef.current;
-    if (!vid) return;
+    const canvas = canvasRef.current;
+    if (!vid || !canvas) return;
+
     vid.setAttribute("playsinline", "");
     vid.setAttribute("webkit-playsinline", "");
     vid.muted = true;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    let animId = 0;
+    const render = () => {
+      if (vid.readyState >= 2) {
+        ctx.drawImage(vid, 0, 0, canvas.width, canvas.height);
+      }
+      animId = requestAnimationFrame(render);
+    };
+    animId = requestAnimationFrame(render);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", resize);
+    };
   }, []);
 
   const prev = () => setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
@@ -306,15 +333,7 @@ export default function CompanyLanding() {
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
-      <style>{`
-        .bg-video::-webkit-media-controls { display: none !important; }
-        .bg-video::-webkit-media-controls-start-playback-button { display: none !important; }
-        .bg-video::-webkit-media-controls-overlay-play-button { display: none !important; }
-        .bg-video::-webkit-media-controls-panel { display: none !important; }
-        .bg-video::-webkit-media-controls-enclosure { display: none !important; }
-      `}</style>
-
-      {/* Background Video */}
+      {/* Hidden video — autoplays on iOS because it has non-zero opacity/dimensions */}
       <video
         ref={videoRef}
         autoPlay
@@ -322,11 +341,25 @@ export default function CompanyLanding() {
         loop
         playsInline
         preload="auto"
-        className="bg-video fixed inset-0 w-full h-full object-cover"
-        style={{ zIndex: 0, filter: "brightness(0.65)" }}
+        style={{
+          position: "fixed",
+          top: 0,
+          left: 0,
+          width: 1,
+          height: 1,
+          opacity: 0.01,
+          pointerEvents: "none",
+          zIndex: -1,
+        }}
       >
         <source src="/WhatsApp.mp4" type="video/mp4" />
       </video>
+      {/* Canvas renders video frames at full screen */}
+      <canvas
+        ref={canvasRef}
+        className="fixed inset-0 w-full h-full"
+        style={{ zIndex: 0, filter: "brightness(0.65)" }}
+      />
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <Header />
         <main className="flex-1">
