@@ -39,17 +39,14 @@ function App() {
 
   useEffect(() => {
     const vid = document.getElementById("bg-video") as HTMLVideoElement;
-    if (!vid) return;
-    vid.style.visibility = isHome ? "visible" : "hidden";
+    const cvs = document.getElementById("bg-canvas");
+    if (vid) vid.style.visibility = isHome ? "visible" : "hidden";
+    if (cvs) cvs.style.visibility = isHome ? "visible" : "hidden";
   }, [isHome]);
 
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <div
-          className={`fixed inset-0 bg-black/30 transition-opacity duration-500 pointer-events-none ${isHome ? "opacity-100" : "opacity-0"}`}
-          style={{ zIndex: 1 }}
-        />
         <ScrollProgressBar />
         <Toaster />
         <Router />
