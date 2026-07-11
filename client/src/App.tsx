@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
@@ -32,6 +33,54 @@ function Router() {
   );
 }
 
+function BackgroundVideo({ visible }: { visible: boolean }) {
+  const videoRef = useRef<HTMLVideoElement>(null);
+  const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    const canvas = canvasRef.current;
+    if (!video || !canvas) return;
+
+    const ctx = canvas.getContext("2d");
+    if (!ctx) return;
+
+    const resize = () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    };
+    resize();
+    window.addEventListener("resize", resize);
+
+    let animId: number;
+    const draw = () => {
+      if (!video.paused && !video.ended) {
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      }
+      animId = requestAnimationFrame(draw);
+    };
+    animId = requestAnimationFrame(draw);
+
+    return () => {
+      cancelAnimationFrame(animId);
+      window.removeEventListener("resize", resize);
+    };
+  }, []);
+
+  return (
+    <>
+      <video ref={videoRef} autoPlay muted loop playsInline style={{ display: "none" }}>
+        <source src="/WhatsApp.mp4" type="video/mp4" />
+      </video>
+      <canvas
+        ref={canvasRef}
+        className={`fixed inset-0 w-full h-full transition-opacity duration-500 ${visible ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+        style={{ zIndex: 0 }}
+      />
+    </>
+  );
+}
+
 function App() {
   const [location] = useLocation();
   const isHome = location === "/";
@@ -39,25 +88,7 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-        <style>{`
-          video::-webkit-media-controls { display: none !important; }
-          video::-webkit-media-controls-start-playback-button { display: none !important; }
-          video::-webkit-media-controls-panel { display: none !important; }
-          video::-webkit-media-controls-overlay-play-button { display: none !important; }
-          video { pointer-events: none; }
-        `}</style>
-
-        {/* Persistent background video (always mounted, visible only on home) */}
-        <video
-          autoPlay
-          muted
-          loop
-          playsInline
-          className={`fixed inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHome ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-          style={{ zIndex: 0 }}
-        >
-          <source src="/WhatsApp.mp4" type="video/mp4" />
-        </video>
+        <BackgroundVideo visible={isHome} />
         <div className={`fixed inset-0 bg-black/30 transition-opacity duration-500 ${isHome ? "opacity-100" : "opacity-0 pointer-events-none"}`} style={{ zIndex: 1 }} />
 
         <ScrollProgressBar />
