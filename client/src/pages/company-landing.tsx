@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -294,15 +294,25 @@ export default function CompanyLanding() {
   const prev = () => setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
   const next = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
 
+  useEffect(() => {
+    const root = document.documentElement;
+    root.style.scrollSnapType = "y mandatory";
+    root.style.scrollPaddingTop = "4rem";
+    return () => {
+      root.style.scrollSnapType = "";
+      root.style.scrollPaddingTop = "";
+    };
+  }, []);
+
   return (
-    <div className="min-h-screen flex flex-col overflow-x-hidden">
+    <div className="min-h-screen flex flex-col overflow-x-clip">
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <Header />
         <main className="flex-1">
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section
-          className="relative overflow-hidden pt-32 pb-32 md:pt-40 md:pb-40 min-h-[90vh] flex items-center"
+          className="relative overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24 min-h-[100dvh] flex items-center snap-start"
           data-testid="section-course-showcase"
         >
           <div className="absolute inset-0 bg-black/10" />
@@ -311,10 +321,10 @@ export default function CompanyLanding() {
             <div className="flex flex-col items-center gap-8 text-center">
 
               <h1
-                className="max-w-5xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl"
+                className="max-w-5xl text-4xl font-extrabold tracking-tight leading-tight md:text-6xl lg:text-7xl rounded-2xl bg-black/30 px-5 py-3 backdrop-blur-md shadow-2xl ring-1 ring-white/10"
                 data-testid="text-hero-heading"
               >
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">The Blockchain Pulse</span>
+                <span className="bg-gradient-to-r from-white via-primary to-accent bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)]">The Blockchain Pulse</span>
               </h1>
 
               <div
@@ -334,7 +344,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 pt-12 pb-16 md:py-20"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-20 snap-start"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -353,7 +363,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 pt-12 pb-16 md:py-20"
+          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-20 snap-start"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -395,7 +405,7 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 backdrop-blur-sm pt-12 pb-16 md:py-20"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-20 snap-start"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
