@@ -31,7 +31,7 @@
     <video id="bg-video" autoplay="true" muted="true" loop="true" playsinline="true" webkit-playsinline="true" preload="auto" src="/WhatsApp.mp4"></video>
     <div id="root"></div>
     <script>
-      (function(){var v=document.getElementById('bg-video');if(!v||window.innerWidth>=768)return;var f=function(){setTimeout(function(){v.play().catch(function(){})},50);window.removeEventListener('scroll',f)};window.addEventListener('scroll',f,{once:true})})();
+      (function(){var v=document.getElementById('bg-video');if(!v||window.innerWidth>=768)return;var f=function(){v.play().catch(function(){});window.removeEventListener('scroll',f)};window.addEventListener('scroll',f,{once:true,passive:false})})();
     </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
