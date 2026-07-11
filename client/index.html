@@ -34,34 +34,46 @@
       #bg-video::-webkit-media-controls-overlay-play-button { display: none !important; }
       #bg-video::-webkit-media-controls-panel { display: none !important; }
       #bg-video::-webkit-media-controls-enclosure { display: none !important; }
+      #play-hint {
+        position: fixed; left: 50%; bottom: 42px; transform: translateX(-50%);
+        z-index: 2; color: #fff; background: rgba(0,0,0,0.45);
+        padding: 8px 16px; border-radius: 9999px; font: 500 14px/1 system-ui, sans-serif;
+        letter-spacing: .2px; pointer-events: none; transition: opacity .4s ease;
+        backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px);
+      }
+      #play-hint.hidden { opacity: 0; }
     </style>
   </head>
   <body>
     <video id="bg-video" autoplay="true" muted="true" loop="true" playsinline="true" webkit-playsinline="true" preload="auto" src="/WhatsApp.mp4"></video>
+    <div id="play-hint">Tap to play video</div>
     <div id="root"></div>
     <script>
     (function(){
       var v=document.getElementById('bg-video');
       if(!v)return;
-      v.play().catch(function(){});
+      var hint=document.getElementById('play-hint');
+      function hideHint(){ if(hint) hint.classList.add('hidden'); }
+      function tryPlay(){
+        v.play().then(function(){
+          hideHint();
+          document.removeEventListener('touchstart',tryPlay,true);
+          document.removeEventListener('click',tryPlay,true);
+          window.removeEventListener('scroll',tryPlay,true);
+          window.removeEventListener('touchmove',tryPlay,true);
+        }).catch(function(){});
+      }
+      v.play().then(hideHint).catch(function(){});
       if(window.innerWidth<768){
-        var play=function(){
-          v.play().then(function(){
-            document.removeEventListener('touchstart',play,true);
-            document.removeEventListener('click',play,true);
-            window.removeEventListener('scroll',play,true);
-            window.removeEventListener('touchmove',play,true);
-          }).catch(function(){});
-        };
-        document.addEventListener('touchstart',play,true);
-        document.addEventListener('click',play,true);
-        window.addEventListener('scroll',play,true);
-        window.addEventListener('touchmove',play,true);
+        document.addEventListener('touchstart',tryPlay,true);
+        document.addEventListener('click',tryPlay,true);
+        window.addEventListener('scroll',tryPlay,true);
+        window.addEventListener('touchmove',tryPlay,true);
         // Best-effort: nudge the page to fire a scroll event on visit
         setTimeout(function(){
           window.scrollTo(0,1);
           window.scrollTo(0,0);
-          play();
+          tryPlay();
         },300);
       }
     })();
