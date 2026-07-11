@@ -301,6 +301,9 @@ export default function CompanyLanding() {
         video::-webkit-media-controls { display: none !important; }
         video::-webkit-media-controls-start-playback-button { display: none !important; }
         video::-webkit-media-controls-panel { display: none !important; }
+        video::-webkit-media-controls-overlay-play-button { display: none !important; }
+        video::-internal-media-controls-overlay-cast-button { display: none !important; }
+        video { pointer-events: none; }
       `}</style>
 
       {/* Fixed Background Video */}
@@ -311,7 +314,7 @@ export default function CompanyLanding() {
         playsInline
         disablePictureInPicture
         className="fixed inset-0 w-full h-full object-cover"
-        style={{ zIndex: 0 }}
+        style={{ zIndex: 0, pointerEvents: "none" }}
       >
         <source src="/WhatsApp.mp4" type="video/mp4" />
       </video>
