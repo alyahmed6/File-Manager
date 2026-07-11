@@ -367,7 +367,13 @@ export default function CompanyLanding() {
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
-            <FadeIn className="text-center mb-8 md:mb-12">
+            <motion.div
+              className="text-center mb-8 md:mb-12"
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            >
               <SectionLabel>Upcoming Program</SectionLabel>
               <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground" data-testid="text-course-showcase-heading">
                 Web3 & Blockchain Program
@@ -375,12 +381,18 @@ export default function CompanyLanding() {
               <p className="text-base max-w-xl mx-auto mb-5" style={{ color: "#64748b" }}>
                 Learn blockchain fundamentals, Bitcoin architecture, Ethereum architecture, smart contracts and more.
               </p>
-            </FadeIn>
+            </motion.div>
 
             <RoadmapGrid />
 
             {/* CTA banner */}
-            <FadeIn className="mt-8" delay={0.2}>
+            <motion.div
+              className="mt-8"
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
+            >
               <div
                 className="flex items-center gap-4 rounded-2xl px-6 py-4 max-w-3xl mx-auto"
                 style={{
@@ -399,7 +411,7 @@ export default function CompanyLanding() {
                   <span style={{ color: "#3bb5e8" }}>your complete journey into Web3 starts here.</span>
                 </p>
               </div>
-            </FadeIn>
+            </motion.div>
           </div>
         </section>
 
