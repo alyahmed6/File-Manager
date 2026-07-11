@@ -28,7 +28,6 @@ import {
 import { SiEthereum, SiBitcoin } from "react-icons/si";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import HeroAnimatedVisual from "@/components/HeroAnimatedVisual";
 import { useRef } from "react";
 import qasimPhoto from "@assets/QAsim_1780246728761.jpeg";
 import salmanPhoto from "@assets/Screenshot_2026-05-31_220657_1780247305242.png";
@@ -298,67 +297,65 @@ export default function CompanyLanding() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-1">
+      {/* Fixed Background Video */}
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        className="fixed inset-0 w-full h-full object-cover"
+        style={{ zIndex: 0 }}
+      >
+        <source src="/WhatsApp.mp4" type="video/mp4" />
+      </video>
+      <div className="fixed inset-0 bg-black/50" style={{ zIndex: 1 }} />
+
+      <div className="relative flex flex-col min-h-screen" style={{ zIndex: 2 }}>
+        <Header />
+        <main className="flex-1">
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section
-  className="relative overflow-hidden pt-32 pb-32 md:pt-40 md:pb-40 min-h-[90vh] flex items-center"
-  data-testid="section-course-showcase"
->
-  {/* Your blockchain bg image */}
-  <div
-    className="absolute inset-0 z-0"
-    style={{
-      backgroundImage: `url('/ChatGPT Image Jun 5, 2026, 12_44_38 AM.png')`,
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-    }}
-  />
+          className="relative overflow-hidden pt-32 pb-32 md:pt-40 md:pb-40 min-h-[90vh] flex items-center"
+          data-testid="section-course-showcase"
+        >
+          <div className="absolute inset-0 bg-black/30" />
 
-  {/* Dark overlay */}
-  <div className="absolute inset-0 z-0 bg-black/50" />
+          <div className="container relative z-10 mx-auto px-4">
+            <div className="flex flex-col items-center gap-8 text-center">
 
-  <div className="container relative z-10 mx-auto px-4">
-  <div className="flex flex-col items-center gap-8 text-center">
+              <h1
+                className="max-w-5xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl"
+                data-testid="text-hero-heading"
+              >
+                <span className="text-white">The Blockchain Pulse</span>
+              </h1>
 
-{/* Heading */}
-<h1
-  className="max-w-5xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl"
-  data-testid="text-hero-heading"
->
-  <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
-    The Blockchain Pulse
-  </span>
-</h1>
+              <div
+                className="flex w-full max-w-3xl items-center justify-center gap-3"
+                data-testid="text-hero-tagline"
+              >
+                <div className="h-px w-8 shrink-0 bg-primary/50 md:w-12" />
+                <p className="text-center text-[10px] font-semibold uppercase leading-snug tracking-[0.18em] text-white/70 sm:text-xs md:text-sm md:tracking-[0.22em] lg:text-base">
+                  Incubating talent · Delivering world-class · freelance solutions
+                </p>
+                <div className="h-px w-8 shrink-0 bg-primary/50 md:w-12" />
+              </div>
 
-{/* Tagline */}
-<div
-  className="flex w-full max-w-3xl items-center justify-center gap-3"
-  data-testid="text-hero-tagline"
->
-  <div className="h-px w-8 shrink-0 bg-primary/50 md:w-12" />
-  <p className="text-center text-[10px] font-semibold uppercase leading-snug tracking-[0.18em] text-white/70 sm:text-xs md:text-sm md:tracking-[0.22em] lg:text-base">
-    Incubating talent · Delivering world-class · freelance solutions
-  </p>
-  <div className="h-px w-8 shrink-0 bg-primary/50 md:w-12" />
-</div>
-
-</div>
-  </div>
-</section>
+            </div>
+          </div>
+        </section>
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="bg-card pt-12 pb-16 md:py-20"
+          className="relative bg-card/80 backdrop-blur-sm pt-12 pb-16 md:py-20"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
             <FadeIn className="text-center mb-8 md:mb-12">
               <SectionLabel>What We Do</SectionLabel>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4" data-testid="text-services-heading">
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Our Services</span>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground" data-testid="text-services-heading">
+                Our Services
               </h2>
               <p className="text-base max-w-xl mx-auto" style={{ color: "#64748b" }}>
                 Empowering freelancers and businesses with the right environment, skills, and blockchain solutions to grow in the digital future.
@@ -370,14 +367,14 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="bg-background pt-12 pb-16 md:py-20"
+          className="relative bg-background/80 backdrop-blur-sm pt-12 pb-16 md:py-20"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
             <FadeIn className="text-center mb-8 md:mb-12">
               <SectionLabel>Upcoming Program</SectionLabel>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4" data-testid="text-course-showcase-heading">
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">Web3 & Blockchain Program</span>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground" data-testid="text-course-showcase-heading">
+                Web3 & Blockchain Program
               </h2>
               <p className="text-base max-w-xl mx-auto mb-5" style={{ color: "#64748b" }}>
                 Learn blockchain fundamentals, Bitcoin architecture, Ethereum architecture, smart contracts and more.
@@ -412,14 +409,14 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          className="bg-card pt-12 pb-16 md:py-20"
+          className="relative bg-card/80 backdrop-blur-sm pt-12 pb-16 md:py-20"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
             <FadeIn className="text-center mb-8 md:mb-12">
               <SectionLabel>Testimonials</SectionLabel>
-              <h2 className="text-3xl md:text-5xl font-bold mb-4" data-testid="text-testimonials-heading">
-                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">What People Say About Us</span>
+              <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground" data-testid="text-testimonials-heading">
+                What People Say About Us
               </h2>
             </FadeIn>
 
@@ -536,6 +533,7 @@ export default function CompanyLanding() {
         </section>
       </main>
       <Footer />
+    </div>
     </div>
   );
 }
