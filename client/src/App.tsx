@@ -1,4 +1,4 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, useLocation } from "wouter";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -33,9 +33,33 @@ function Router() {
 }
 
 function App() {
+  const [location] = useLocation();
+  const isHome = location === "/";
+
   return (
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+        <style>{`
+          video::-webkit-media-controls { display: none !important; }
+          video::-webkit-media-controls-start-playback-button { display: none !important; }
+          video::-webkit-media-controls-panel { display: none !important; }
+          video::-webkit-media-controls-overlay-play-button { display: none !important; }
+          video { pointer-events: none; }
+        `}</style>
+
+        {/* Persistent background video (always mounted, visible only on home) */}
+        <video
+          autoPlay
+          muted
+          loop
+          playsInline
+          className={`fixed inset-0 w-full h-full object-cover transition-opacity duration-500 ${isHome ? "opacity-100" : "opacity-0 pointer-events-none"}`}
+          style={{ zIndex: 0 }}
+        >
+          <source src="/WhatsApp.mp4" type="video/mp4" />
+        </video>
+        <div className={`fixed inset-0 bg-black/30 transition-opacity duration-500 ${isHome ? "opacity-100" : "opacity-0 pointer-events-none"}`} style={{ zIndex: 1 }} />
+
         <ScrollProgressBar />
         <Toaster />
         <Router />

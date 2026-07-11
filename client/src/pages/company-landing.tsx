@@ -297,29 +297,6 @@ export default function CompanyLanding() {
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-hidden">
-      <style>{`
-        video::-webkit-media-controls { display: none !important; }
-        video::-webkit-media-controls-start-playback-button { display: none !important; }
-        video::-webkit-media-controls-panel { display: none !important; }
-        video::-webkit-media-controls-overlay-play-button { display: none !important; }
-        video::-internal-media-controls-overlay-cast-button { display: none !important; }
-        video { pointer-events: none; }
-      `}</style>
-
-      {/* Fixed Background Video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        disablePictureInPicture
-        className="fixed inset-0 w-full h-full object-cover"
-        style={{ zIndex: 0, pointerEvents: "none" }}
-      >
-        <source src="/WhatsApp.mp4" type="video/mp4" />
-      </video>
-      <div className="fixed inset-0 bg-black/30" style={{ zIndex: 1 }} />
-
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 2 }}>
         <Header />
         <main className="flex-1">
