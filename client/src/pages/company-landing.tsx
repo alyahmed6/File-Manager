@@ -329,7 +329,7 @@ export default function CompanyLanding() {
         playsInline
         preload="auto"
         className="bg-video fixed inset-0 w-full h-full object-cover"
-        style={{ zIndex: 0 }}
+        style={{ zIndex: 0, filter: "brightness(0.65)" }}
       >
         <source src="/WhatsApp.mp4" type="video/mp4" />
       </video>
