@@ -54,8 +54,18 @@ function BackgroundVideo({ visible }: { visible: boolean }) {
 
     let animId: number;
     const draw = () => {
-      if (!video.paused && !video.ended) {
-        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      if (video.videoWidth && video.videoHeight && !video.paused && !video.ended) {
+        const vw = video.videoWidth;
+        const vh = video.videoHeight;
+        const cw = canvas.width;
+        const ch = canvas.height;
+        const scale = Math.max(cw / vw, ch / vh);
+        const sw = vw * scale;
+        const sh = vh * scale;
+        const sx = (cw - sw) / 2;
+        const sy = (ch - sh) / 2;
+        ctx.drawImage(video, 0, 0, vw, vh, sx, sy, sw, sh);
       }
       animId = requestAnimationFrame(draw);
     };
