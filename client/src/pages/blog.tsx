@@ -134,6 +134,47 @@ export default function Blog() {
           </div>
         </section>
 
+        <section className="bg-background py-12 md:py-16" data-testid="section-all-blogs">
+          <div className="container mx-auto px-4">
+            <h2 className="mb-8 text-2xl font-bold text-foreground md:text-3xl" data-testid="text-all-blogs-heading">
+              All Articles
+            </h2>
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {posts.slice(1).map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group flex flex-col overflow-hidden rounded-lg border border-border bg-card transition-all hover:-translate-y-1 hover:shadow-md"
+                  data-testid={`card-blog-${post.slug}`}
+                >
+                  <div className="aspect-video overflow-hidden bg-muted">
+                    <img
+                      src={post.image}
+                      alt=""
+                      className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                    />
+                  </div>
+                  <div className="flex flex-1 flex-col p-5">
+                    <div className="mb-2 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+                      <span className="inline-flex items-center gap-1 text-primary">
+                        <Tag className="h-3.5 w-3.5" />
+                        {post.category}
+                      </span>
+                      <span>{post.date}</span>
+                      <span className="inline-flex items-center gap-1">
+                        <Clock className="h-3.5 w-3.5" />
+                        {post.readTime}
+                      </span>
+                    </div>
+                    <h3 className="mb-2 text-lg font-semibold text-foreground">{post.title}</h3>
+                    <p className="text-sm leading-relaxed text-muted-foreground line-clamp-3">{post.excerpt}</p>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        </section>
+
       </main>
       <Footer />
     </div>
