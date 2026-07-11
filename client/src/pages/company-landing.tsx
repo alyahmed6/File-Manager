@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -296,26 +296,9 @@ export default function CompanyLanding() {
   const playVideo = () => {
     const vid = videoRef.current;
     if (!vid || videoStarted) return;
-    vid.play().then(() => setVideoStarted(true)).catch(() => {});
+    vid.muted = true;
+    vid.play().then(() => setVideoStarted(true)).catch(() => setVideoStarted(true));
   };
-
-  useEffect(() => {
-    const vid = videoRef.current;
-    if (!vid) return;
-
-    const onInteraction = () => {
-      playVideo();
-      document.removeEventListener("touchstart", onInteraction);
-      document.removeEventListener("click", onInteraction);
-    };
-    document.addEventListener("touchstart", onInteraction, { once: true });
-    document.addEventListener("click", onInteraction, { once: true });
-
-    return () => {
-      document.removeEventListener("touchstart", onInteraction);
-      document.removeEventListener("click", onInteraction);
-    };
-  }, []);
 
   const prev = () => setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
   const next = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
@@ -332,7 +315,6 @@ export default function CompanyLanding() {
 
       <video
         ref={videoRef}
-        autoPlay
         muted
         loop
         playsInline
@@ -348,7 +330,7 @@ export default function CompanyLanding() {
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section
-          className="relative overflow-hidden pt-32 pb-32 md:pt-40 md:pb-40 min-h-[90vh] flex items-center"
+          className="relative overflow-hidden pt-32 pb-32 md:pt-40 md:pb-40 min-h-[90vh] flex items-center cursor-pointer"
           data-testid="section-course-showcase"
           onClick={playVideo}
         >
