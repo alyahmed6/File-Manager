@@ -57,6 +57,12 @@
         document.addEventListener('click',play,true);
         window.addEventListener('scroll',play,true);
         window.addEventListener('touchmove',play,true);
+        // Best-effort: nudge the page to fire a scroll event on visit
+        setTimeout(function(){
+          window.scrollTo(0,1);
+          window.scrollTo(0,0);
+          play();
+        },300);
       }
     })();
     </script>
