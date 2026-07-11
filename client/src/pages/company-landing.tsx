@@ -290,20 +290,21 @@ function hexToRgb(hex: string) {
 
 export default function CompanyLanding() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [videoStarted, setVideoStarted] = useState(false);
   const videoRef = useRef<HTMLVideoElement>(null);
+
+  const playVideo = () => {
+    const vid = videoRef.current;
+    if (!vid || videoStarted) return;
+    vid.play().then(() => setVideoStarted(true)).catch(() => {});
+  };
 
   useEffect(() => {
     const vid = videoRef.current;
     if (!vid) return;
 
-    const tryPlay = () => vid.play().catch(() => {});
-
-    tryPlay();
-    vid.addEventListener("canplay", tryPlay, { once: true });
-    vid.addEventListener("loadedmetadata", tryPlay, { once: true });
-
     const onInteraction = () => {
-      tryPlay();
+      playVideo();
       document.removeEventListener("touchstart", onInteraction);
       document.removeEventListener("click", onInteraction);
     };
@@ -311,8 +312,6 @@ export default function CompanyLanding() {
     document.addEventListener("click", onInteraction, { once: true });
 
     return () => {
-      vid.removeEventListener("canplay", tryPlay);
-      vid.removeEventListener("loadedmetadata", tryPlay);
       document.removeEventListener("touchstart", onInteraction);
       document.removeEventListener("click", onInteraction);
     };
@@ -351,8 +350,21 @@ export default function CompanyLanding() {
         <section
           className="relative overflow-hidden pt-32 pb-32 md:pt-40 md:pb-40 min-h-[90vh] flex items-center"
           data-testid="section-course-showcase"
+          onClick={playVideo}
         >
           <div className="absolute inset-0 bg-black/10" />
+
+          {/* Mobile play overlay — tap to start video */}
+          {!videoStarted && (
+            <div className="md:hidden absolute inset-0 z-20 flex items-center justify-center bg-black/20">
+              <div className="flex flex-col items-center gap-3 text-white">
+                <svg className="w-16 h-16 drop-shadow-lg" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M8 5v14l11-7z" />
+                </svg>
+                <span className="text-sm font-medium tracking-wide uppercase">Tap to Play</span>
+              </div>
+            </div>
+          )}
 
           <div className="container relative z-10 mx-auto px-4">
             <div className="flex flex-col items-center gap-8 text-center">
