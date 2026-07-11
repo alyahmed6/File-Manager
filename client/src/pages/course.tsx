@@ -12,10 +12,8 @@ export default function Course() {
   useEffect(() => {
     const root = document.documentElement;
     root.style.scrollSnapType = "y mandatory";
-    root.style.scrollPaddingTop = "4rem";
     return () => {
       root.style.scrollSnapType = "";
-      root.style.scrollPaddingTop = "";
     };
   }, []);
 
@@ -23,12 +21,12 @@ export default function Course() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <div className="snap-start"><HeroSection /></div>
-        <div className="snap-start"><WhoThisCourseIsForSection /></div>
-        <div className="snap-start"><CourseSection /></div>
-        <div className="snap-start"><CurriculumSection /></div>
-        <div className="snap-start"><PricingSection /></div>
-        <div className="snap-start"><FAQSection /></div>
+        <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><HeroSection /></div>
+        <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><WhoThisCourseIsForSection /></div>
+        <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><CourseSection /></div>
+        <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><CurriculumSection /></div>
+        <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><PricingSection /></div>
+        <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><FAQSection /></div>
       </main>
       <div className="snap-start"><Footer /></div>
     </div>

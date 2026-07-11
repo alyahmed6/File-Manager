@@ -297,10 +297,8 @@ export default function CompanyLanding() {
   useEffect(() => {
     const root = document.documentElement;
     root.style.scrollSnapType = "y mandatory";
-    root.style.scrollPaddingTop = "4rem";
     return () => {
       root.style.scrollSnapType = "";
-      root.style.scrollPaddingTop = "";
     };
   }, []);
 
