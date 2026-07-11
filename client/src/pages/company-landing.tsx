@@ -296,15 +296,9 @@ export default function CompanyLanding() {
   useEffect(() => {
     const vid = videoRef.current;
     if (!vid) return;
-    vid.play().catch(() => {
-      const handler = () => {
-        vid.play().catch(() => {});
-        document.removeEventListener("touchstart", handler);
-        document.removeEventListener("click", handler);
-      };
-      document.addEventListener("touchstart", handler, { once: true });
-      document.addEventListener("click", handler, { once: true });
-    });
+    vid.setAttribute("playsinline", "");
+    vid.setAttribute("webkit-playsinline", "");
+    vid.muted = true;
   }, []);
 
   const prev = () => setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
@@ -333,8 +327,6 @@ export default function CompanyLanding() {
       >
         <source src="/WhatsApp.mp4" type="video/mp4" />
       </video>
-      {/* Touch interceptor — prevents native video controls */}
-      <div className="fixed inset-0" style={{ zIndex: 1 }} />
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <Header />
         <main className="flex-1">
