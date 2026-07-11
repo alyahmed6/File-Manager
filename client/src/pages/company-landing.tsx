@@ -312,7 +312,7 @@ export default function CompanyLanding() {
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section
-          className="relative overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24 min-h-[100dvh] flex items-center snap-start"
+          className="relative overflow-hidden pt-24 pb-16 md:pt-32 md:pb-24 min-h-[100dvh] flex items-center snap-start snap-always"
           data-testid="section-course-showcase"
         >
           <div className="absolute inset-0 bg-black/10" />
@@ -344,7 +344,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-20 snap-start"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-20 snap-start snap-always"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -363,7 +363,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-20 snap-start"
+          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-20 snap-start snap-always"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -405,7 +405,7 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-20 snap-start"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-20 snap-start snap-always"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -528,7 +528,9 @@ export default function CompanyLanding() {
           </div>
         </section>
       </main>
-      <Footer />
+      <div className="snap-start snap-always">
+        <Footer />
+      </div>
     </div>
     </div>
   );
