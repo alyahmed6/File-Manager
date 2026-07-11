@@ -296,13 +296,20 @@ export default function CompanyLanding() {
   const next = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-hidden">
+      <style>{`
+        video::-webkit-media-controls { display: none !important; }
+        video::-webkit-media-controls-start-playback-button { display: none !important; }
+        video::-webkit-media-controls-panel { display: none !important; }
+      `}</style>
+
       {/* Fixed Background Video */}
       <video
         autoPlay
         muted
         loop
         playsInline
+        disablePictureInPicture
         className="fixed inset-0 w-full h-full object-cover"
         style={{ zIndex: 0 }}
       >
