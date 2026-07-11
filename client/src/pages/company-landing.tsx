@@ -348,7 +348,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/80 backdrop-blur-sm pt-12 pb-16 md:py-20"
+          className="relative bg-card/95 backdrop-blur-sm pt-12 pb-16 md:py-20"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -367,7 +367,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/80 backdrop-blur-sm pt-12 pb-16 md:py-20"
+          className="relative bg-background/95 backdrop-blur-sm pt-12 pb-16 md:py-20"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -409,7 +409,7 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          className="relative bg-card/80 backdrop-blur-sm pt-12 pb-16 md:py-20"
+          className="relative bg-card/95 backdrop-blur-sm pt-12 pb-16 md:py-20"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
