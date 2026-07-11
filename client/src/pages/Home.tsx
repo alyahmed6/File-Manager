@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { TestimonialsSection } from "@/components/TestimonialsSection";
+import HeroAnimatedVisual from "@/components/HeroAnimatedVisual";
 
 // Sample data for grid items
 type CourseCard = {
@@ -134,48 +135,38 @@ export default function Home() {
   );
 
   return (
-    <main className="flex-1 relative">
-      {/* Fixed Background Video */}
-      <video
-        autoPlay
-        muted
-        loop
-        playsInline
-        className="fixed inset-0 w-full h-full object-cover"
-        style={{ zIndex: 0 }}
-      >
-        <source src="/WhatsApp%20Video%202026-07-03%20at%201.32.13%20PM.mp4" type="video/mp4" />
-      </video>
-      <div className="fixed inset-0 bg-black/60" style={{ zIndex: 1 }} />
-
+    <main className="flex-1">
       {/* Hero Section */}
-      <section className="relative py-20 bg-background/80 backdrop-blur-sm" style={{ zIndex: 2 }}>
+      <section className="py-20 bg-gradient-to-r from-primary/10 to-primary/5">
         <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center">
-            <div className="mb-5 inline-flex items-center justify-center rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary shadow-sm">
-              <span className="h-2.5 w-2.5 rounded-full bg-primary mr-2" />
-              Blockchain Pulse Blog
+          <div className="grid gap-12 items-center lg:grid-cols-[1.1fr_0.9fr]">
+            <div className="text-center lg:text-left">
+              <div className="mb-5 inline-flex items-center justify-center rounded-full border border-primary/25 bg-primary/10 px-4 py-2 text-sm font-semibold text-primary shadow-sm lg:justify-start">
+                <span className="h-2.5 w-2.5 rounded-full bg-primary mr-2" />
+                Blockchain Pulse Blog
+              </div>
+              <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
+                Master Blockchain & Web3 Technologies
+              </h1>
+              <p className="text-xl text-muted-foreground mb-8 max-w-3xl">
+                Comprehensive courses designed by industry experts to help you build real-world blockchain applications.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start items-center">
+                <Button size="lg" className="w-full sm:w-auto">
+                  Browse All Courses
+                </Button>
+                <Button variant="outline" size="lg" className="w-full sm:w-auto">
+                  Learn More
+                </Button>
+              </div>
             </div>
-            <h1 className="text-4xl md:text-6xl font-bold text-foreground mb-6">
-              Master Blockchain & Web3 Technologies
-            </h1>
-            <p className="text-xl text-muted-foreground mb-8 max-w-3xl mx-auto">
-              Comprehensive courses designed by industry experts to help you build real-world blockchain applications.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-              <Button size="lg" className="w-full sm:w-auto">
-                Browse All Courses
-              </Button>
-              <Button variant="outline" size="lg" className="w-full sm:w-auto">
-                Learn More
-              </Button>
-            </div>
+            <HeroAnimatedVisual />
           </div>
         </div>
       </section>
 
       {/* Featured Courses Grid */}
-      <section className="relative py-16 bg-background/80 backdrop-blur-sm" style={{ zIndex: 2 }}>
+      <section className="py-16">
         <div className="container mx-auto px-4">
           <h2 className="text-3xl font-bold text-center mb-12 text-foreground">
             Featured Courses
@@ -222,12 +213,10 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section */}
-      <div className="relative" style={{ zIndex: 2 }}>
-        <TestimonialsSection />
-      </div>
+      <TestimonialsSection />
 
       {/* CTA Section */}
-      <section className="relative py-16 bg-background/80 backdrop-blur-sm" style={{ zIndex: 2 }}>
+      <section className="py-16 bg-primary/10">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl font-bold mb-6 text-foreground">
             Ready to Start Your Blockchain Journey?
