@@ -21,7 +21,7 @@ export default function AboutUs() {
                 </p>
                 <div className="h-px w-8" style={{ background: "rgba(59,181,232,0.5)" }} />
               </div>
-              <h1 className="text-3xl md:text-5xl font-bold" data-testid="text-about-heading">
+              <h1 className="text-3xl md:text-5xl font-bold mb-4" data-testid="text-about-heading">
                 <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">About The Blockchain Pulse</span>
               </h1>
             </div>
