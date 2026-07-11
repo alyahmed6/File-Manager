@@ -328,7 +328,7 @@ export default function CompanyLanding() {
                 className="max-w-5xl text-5xl font-bold tracking-tight md:text-6xl lg:text-7xl"
                 data-testid="text-hero-heading"
               >
-                <span className="text-white">The Blockchain Pulse</span>
+                <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">The Blockchain Pulse</span>
               </h1>
 
               <div
