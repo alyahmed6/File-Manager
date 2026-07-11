@@ -42,6 +42,8 @@ function BackgroundVideo({ visible }: { visible: boolean }) {
     const canvas = canvasRef.current;
     if (!video || !canvas) return;
 
+    video.play().catch(() => {});
+
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
@@ -79,13 +81,13 @@ function BackgroundVideo({ visible }: { visible: boolean }) {
 
   return (
     <>
-      <video ref={videoRef} autoPlay muted loop playsInline style={{ display: "none" }}>
+      <video ref={videoRef} autoPlay muted loop playsInline className="fixed opacity-0 pointer-events-none" style={{ zIndex: -1 }}>
         <source src="/WhatsApp.mp4" type="video/mp4" />
       </video>
       <canvas
         ref={canvasRef}
         className={`fixed inset-0 w-full h-full transition-opacity duration-500 ${visible ? "opacity-100" : "opacity-0 pointer-events-none"}`}
-        style={{ zIndex: 0 }}
+        style={{ zIndex: 0, background: "#000" }}
       />
     </>
   );
