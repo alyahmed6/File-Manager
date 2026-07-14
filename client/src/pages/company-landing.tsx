@@ -295,11 +295,9 @@ export default function CompanyLanding() {
   const next = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.style.scrollSnapType = "y mandatory";
-
     const DURATION = 1400;
     let animating = false;
+    let rafId = 0;
 
     const easeInOutCubic = (t: number) =>
       t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
@@ -312,11 +310,14 @@ export default function CompanyLanding() {
       const startTime = performance.now();
       const step = (now: number) => {
         const progress = Math.min((now - startTime) / DURATION, 1);
-        window.scrollTo(0, start + distance * easeInOutCubic(progress));
-        if (progress < 1) requestAnimationFrame(step);
-        else setTimeout(() => (animating = false), 50);
+        document.documentElement.scrollTop = start + distance * easeInOutCubic(progress);
+        if (progress < 1) {
+          rafId = requestAnimationFrame(step);
+        } else {
+          animating = false;
+        }
       };
-      requestAnimationFrame(step);
+      rafId = requestAnimationFrame(step);
     };
 
     const onWheel = (e: WheelEvent) => {
@@ -330,10 +331,10 @@ export default function CompanyLanding() {
       if (!sections.length) return;
 
       const dir = e.deltaY > 0 ? 1 : -1;
-      const currentTop = window.scrollY;
-      const tops = sections.map((s) => s.getBoundingClientRect().top + currentTop);
+      const tops = sections.map((s) => s.offsetTop);
 
       let currentIndex = 0;
+      const currentTop = window.scrollY;
       for (let i = 0; i < tops.length; i++) {
         if (tops[i] <= currentTop + 10) currentIndex = i;
       }
@@ -348,7 +349,7 @@ export default function CompanyLanding() {
 
     window.addEventListener("wheel", onWheel, { passive: false });
     return () => {
-      root.style.scrollSnapType = "";
+      cancelAnimationFrame(rafId);
       window.removeEventListener("wheel", onWheel);
     };
   }, []);
