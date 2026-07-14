@@ -44,7 +44,10 @@ function OrbitNode({
 
 export default function HeroAnimatedVisual() {
   return (
-    <div className="relative mx-auto w-full max-w-md">
+    <div
+      className="relative mx-auto w-full max-w-md"
+      style={{ willChange: "transform", contain: "layout paint", transform: "translateZ(0)" }}
+    >
       <div className="pointer-events-none absolute inset-0 rounded-full bg-gradient-to-br from-sky-500/10 via-violet-500/5 to-transparent blur-3xl" />
       <motion.div
         className="relative mx-auto flex h-[360px] w-[360px] items-center justify-center rounded-full border border-sky-500/20 bg-slate-950/95 shadow-[0_40px_80px_rgba(15,23,42,0.35)]"
