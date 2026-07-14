@@ -297,10 +297,59 @@ export default function CompanyLanding() {
   useEffect(() => {
     const root = document.documentElement;
     root.style.scrollSnapType = "y mandatory";
-    root.style.scrollBehavior = "smooth";
+
+    const DURATION = 800;
+    let animating = false;
+
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const animateTo = (target: number) => {
+      const start = window.scrollY;
+      const distance = target - start;
+      if (Math.abs(distance) < 2) return;
+      animating = true;
+      const startTime = performance.now();
+      const step = (now: number) => {
+        const progress = Math.min((now - startTime) / DURATION, 1);
+        window.scrollTo(0, start + distance * easeInOutCubic(progress));
+        if (progress < 1) requestAnimationFrame(step);
+        else setTimeout(() => (animating = false), 50);
+      };
+      requestAnimationFrame(step);
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) < 4) return;
+      e.preventDefault();
+      if (animating) return;
+
+      const sections = Array.from(
+        document.querySelectorAll<HTMLElement>(".snap-start")
+      );
+      if (!sections.length) return;
+
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const currentTop = window.scrollY;
+      const tops = sections.map((s) => s.getBoundingClientRect().top + currentTop);
+
+      let currentIndex = 0;
+      for (let i = 0; i < tops.length; i++) {
+        if (tops[i] <= currentTop + 10) currentIndex = i;
+      }
+
+      const targetIndex = Math.min(
+        Math.max(currentIndex + dir, 0),
+        tops.length - 1
+      );
+      if (targetIndex === currentIndex) return;
+      animateTo(tops[targetIndex]);
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: false });
     return () => {
       root.style.scrollSnapType = "";
-      root.style.scrollBehavior = "";
+      window.removeEventListener("wheel", onWheel);
     };
   }, []);
 
