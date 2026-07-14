@@ -295,13 +295,59 @@ export default function CompanyLanding() {
   const next = () => setActiveTestimonial((p) => (p + 1) % testimonials.length);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.style.scrollSnapType = "y mandatory";
-    root.style.scrollBehavior = "smooth";
-    return () => {
-      root.style.scrollSnapType = "";
-      root.style.scrollBehavior = "";
+    const DURATION = 900;
+    let animating = false;
+
+    const getSections = () =>
+      Array.from(
+        document.querySelectorAll<HTMLElement>(".snap-start")
+      );
+
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const animateTo = (target: number) => {
+      const start = window.scrollY;
+      const distance = target - start;
+      if (Math.abs(distance) < 2) return;
+      animating = true;
+      const startTime = performance.now();
+      const step = (now: number) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / DURATION, 1);
+        window.scrollTo(0, start + distance * easeInOutCubic(progress));
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        } else {
+          animating = false;
+        }
+      };
+      requestAnimationFrame(step);
     };
+
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) < 4) return;
+      const sections = getSections();
+      if (!sections.length) return;
+      e.preventDefault();
+      if (animating) return;
+
+      const current = window.scrollY;
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const tops = sections.map((s) => s.offsetTop);
+      let targetIndex = tops.findIndex((t) => t > current + 5);
+      if (dir > 0) {
+        if (targetIndex === -1) return;
+      } else {
+        const above = tops.filter((t) => t < current - 5);
+        if (!above.length) return;
+        targetIndex = above.length - 1;
+      }
+      animateTo(tops[targetIndex]);
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    return () => window.removeEventListener("wheel", onWheel);
   }, []);
 
   return (
