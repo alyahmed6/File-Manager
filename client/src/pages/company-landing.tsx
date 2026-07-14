@@ -369,7 +369,7 @@ export default function CompanyLanding() {
               className="text-center mb-4 md:mb-6"
               initial={{ opacity: 0, y: 32 }}
               whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
+              viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
               <SectionLabel>Upcoming Program</SectionLabel>
