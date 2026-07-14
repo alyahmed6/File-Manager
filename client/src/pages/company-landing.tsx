@@ -296,7 +296,7 @@ export default function CompanyLanding() {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.style.scrollSnapType = "y mandatory";
+    root.style.scrollSnapType = "y proximity";
     return () => {
       root.style.scrollSnapType = "";
     };
