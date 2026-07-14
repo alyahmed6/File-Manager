@@ -298,7 +298,7 @@ export default function CompanyLanding() {
     const root = document.documentElement;
     root.style.scrollSnapType = "y mandatory";
 
-    const DURATION = 800;
+    const DURATION = 1400;
     let animating = false;
 
     const easeInOutCubic = (t: number) =>
