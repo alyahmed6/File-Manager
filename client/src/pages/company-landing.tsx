@@ -333,16 +333,16 @@ export default function CompanyLanding() {
       if (animating) return;
 
       const current = window.scrollY;
-      const dir = e.deltaY > 0 ? 1 : -1;
       const tops = sections.map((s) => s.offsetTop);
-      let targetIndex = tops.findIndex((t) => t > current + 5);
-      if (dir > 0) {
-        if (targetIndex === -1) return;
-      } else {
-        const above = tops.filter((t) => t < current - 5);
-        if (!above.length) return;
-        targetIndex = above.length - 1;
+      const dir = e.deltaY > 0 ? 1 : -1;
+
+      let currentIndex = 0;
+      for (let i = 0; i < tops.length; i++) {
+        if (tops[i] <= current + 10) currentIndex = i;
       }
+
+      const targetIndex = currentIndex + dir;
+      if (targetIndex < 0 || targetIndex >= tops.length) return;
       animateTo(tops[targetIndex]);
     };
 
