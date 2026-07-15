@@ -1,12 +1,11 @@
-import { useState, useRef, useEffect } from "react";
+import {
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+} from "react";
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  type CarouselApi,
-} from "@/components/ui/carousel";
 import {
   Boxes,
   BrainCircuit,
@@ -293,14 +292,37 @@ function hexToRgb(hex: string) {
 /* ─── MAIN PAGE ─────────────────────────────────────────────────────── */
 
 export default function CompanyLanding() {
-  const [api, setApi] = useState<CarouselApi>();
-  const [current, setCurrent] = useState(0);
+  const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const touchStartX = useRef(0);
+  const touchDeltaX = useRef(0);
+  const sliderRef = useRef<HTMLDivElement>(null);
+  const isDragging = useRef(false);
 
-  useEffect(() => {
-    if (!api) return;
-    setCurrent(api.selectedScrollSnap());
-    api.on("select", () => setCurrent(api.selectedScrollSnap()));
-  }, [api]);
+  const prev = useCallback(() => {
+    setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
+  }, []);
+
+  const next = useCallback(() => {
+    setActiveTestimonial((p) => (p + 1) % testimonials.length);
+  }, []);
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchDeltaX.current = 0;
+    isDragging.current = true;
+  }, []);
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isDragging.current) return;
+    touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+  }, []);
+
+  const handleTouchEnd = useCallback(() => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    if (touchDeltaX.current < -50) next();
+    else if (touchDeltaX.current > 50) prev();
+  }, [next, prev]);
 
   useEffect(() => {
     const DURATION = 1400;
@@ -486,21 +508,24 @@ export default function CompanyLanding() {
               </h2>
             </FadeIn>
 
-            <Carousel
-              setApi={setApi}
-              opts={{
-                align: "start",
-                loop: true,
-                slidesToScroll: 1,
-                touchAction: "pan-y",
-              }}
-              className="w-full"
+            <div
+              ref={sliderRef}
+              className="overflow-hidden relative"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
             >
-              <CarouselContent>
+              <div
+                className="flex transition-transform duration-300 ease-in-out"
+                style={{ transform: `translateX(-${activeTestimonial * 100}%)` }}
+              >
                 {testimonials.map((t, i) => {
                   const color = "#3bb5e8";
                   return (
-                    <CarouselItem key={i}>
+                    <div
+                      key={i}
+                      className="w-full flex-shrink-0 px-4"
+                    >
                       <div
                         className="rounded-lg border border-primary/20 bg-card p-6 flex flex-col gap-3 shadow-sm transition-all duration-300 hover-elevate h-full"
                         data-testid={`testimonial-card-${i}`}
@@ -562,24 +587,24 @@ export default function CompanyLanding() {
                           </div>
                         </div>
                       </div>
-                    </CarouselItem>
+                    </div>
                   );
                 })}
-              </CarouselContent>
-            </Carousel>
+              </div>
+            </div>
 
             {/* Pagination dots */}
             <div className="flex items-center justify-center gap-2 mt-6">
               {testimonials.map((_, i) => (
                   <button
                     key={i}
-                    onClick={() => api?.scrollTo(i)}
+                    onClick={() => setActiveTestimonial(i)}
                     className="transition-all duration-300"
                     style={{
-                      width: current === i ? "24px" : "8px",
+                      width: activeTestimonial === i ? "24px" : "8px",
                       height: "8px",
                       borderRadius: "4px",
-                      background: current === i ? "#3bb5e8" : "rgba(59,181,232,0.25)",
+                      background: activeTestimonial === i ? "#3bb5e8" : "rgba(59,181,232,0.25)",
                     }}
                     data-testid={`dot-testimonial-${i}`}
                   />
