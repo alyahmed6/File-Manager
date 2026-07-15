@@ -292,113 +292,33 @@ function hexToRgb(hex: string) {
 
 export default function CompanyLanding() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
+  const carouselRef = useRef<HTMLDivElement>(null);
+  const touchStartX = useRef(0);
+  const touchDeltaX = useRef(0);
+  const isDragging = useRef(false);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+    touchDeltaX.current = 0;
+    isDragging.current = true;
+  };
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (!isDragging.current) return;
+    touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
+  };
+  const handleTouchEnd = () => {
+    if (!isDragging.current) return;
+    isDragging.current = false;
+    if (touchDeltaX.current < -50) setActiveTestimonial((p) => Math.min(p + 1, testimonials.length - 1));
+    else if (touchDeltaX.current > 50) setActiveTestimonial((p) => Math.max(p - 1, 0));
+  };
 
   useEffect(() => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
-
-    const updateActiveSlide = () => {
-      const slideWidth = el.children[0]?.children[0]?.clientWidth || 1;
-      const idx = Math.round(el.scrollLeft / slideWidth);
-      setActiveTestimonial(Math.min(idx, testimonials.length - 1));
-    };
-
-    el.addEventListener("scroll", updateActiveSlide, { passive: true });
-    return () => el.removeEventListener("scroll", updateActiveSlide);
-  }, []);
-
-  useEffect(() => {
-    const DURATION = 1400;
-    let animating = false;
-    let rafId = 0;
-
-    const easeInOutCubic = (t: number) =>
-      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-    const animateTo = (target: number) => {
-      const start = window.scrollY;
-      const distance = target - start;
-      if (Math.abs(distance) < 2) return;
-      animating = true;
-      const startTime = performance.now();
-      const step = (now: number) => {
-        const progress = Math.min((now - startTime) / DURATION, 1);
-        document.documentElement.scrollTop = start + distance * easeInOutCubic(progress);
-        if (progress < 1) {
-          rafId = requestAnimationFrame(step);
-        } else {
-          animating = false;
-        }
-      };
-      rafId = requestAnimationFrame(step);
-    };
-
-    const getSections = () =>
-      Array.from(document.querySelectorAll<HTMLElement>("section.snap-start"));
-
-    const getTargetIndex = (dir: number) => {
-      const sections = getSections();
-      if (!sections.length) return -1;
-      const tops = sections.map((s) => s.offsetTop);
-      let currentIndex = 0;
-      const currentTop = window.scrollY;
-      for (let i = 0; i < tops.length; i++) {
-        if (tops[i] <= currentTop + 10) currentIndex = i;
-      }
-      const targetIndex = Math.min(Math.max(currentIndex + dir, 0), tops.length - 1);
-      if (targetIndex === currentIndex) return -1;
-      return targetIndex;
-    };
-
-    const scrollDir = (dir: number) => {
-      if (animating) return;
-      const targetIndex = getTargetIndex(dir);
-      if (targetIndex < 0) return;
-      animateTo(getSections()[targetIndex].offsetTop);
-    };
-
-    const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) < 4) return;
-      e.preventDefault();
-      scrollDir(e.deltaY > 0 ? 1 : -1);
-    };
-
-    let touchStartY = 0;
-    let touchStartX = 0;
-    let touchTracking = false;
-
-    const onTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-      touchStartX = e.touches[0].clientX;
-      touchTracking = true;
-    };
-
-    const onTouchMove = (e: TouchEvent) => {
-      if (!touchTracking) return;
-      const dy = e.touches[0].clientY - touchStartY;
-      const dx = e.touches[0].clientX - touchStartX;
-      if (Math.abs(dy) > Math.abs(dx) * 2 && Math.abs(dy) > 15) {
-        touchTracking = false;
-        e.preventDefault();
-        scrollDir(dy > 0 ? -1 : 1);
-      }
-    };
-
-    const onTouchEnd = () => {
-      touchTracking = false;
-    };
-
-    window.addEventListener("wheel", onWheel, { passive: false });
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: false });
-    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    document.documentElement.style.scrollSnapType = "y proximity";
+    document.documentElement.style.scrollBehavior = "smooth";
     return () => {
-      cancelAnimationFrame(rafId);
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchmove", onTouchMove);
-      window.removeEventListener("touchend", onTouchEnd);
+      document.documentElement.style.scrollSnapType = "";
+      document.documentElement.style.scrollBehavior = "";
     };
   }, []);
 
@@ -410,7 +330,7 @@ export default function CompanyLanding() {
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section
-          className="relative overflow-hidden pt-16 pb-10 md:pt-24 md:pb-12 min-h-[100dvh] flex items-center snap-start snap-always"
+          className="relative overflow-hidden pt-16 pb-10 md:pt-24 md:pb-12 min-h-[100dvh] flex items-center snap-start"
           data-testid="section-course-showcase"
         >
           <div className="absolute inset-0 bg-black/10" />
@@ -442,7 +362,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start snap-always"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -461,7 +381,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start snap-always"
+          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -515,7 +435,7 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start snap-always"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -527,17 +447,22 @@ export default function CompanyLanding() {
             </FadeIn>
 
             <div
-              ref={scrollContainerRef}
-              className="overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden"
-              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              ref={carouselRef}
+              className="overflow-hidden rounded-lg"
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
             >
-              <div className="flex">
+              <div
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${activeTestimonial * 100}%)` }}
+              >
                 {testimonials.map((t, i) => {
                   const color = "#3bb5e8";
                   return (
                     <div
                       key={i}
-                      className="w-full flex-shrink-0 snap-start px-4"
+                      className="w-full flex-shrink-0 px-4"
                     >
                       <div
                         className="rounded-lg border border-primary/20 bg-card p-6 flex flex-col gap-3 shadow-sm transition-all duration-300 hover-elevate h-full"
@@ -611,11 +536,7 @@ export default function CompanyLanding() {
               {testimonials.map((_, i) => (
                   <button
                     key={i}
-                    onClick={() => {
-                      const container = scrollContainerRef.current;
-                      const slide = container?.children[0]?.children[i] as HTMLElement | undefined;
-                      slide?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
-                    }}
+                    onClick={() => setActiveTestimonial(i)}
                     className="transition-all duration-300"
                     style={{
                       width: activeTestimonial === i ? "24px" : "8px",
@@ -630,7 +551,7 @@ export default function CompanyLanding() {
           </div>
         </section>
       </main>
-      <section className="snap-start snap-always">
+      <section className="snap-start">
         <Footer />
       </section>
     </div>
