@@ -511,6 +511,7 @@ export default function CompanyLanding() {
             <div
               ref={sliderRef}
               className="overflow-hidden relative"
+              style={{ touchAction: "pan-y pinch-zoom" }}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
