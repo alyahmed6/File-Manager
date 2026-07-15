@@ -5,8 +5,6 @@ import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselPrevious,
-  CarouselNext,
   type CarouselApi,
 } from "@/components/ui/carousel";
 import {
@@ -568,10 +566,6 @@ export default function CompanyLanding() {
                   );
                 })}
               </CarouselContent>
-              <CarouselPrevious className="md:hidden -left-4 top-1/2 -translate-y-1/2" />
-              <CarouselNext className="md:hidden -right-4 top-1/2 -translate-y-1/2" />
-              <CarouselPrevious className="hidden md:flex" />
-              <CarouselNext className="hidden md:flex" />
             </Carousel>
 
             {/* Pagination dots */}
