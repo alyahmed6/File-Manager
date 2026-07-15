@@ -488,7 +488,7 @@ export default function CompanyLanding() {
               </h2>
             </FadeIn>
 
-            <Carousel setApi={setApi} opts={{ align: "start", loop: true }}>
+            <Carousel setApi={setApi} opts={{ align: "start", loop: true, slidesToScroll: 1 }}>
               <CarouselContent>
                 {testimonials.map((t, i) => {
                   const color = "#3bb5e8";
@@ -559,6 +559,8 @@ export default function CompanyLanding() {
                   );
                 })}
               </CarouselContent>
+              <CarouselPrevious className="md:hidden -left-4 top-1/2 -translate-y-1/2" />
+              <CarouselNext className="md:hidden -right-4 top-1/2 -translate-y-1/2" />
               <CarouselPrevious className="hidden md:flex" />
               <CarouselNext className="hidden md:flex" />
             </Carousel>
