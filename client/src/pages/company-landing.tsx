@@ -315,9 +315,6 @@ export default function CompanyLanding() {
   };
 
   useEffect(() => {
-    const easeInOutCubic = (t: number) =>
-      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
     const getSections = () =>
       Array.from(document.querySelectorAll<HTMLElement>("section.snap-start"));
 
@@ -336,8 +333,6 @@ export default function CompanyLanding() {
       return bestIdx;
     };
 
-    let rafId = 0;
-
     const scrollToSection = (dir: number) => {
       if (animatingRef.current) return;
       const sections = getSections();
@@ -345,25 +340,10 @@ export default function CompanyLanding() {
       const target = Math.min(Math.max(cur + dir, 0), sections.length - 1);
       if (target === cur) return;
 
-      const start = window.scrollY;
       const end = sections[target].offsetTop;
-      const distance = end - start;
-      if (Math.abs(distance) < 2) return;
-
       animatingRef.current = true;
-      const duration = 800;
-      const startTime = performance.now();
-
-      const animate = (now: number) => {
-        const progress = Math.min((now - startTime) / duration, 1);
-        document.documentElement.scrollTop = start + distance * easeInOutCubic(progress);
-        if (progress < 1) {
-          rafId = requestAnimationFrame(animate);
-        } else {
-          animatingRef.current = false;
-        }
-      };
-      rafId = requestAnimationFrame(animate);
+      window.scrollTo({ top: end, behavior: "smooth" });
+      setTimeout(() => { animatingRef.current = false; }, 600);
     };
 
     const onWheel = (e: WheelEvent) => {
@@ -418,7 +398,6 @@ export default function CompanyLanding() {
     window.addEventListener("touchstart", onTouchStart, { passive: true });
     window.addEventListener("touchend", onTouchEnd, { passive: true });
     return () => {
-      cancelAnimationFrame(rafId);
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchstart", onTouchStart);
       window.removeEventListener("touchend", onTouchEnd);
