@@ -314,16 +314,14 @@ export default function CompanyLanding() {
   };
 
   useEffect(() => {
-    document.documentElement.style.scrollSnapType = "y proximity";
-    document.documentElement.style.scrollBehavior = "smooth";
+    document.documentElement.style.overflow = "hidden";
     return () => {
-      document.documentElement.style.scrollSnapType = "";
-      document.documentElement.style.scrollBehavior = "";
+      document.documentElement.style.overflow = "";
     };
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-clip">
+    <div className="min-h-screen flex flex-col overflow-y-auto overflow-x-clip snap-y snap-proximity" style={{ maxHeight: "100vh", scrollBehavior: "smooth" }}>
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <Header />
         <main className="flex-1">
