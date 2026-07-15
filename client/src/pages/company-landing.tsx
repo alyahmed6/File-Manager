@@ -319,11 +319,7 @@ export default function CompanyLanding() {
 
     const onTouchMove = (e: TouchEvent) => {
       if (!tracking) return;
-      const dx = e.touches[0].clientX - startX;
-      const dy = e.touches[0].clientY - startY;
-      if (Math.abs(dx) > Math.abs(dy)) {
-        e.preventDefault();
-      }
+      e.preventDefault();
     };
 
     const onTouchEnd = (e: TouchEvent) => {
@@ -532,7 +528,7 @@ export default function CompanyLanding() {
             <div
               ref={sliderRef}
               className="overflow-hidden relative"
-              style={{ touchAction: "pan-y pinch-zoom" }}
+              style={{ touchAction: "none" }}
             >
               <div
                 className="flex transition-transform duration-300 ease-in-out"
