@@ -2,7 +2,6 @@ import {
   useState,
   useRef,
   useEffect,
-  useCallback,
 } from "react";
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
@@ -294,52 +293,21 @@ function hexToRgb(hex: string) {
 export default function CompanyLanding() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
-
-  const goPrev = useCallback(() => {
-    setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
-  }, []);
-
-  const goNext = useCallback(() => {
-    setActiveTestimonial((p) => (p + 1) % testimonials.length);
-  }, []);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const el = sliderRef.current;
+    const el = scrollContainerRef.current;
     if (!el) return;
 
-    let startX = 0;
-    let startY = 0;
-    let tracking = false;
-
-    const onTouchStart = (e: TouchEvent) => {
-      startX = e.touches[0].clientX;
-      startY = e.touches[0].clientY;
-      tracking = true;
+    const updateActiveSlide = () => {
+      const slideWidth = el.children[0]?.children[0]?.clientWidth || 1;
+      const idx = Math.round(el.scrollLeft / slideWidth);
+      setActiveTestimonial(Math.min(idx, testimonials.length - 1));
     };
 
-    const onTouchMove = (e: TouchEvent) => {
-      if (!tracking) return;
-      e.preventDefault();
-    };
-
-    const onTouchEnd = (e: TouchEvent) => {
-      if (!tracking) return;
-      tracking = false;
-      const dx = e.changedTouches[0].clientX - startX;
-      if (dx < -50) goNext();
-      else if (dx > 50) goPrev();
-    };
-
-    el.addEventListener("touchstart", onTouchStart, { passive: true });
-    el.addEventListener("touchmove", onTouchMove, { passive: false });
-    el.addEventListener("touchend", onTouchEnd, { passive: true });
-
-    return () => {
-      el.removeEventListener("touchstart", onTouchStart);
-      el.removeEventListener("touchmove", onTouchMove);
-      el.removeEventListener("touchend", onTouchEnd);
-    };
-  }, [goNext, goPrev]);
+    el.addEventListener("scroll", updateActiveSlide, { passive: true });
+    return () => el.removeEventListener("scroll", updateActiveSlide);
+  }, []);
 
   useEffect(() => {
     const DURATION = 1400;
@@ -526,20 +494,17 @@ export default function CompanyLanding() {
             </FadeIn>
 
             <div
-              ref={sliderRef}
-              className="overflow-hidden relative"
-              style={{ touchAction: "none" }}
+              ref={scrollContainerRef}
+              className="overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
-              <div
-                className="flex transition-transform duration-300 ease-in-out"
-                style={{ transform: `translateX(-${activeTestimonial * 100}%)` }}
-              >
+              <div className="flex">
                 {testimonials.map((t, i) => {
                   const color = "#3bb5e8";
                   return (
                     <div
                       key={i}
-                      className="w-full flex-shrink-0 px-4"
+                      className="w-full flex-shrink-0 snap-start px-4"
                     >
                       <div
                         className="rounded-lg border border-primary/20 bg-card p-6 flex flex-col gap-3 shadow-sm transition-all duration-300 hover-elevate h-full"
@@ -613,7 +578,11 @@ export default function CompanyLanding() {
               {testimonials.map((_, i) => (
                   <button
                     key={i}
-                    onClick={() => setActiveTestimonial(i)}
+                    onClick={() => {
+                      const container = scrollContainerRef.current;
+                      const slide = container?.children[0]?.children[i] as HTMLElement | undefined;
+                      slide?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+                    }}
                     className="transition-all duration-300"
                     style={{
                       width: activeTestimonial === i ? "24px" : "8px",
