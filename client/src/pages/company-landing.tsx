@@ -296,6 +296,7 @@ export default function CompanyLanding() {
   const touchStartX = useRef(0);
   const touchDeltaX = useRef(0);
   const isDragging = useRef(false);
+  const animatingRef = useRef(false);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -314,14 +315,75 @@ export default function CompanyLanding() {
   };
 
   useEffect(() => {
-    document.documentElement.style.overflow = "hidden";
-    return () => {
-      document.documentElement.style.overflow = "";
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const getSections = () =>
+      Array.from(document.querySelectorAll<HTMLElement>("section.snap-start"));
+
+    const getCurrentIndex = () => {
+      const sections = getSections();
+      const currentTop = window.scrollY + 1;
+      for (let i = sections.length - 1; i >= 0; i--) {
+        if (sections[i].offsetTop <= currentTop) return i;
+      }
+      return 0;
     };
+
+    const scrollToSection = (dir: number) => {
+      const sections = getSections();
+      const cur = getCurrentIndex();
+      const target = Math.min(Math.max(cur + dir, 0), sections.length - 1);
+      if (target === cur || animatingRef.current) return;
+
+      const start = window.scrollY;
+      const end = sections[target].offsetTop;
+      const distance = end - start;
+      if (Math.abs(distance) < 2) return;
+
+      animatingRef.current = true;
+      const duration = 800;
+      const startTime = performance.now();
+
+      const animate = (now: number) => {
+        const progress = Math.min((now - startTime) / duration, 1);
+        document.documentElement.scrollTop = start + distance * easeInOutCubic(progress);
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          animatingRef.current = false;
+        }
+      };
+      requestAnimationFrame(animate);
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) < 8 || animatingRef.current) return;
+      const current = getSections()[getCurrentIndex()];
+      if (!current) return;
+
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const atTop = current.scrollTop <= 1;
+      const atBottom = current.scrollTop + current.clientHeight >= current.scrollHeight - 1;
+      const canScrollInside = current.scrollHeight > current.clientHeight + 2;
+
+      if (canScrollInside) {
+        if ((dir > 0 && atBottom) || (dir < 0 && atTop)) {
+          e.preventDefault();
+          scrollToSection(dir);
+        }
+      } else {
+        e.preventDefault();
+        scrollToSection(dir);
+      }
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    return () => window.removeEventListener("wheel", onWheel);
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col overflow-y-auto overflow-x-clip snap-y snap-proximity" style={{ maxHeight: "100vh", scrollBehavior: "smooth" }}>
+    <div className="min-h-screen flex flex-col overflow-x-clip">
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <Header />
         <main className="flex-1">
