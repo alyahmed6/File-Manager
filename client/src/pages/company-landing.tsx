@@ -323,18 +323,27 @@ export default function CompanyLanding() {
 
     const getCurrentIndex = () => {
       const sections = getSections();
-      const currentTop = window.scrollY + 1;
-      for (let i = sections.length - 1; i >= 0; i--) {
-        if (sections[i].offsetTop <= currentTop) return i;
+      if (!sections.length) return 0;
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      for (let i = 0; i < sections.length; i++) {
+        const dist = Math.abs(sections[i].getBoundingClientRect().top);
+        if (dist < bestDist) {
+          bestDist = dist;
+          bestIdx = i;
+        }
       }
-      return 0;
+      return bestIdx;
     };
 
+    let rafId = 0;
+
     const scrollToSection = (dir: number) => {
+      if (animatingRef.current) return;
       const sections = getSections();
       const cur = getCurrentIndex();
       const target = Math.min(Math.max(cur + dir, 0), sections.length - 1);
-      if (target === cur || animatingRef.current) return;
+      if (target === cur) return;
 
       const start = window.scrollY;
       const end = sections[target].offsetTop;
@@ -349,16 +358,16 @@ export default function CompanyLanding() {
         const progress = Math.min((now - startTime) / duration, 1);
         document.documentElement.scrollTop = start + distance * easeInOutCubic(progress);
         if (progress < 1) {
-          requestAnimationFrame(animate);
+          rafId = requestAnimationFrame(animate);
         } else {
           animatingRef.current = false;
         }
       };
-      requestAnimationFrame(animate);
+      rafId = requestAnimationFrame(animate);
     };
 
     const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) < 8 || animatingRef.current) return;
+      if (Math.abs(e.deltaY) < 4 || animatingRef.current) return;
       const current = getSections()[getCurrentIndex()];
       if (!current) return;
 
@@ -378,8 +387,42 @@ export default function CompanyLanding() {
       }
     };
 
+    let touchStartY = 0;
+    let touchStartX = 0;
+
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (animatingRef.current) return;
+      const dy = e.changedTouches[0].clientY - touchStartY;
+      const dx = e.changedTouches[0].clientX - touchStartX;
+      if (Math.abs(dy) < 30 || Math.abs(dy) < Math.abs(dx)) return;
+
+      const current = getSections()[getCurrentIndex()];
+      if (!current) return;
+
+      const dir = dy < 0 ? 1 : -1;
+      const atTop = current.scrollTop <= 1;
+      const atBottom = current.scrollTop + current.clientHeight >= current.scrollHeight - 1;
+      const canScrollInside = current.scrollHeight > current.clientHeight + 2;
+
+      if (!canScrollInside || (dir > 0 && atBottom) || (dir < 0 && atTop)) {
+        scrollToSection(dir);
+      }
+    };
+
     window.addEventListener("wheel", onWheel, { passive: false });
-    return () => window.removeEventListener("wheel", onWheel);
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
   }, []);
 
   return (
