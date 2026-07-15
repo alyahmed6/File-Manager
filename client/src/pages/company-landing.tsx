@@ -493,7 +493,7 @@ export default function CompanyLanding() {
                 {testimonials.map((t, i) => {
                   const color = "#3bb5e8";
                   return (
-                    <CarouselItem key={i}>
+                    <CarouselItem key={i} className="basis-[85%] sm:basis-1/2 md:basis-1/3">
                       <div
                         className="rounded-lg border border-primary/20 bg-card p-6 flex flex-col gap-3 shadow-sm transition-all duration-300 hover-elevate h-full"
                         data-testid={`testimonial-card-${i}`}
