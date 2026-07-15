@@ -3,6 +3,7 @@ import {
   useRef,
   useEffect,
 } from "react";
+import Lenis from "lenis";
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -315,11 +316,19 @@ export default function CompanyLanding() {
   };
 
   useEffect(() => {
-    document.documentElement.style.scrollBehavior = "smooth";
-    return () => { document.documentElement.style.scrollBehavior = ""; };
-  }, []);
+    const lenis = new Lenis({
+      duration: 1.4,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      touchMultiplier: 2,
+      infinite: false,
+    });
 
-  useEffect(() => {
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
     const getSections = () =>
       Array.from(document.querySelectorAll<HTMLElement>("section.snap-start"));
 
@@ -346,7 +355,7 @@ export default function CompanyLanding() {
       if (target === cur) return;
 
       animatingRef.current = true;
-      sections[target].scrollIntoView({ behavior: "smooth", block: "start" });
+      lenis.scrollTo(sections[target], { offset: 0, duration: 1.4 });
       setTimeout(() => { animatingRef.current = false; }, 1000);
     };
 
@@ -401,7 +410,9 @@ export default function CompanyLanding() {
     window.addEventListener("wheel", onWheel, { passive: false });
     window.addEventListener("touchstart", onTouchStart, { passive: true });
     window.addEventListener("touchend", onTouchEnd, { passive: true });
+
     return () => {
+      lenis.destroy();
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchstart", onTouchStart);
       window.removeEventListener("touchend", onTouchEnd);
