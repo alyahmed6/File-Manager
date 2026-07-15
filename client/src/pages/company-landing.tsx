@@ -315,6 +315,11 @@ export default function CompanyLanding() {
   };
 
   useEffect(() => {
+    document.documentElement.style.scrollBehavior = "smooth";
+    return () => { document.documentElement.style.scrollBehavior = ""; };
+  }, []);
+
+  useEffect(() => {
     const getSections = () =>
       Array.from(document.querySelectorAll<HTMLElement>("section.snap-start"));
 
@@ -340,10 +345,9 @@ export default function CompanyLanding() {
       const target = Math.min(Math.max(cur + dir, 0), sections.length - 1);
       if (target === cur) return;
 
-      const end = sections[target].offsetTop;
       animatingRef.current = true;
-      window.scrollTo({ top: end, behavior: "smooth" });
-      setTimeout(() => { animatingRef.current = false; }, 600);
+      sections[target].scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => { animatingRef.current = false; }, 1000);
     };
 
     const onWheel = (e: WheelEvent) => {
