@@ -483,7 +483,7 @@ export default function CompanyLanding() {
               {/* Left arrow */}
               <button
                 onClick={prev}
-                className="hidden md:flex flex-shrink-0 w-10 h-10 rounded-full items-center justify-center border border-primary/30 bg-primary/10 text-primary transition-all hover:scale-110 hover:bg-primary hover:text-primary-foreground"
+                className="flex flex-shrink-0 w-10 h-10 rounded-full items-center justify-center border border-primary/30 bg-primary/10 text-primary transition-all hover:scale-110 hover:bg-primary hover:text-primary-foreground"
                 data-testid="button-testimonial-prev"
               >
                 <ChevronLeft className="w-5 h-5" />
@@ -496,7 +496,7 @@ export default function CompanyLanding() {
                   return (
                     <div
                       key={i}
-                      className="rounded-lg border border-primary/20 bg-card p-6 flex flex-col gap-3 shadow-sm transition-all duration-300 hover-elevate"
+                      className={`rounded-lg border border-primary/20 bg-card p-6 flex flex-col gap-3 shadow-sm transition-all duration-300 hover-elevate ${i !== activeTestimonial ? "hidden md:block" : ""}`}
                       data-testid={`testimonial-card-${i}`}
                     >
                       <div className="inline-flex w-fit rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
@@ -563,7 +563,7 @@ export default function CompanyLanding() {
               {/* Right arrow */}
               <button
                 onClick={next}
-                className="hidden md:flex flex-shrink-0 w-10 h-10 rounded-full items-center justify-center border border-primary/30 bg-primary/10 text-primary transition-all hover:scale-110 hover:bg-primary hover:text-primary-foreground"
+                className="flex flex-shrink-0 w-10 h-10 rounded-full items-center justify-center border border-primary/30 bg-primary/10 text-primary transition-all hover:scale-110 hover:bg-primary hover:text-primary-foreground"
                 data-testid="button-testimonial-next"
               >
                 <ChevronRight className="w-5 h-5" />
