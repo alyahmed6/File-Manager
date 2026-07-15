@@ -334,37 +334,71 @@ export default function CompanyLanding() {
       rafId = requestAnimationFrame(step);
     };
 
-    const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) < 4) return;
-      e.preventDefault();
-      if (animating) return;
+    const getSections = () =>
+      Array.from(document.querySelectorAll<HTMLElement>("section.snap-start"));
 
-      const sections = Array.from(
-        document.querySelectorAll<HTMLElement>(".snap-start")
-      );
-      if (!sections.length) return;
-
-      const dir = e.deltaY > 0 ? 1 : -1;
+    const getTargetIndex = (dir: number) => {
+      const sections = getSections();
+      if (!sections.length) return -1;
       const tops = sections.map((s) => s.offsetTop);
-
       let currentIndex = 0;
       const currentTop = window.scrollY;
       for (let i = 0; i < tops.length; i++) {
         if (tops[i] <= currentTop + 10) currentIndex = i;
       }
+      const targetIndex = Math.min(Math.max(currentIndex + dir, 0), tops.length - 1);
+      if (targetIndex === currentIndex) return -1;
+      return targetIndex;
+    };
 
-      const targetIndex = Math.min(
-        Math.max(currentIndex + dir, 0),
-        tops.length - 1
-      );
-      if (targetIndex === currentIndex) return;
-      animateTo(tops[targetIndex]);
+    const scrollDir = (dir: number) => {
+      if (animating) return;
+      const targetIndex = getTargetIndex(dir);
+      if (targetIndex < 0) return;
+      animateTo(getSections()[targetIndex].offsetTop);
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) < 4) return;
+      e.preventDefault();
+      scrollDir(e.deltaY > 0 ? 1 : -1);
+    };
+
+    let touchStartY = 0;
+    let touchStartX = 0;
+    let touchTracking = false;
+
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+      touchTracking = true;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!touchTracking) return;
+      const dy = e.touches[0].clientY - touchStartY;
+      const dx = e.touches[0].clientX - touchStartX;
+      if (Math.abs(dy) > Math.abs(dx) * 2 && Math.abs(dy) > 15) {
+        touchTracking = false;
+        e.preventDefault();
+        scrollDir(dy > 0 ? -1 : 1);
+      }
+    };
+
+    const onTouchEnd = () => {
+      touchTracking = false;
     };
 
     window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
     return () => {
       cancelAnimationFrame(rafId);
       window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
     };
   }, []);
 
@@ -596,9 +630,9 @@ export default function CompanyLanding() {
           </div>
         </section>
       </main>
-      <div className="snap-start snap-always">
+      <section className="snap-start snap-always">
         <Footer />
-      </div>
+      </section>
     </div>
     </div>
   );
