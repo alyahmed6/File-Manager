@@ -294,13 +294,6 @@ function hexToRgb(hex: string) {
 export default function CompanyLanding() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const sliderRef = useRef<HTMLDivElement>(null);
-  const touchStartX = useRef(0);
-  const prevIndex = useRef(0);
-
-  const goTo = useCallback((idx: number) => {
-    const len = testimonials.length;
-    setActiveTestimonial(((idx % len) + len) % len);
-  }, []);
 
   const goPrev = useCallback(() => {
     setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
