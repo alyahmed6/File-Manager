@@ -488,12 +488,21 @@ export default function CompanyLanding() {
               </h2>
             </FadeIn>
 
-            <Carousel setApi={setApi} opts={{ align: "start", loop: true, slidesToScroll: 1 }}>
+            <Carousel
+              setApi={setApi}
+              opts={{
+                align: "start",
+                loop: true,
+                slidesToScroll: 1,
+                touchAction: "pan-y",
+              }}
+              className="w-full"
+            >
               <CarouselContent>
                 {testimonials.map((t, i) => {
                   const color = "#3bb5e8";
                   return (
-                    <CarouselItem key={i} className="md:basis-1/3">
+                    <CarouselItem key={i}>
                       <div
                         className="rounded-lg border border-primary/20 bg-card p-6 flex flex-col gap-3 shadow-sm transition-all duration-300 hover-elevate h-full"
                         data-testid={`testimonial-card-${i}`}
