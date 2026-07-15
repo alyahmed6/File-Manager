@@ -293,36 +293,64 @@ function hexToRgb(hex: string) {
 
 export default function CompanyLanding() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const touchStartX = useRef(0);
-  const touchDeltaX = useRef(0);
   const sliderRef = useRef<HTMLDivElement>(null);
-  const isDragging = useRef(false);
+  const touchStartX = useRef(0);
+  const prevIndex = useRef(0);
 
-  const prev = useCallback(() => {
+  const goTo = useCallback((idx: number) => {
+    const len = testimonials.length;
+    setActiveTestimonial(((idx % len) + len) % len);
+  }, []);
+
+  const goPrev = useCallback(() => {
     setActiveTestimonial((p) => (p - 1 + testimonials.length) % testimonials.length);
   }, []);
 
-  const next = useCallback(() => {
+  const goNext = useCallback(() => {
     setActiveTestimonial((p) => (p + 1) % testimonials.length);
   }, []);
 
-  const handleTouchStart = useCallback((e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-    touchDeltaX.current = 0;
-    isDragging.current = true;
-  }, []);
+  useEffect(() => {
+    const el = sliderRef.current;
+    if (!el) return;
 
-  const handleTouchMove = useCallback((e: React.TouchEvent) => {
-    if (!isDragging.current) return;
-    touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
-  }, []);
+    let startX = 0;
+    let startY = 0;
+    let tracking = false;
 
-  const handleTouchEnd = useCallback(() => {
-    if (!isDragging.current) return;
-    isDragging.current = false;
-    if (touchDeltaX.current < -50) next();
-    else if (touchDeltaX.current > 50) prev();
-  }, [next, prev]);
+    const onTouchStart = (e: TouchEvent) => {
+      startX = e.touches[0].clientX;
+      startY = e.touches[0].clientY;
+      tracking = true;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!tracking) return;
+      const dx = e.touches[0].clientX - startX;
+      const dy = e.touches[0].clientY - startY;
+      if (Math.abs(dx) > Math.abs(dy)) {
+        e.preventDefault();
+      }
+    };
+
+    const onTouchEnd = (e: TouchEvent) => {
+      if (!tracking) return;
+      tracking = false;
+      const dx = e.changedTouches[0].clientX - startX;
+      if (dx < -50) goNext();
+      else if (dx > 50) goPrev();
+    };
+
+    el.addEventListener("touchstart", onTouchStart, { passive: true });
+    el.addEventListener("touchmove", onTouchMove, { passive: false });
+    el.addEventListener("touchend", onTouchEnd, { passive: true });
+
+    return () => {
+      el.removeEventListener("touchstart", onTouchStart);
+      el.removeEventListener("touchmove", onTouchMove);
+      el.removeEventListener("touchend", onTouchEnd);
+    };
+  }, [goNext, goPrev]);
 
   useEffect(() => {
     const DURATION = 1400;
@@ -512,9 +540,6 @@ export default function CompanyLanding() {
               ref={sliderRef}
               className="overflow-hidden relative"
               style={{ touchAction: "pan-y pinch-zoom" }}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
             >
               <div
                 className="flex transition-transform duration-300 ease-in-out"
