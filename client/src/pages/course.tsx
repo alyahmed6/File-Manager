@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Lenis from "lenis";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import WhoThisCourseIsForSection from "@/components/WhoThisCourseIsForSection";
@@ -14,41 +13,26 @@ export default function Course() {
     const sections = Array.from(document.querySelectorAll<HTMLElement>("section[data-section]"));
     if (!sections.length) return;
 
-    let currentIdx = 0;
     let locked = false;
 
-    const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t: number) => 1 - Math.pow(1 - t, 3),
-      touchMultiplier: 2,
-      smoothWheel: false,
-      syncTouch: false,
-    });
-
-    function raf(time: number) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-
-    const updateIndex = () => {
-      let bestIdx = 0;
+    const getCurrentIdx = () => {
+      let best = 0;
       let bestDist = Infinity;
       for (let i = 0; i < sections.length; i++) {
-        const dist = Math.abs(sections[i].getBoundingClientRect().top);
-        if (dist < bestDist) { bestDist = dist; bestIdx = i; }
+        const d = Math.abs(sections[i].getBoundingClientRect().top);
+        if (d < bestDist) { bestDist = d; best = i; }
       }
-      currentIdx = bestIdx;
+      return best;
     };
 
     const goTo = (dir: number) => {
       if (locked) return;
-      const target = currentIdx + dir;
-      if (target < 0 || target >= sections.length) return;
+      const cur = getCurrentIdx();
+      const next = cur + dir;
+      if (next < 0 || next >= sections.length) return;
       locked = true;
-      currentIdx = target;
-      lenis.scrollTo(sections[target], { offset: 0, duration: 1.4 });
-      setTimeout(() => { locked = false; updateIndex(); }, 1400);
+      sections[next].scrollIntoView({ behavior: "smooth", block: "start" });
+      setTimeout(() => { locked = false; }, 1200);
     };
 
     const onWheel = (e: WheelEvent) => {
@@ -71,7 +55,6 @@ export default function Course() {
     window.addEventListener("touchend", onTouchEnd, { passive: true });
 
     return () => {
-      lenis.destroy();
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchstart", onTouchStart);
       window.removeEventListener("touchend", onTouchEnd);
