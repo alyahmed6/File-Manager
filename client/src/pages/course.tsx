@@ -24,12 +24,11 @@ export default function Course() {
       start: "top top",
       end: () => `+=${totalScroll}`,
       pin: true,
-      scrub: 0.5,
       snap: {
         snapTo: 1 / (sections.length - 1),
-        duration: { min: 0.25, max: 0.45 },
+        duration: 0.2,
         delay: 0,
-        ease: "power2.inOut",
+        ease: "power3.out",
       },
       animation: gsap.to(sections, {
         yPercent: -100 * (sections.length - 1),
