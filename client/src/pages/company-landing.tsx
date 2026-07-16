@@ -297,7 +297,6 @@ export default function CompanyLanding() {
   const touchStartX = useRef(0);
   const touchDeltaX = useRef(0);
   const isDragging = useRef(false);
-  const animatingRef = useRef(false);
 
   const handleTouchStart = (e: React.TouchEvent) => {
     touchStartX.current = e.touches[0].clientX;
@@ -316,13 +315,10 @@ export default function CompanyLanding() {
   };
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.style.scrollSnapType = "y mandatory";
     const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.2,
+      easing: (t: number) => 1 - Math.pow(1 - t, 3),
       touchMultiplier: 2,
-      infinite: false,
     });
 
     function raf(time: number) {
@@ -331,95 +327,7 @@ export default function CompanyLanding() {
     }
     requestAnimationFrame(raf);
 
-    const getSections = () =>
-      Array.from(document.querySelectorAll<HTMLElement>("section.snap-start"));
-
-    const getCurrentIndex = () => {
-      const sections = getSections();
-      if (!sections.length) return 0;
-      let bestIdx = 0;
-      let bestDist = Infinity;
-      for (let i = 0; i < sections.length; i++) {
-        const dist = Math.abs(sections[i].getBoundingClientRect().top);
-        if (dist < bestDist) {
-          bestDist = dist;
-          bestIdx = i;
-        }
-      }
-      return bestIdx;
-    };
-
-    const scrollToSection = (dir: number) => {
-      if (animatingRef.current) return;
-      const sections = getSections();
-      const cur = getCurrentIndex();
-      const target = Math.min(Math.max(cur + dir, 0), sections.length - 1);
-      if (target === cur) return;
-
-      animatingRef.current = true;
-      lenis.scrollTo(sections[target], { offset: 0, duration: 1.4 });
-      setTimeout(() => { animatingRef.current = false; }, 1000);
-    };
-
-    const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) < 4 || animatingRef.current) return;
-      const current = getSections()[getCurrentIndex()];
-      if (!current) return;
-
-      const dir = e.deltaY > 0 ? 1 : -1;
-      const atTop = current.scrollTop <= 1;
-      const atBottom = current.scrollTop + current.clientHeight >= current.scrollHeight - 1;
-      const canScrollInside = current.scrollHeight > current.clientHeight + 2;
-
-      if (canScrollInside) {
-        if ((dir > 0 && atBottom) || (dir < 0 && atTop)) {
-          e.preventDefault();
-          scrollToSection(dir);
-        }
-      } else {
-        e.preventDefault();
-        scrollToSection(dir);
-      }
-    };
-
-    let touchStartY = 0;
-    let touchStartX = 0;
-
-    const onTouchStart = (e: TouchEvent) => {
-      touchStartY = e.touches[0].clientY;
-      touchStartX = e.touches[0].clientX;
-    };
-
-    const onTouchEnd = (e: TouchEvent) => {
-      if (animatingRef.current) return;
-      const dy = e.changedTouches[0].clientY - touchStartY;
-      const dx = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(dy) < 30 || Math.abs(dy) < Math.abs(dx)) return;
-
-      const current = getSections()[getCurrentIndex()];
-      if (!current) return;
-
-      const dir = dy < 0 ? 1 : -1;
-      const atTop = current.scrollTop <= 1;
-      const atBottom = current.scrollTop + current.clientHeight >= current.scrollHeight - 1;
-      const canScrollInside = current.scrollHeight > current.clientHeight + 2;
-
-      if (!canScrollInside || (dir > 0 && atBottom) || (dir < 0 && atTop)) {
-        scrollToSection(dir);
-      }
-    };
-
-    window.addEventListener("wheel", onWheel, { passive: false });
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchend", onTouchEnd, { passive: true });
-
-    return () => {
-      root.style.scrollSnapType = "";
-      lenis.destroy();
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchend", onTouchEnd);
-    };
+    return () => { lenis.destroy(); };
   }, []);
 
   return (
@@ -430,7 +338,7 @@ export default function CompanyLanding() {
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section
-          className="relative overflow-hidden pt-16 pb-10 md:pt-24 md:pb-12 min-h-[100dvh] flex items-center snap-start"
+          className="relative overflow-hidden pt-16 pb-10 md:pt-24 md:pb-12 min-h-[100dvh] flex items-center"
           data-testid="section-course-showcase"
         >
           <div className="absolute inset-0 bg-black/10" />
@@ -462,7 +370,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -481,7 +389,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start"
+          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -535,7 +443,7 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -659,7 +567,7 @@ export default function CompanyLanding() {
           </div>
         </section>
       </main>
-      <section className="snap-start">
+      <section>
         <Footer />
       </section>
     </div>

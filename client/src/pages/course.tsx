@@ -11,13 +11,10 @@ import Footer from "@/components/Footer";
 
 export default function Course() {
   useEffect(() => {
-    const root = document.documentElement;
-    root.style.scrollSnapType = "y mandatory";
     const lenis = new Lenis({
-      duration: 1.4,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.2,
+      easing: (t: number) => 1 - Math.pow(1 - t, 3),
       touchMultiplier: 2,
-      infinite: false,
     });
 
     function raf(time: number) {
@@ -26,24 +23,21 @@ export default function Course() {
     }
     requestAnimationFrame(raf);
 
-    return () => {
-      root.style.scrollSnapType = "";
-      lenis.destroy();
-    };
+    return () => { lenis.destroy(); };
   }, []);
 
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <section className="snap-start min-h-[100dvh] flex flex-col justify-center"><HeroSection /></section>
-        <section className="snap-start min-h-[100dvh] flex flex-col justify-center"><WhoThisCourseIsForSection /></section>
-        <section className="snap-start min-h-[100dvh] flex flex-col justify-center"><CourseSection /></section>
-        <section className="snap-start min-h-[100dvh] flex flex-col justify-center"><CurriculumSection /></section>
-        <section className="snap-start min-h-[100dvh] flex flex-col justify-center"><PricingSection /></section>
-        <section className="snap-start min-h-[100dvh] flex flex-col justify-center"><FAQSection /></section>
+        <div className="min-h-[100dvh] flex flex-col justify-center"><HeroSection /></div>
+        <div className="min-h-[100dvh] flex flex-col justify-center"><WhoThisCourseIsForSection /></div>
+        <div className="min-h-[100dvh] flex flex-col justify-center"><CourseSection /></div>
+        <div className="min-h-[100dvh] flex flex-col justify-center"><CurriculumSection /></div>
+        <div className="min-h-[100dvh] flex flex-col justify-center"><PricingSection /></div>
+        <div className="min-h-[100dvh] flex flex-col justify-center"><FAQSection /></div>
       </main>
-      <section className="snap-start"><Footer /></section>
+      <div><Footer /></div>
     </div>
   );
 }
