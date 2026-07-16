@@ -328,6 +328,7 @@ export default function CompanyLanding() {
       start: "top top",
       end: () => `+=${totalScroll}`,
       pin: true,
+      pinSpacing: false,
       snap: {
         snapTo: 1 / (sections.length - 1),
         duration: 0.2,
@@ -352,7 +353,7 @@ export default function CompanyLanding() {
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section
           data-section
-          className="relative overflow-hidden pt-16 pb-10 md:pt-24 md:pb-12 h-screen flex items-center"
+          className="relative overflow-hidden pt-16 pb-10 md:pt-24 md:pb-12 min-h-screen flex items-center"
           data-testid="section-course-showcase"
         >
           <div className="absolute inset-0 bg-black/10" />
@@ -385,7 +386,7 @@ export default function CompanyLanding() {
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
           data-section
-          className="relative bg-card/85 h-screen flex flex-col justify-center py-10 md:py-12"
+          className="relative bg-card/85 min-h-screen flex flex-col justify-center py-10 md:py-12"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -405,7 +406,7 @@ export default function CompanyLanding() {
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
           data-section
-          className="relative bg-background/85 h-screen flex flex-col justify-center py-10 md:py-12"
+          className="relative bg-background/85 min-h-screen flex flex-col justify-center py-10 md:py-12"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -460,7 +461,7 @@ export default function CompanyLanding() {
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
           data-section
-          className="relative bg-card/85 h-screen flex flex-col justify-center py-10 md:py-12"
+          className="relative bg-card/85 min-h-screen flex flex-col justify-center py-10 md:py-12"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">

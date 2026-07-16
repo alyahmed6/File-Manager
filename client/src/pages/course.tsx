@@ -24,6 +24,7 @@ export default function Course() {
       start: "top top",
       end: () => `+=${totalScroll}`,
       pin: true,
+      pinSpacing: false,
       snap: {
         snapTo: 1 / (sections.length - 1),
         duration: 0.2,
@@ -43,12 +44,12 @@ export default function Course() {
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex-1">
-        <section data-section className="h-screen flex flex-col justify-center"><HeroSection /></section>
-        <section data-section className="h-screen flex flex-col justify-center"><WhoThisCourseIsForSection /></section>
-        <section data-section className="h-screen flex flex-col justify-center"><CourseSection /></section>
-        <section data-section className="h-screen flex flex-col justify-center"><CurriculumSection /></section>
-        <section data-section className="h-screen flex flex-col justify-center"><PricingSection /></section>
-        <section data-section className="h-screen flex flex-col justify-center"><FAQSection /></section>
+        <section data-section className="min-h-screen flex flex-col justify-center py-8"><HeroSection /></section>
+        <section data-section className="min-h-screen flex flex-col justify-center py-8"><WhoThisCourseIsForSection /></section>
+        <section data-section className="min-h-screen flex flex-col justify-center py-8"><CourseSection /></section>
+        <section data-section className="min-h-screen flex flex-col justify-center py-8"><CurriculumSection /></section>
+        <section data-section className="min-h-screen flex flex-col justify-center py-8"><PricingSection /></section>
+        <section data-section className="min-h-screen flex flex-col justify-center py-8"><FAQSection /></section>
       </main>
       <section><Footer /></section>
     </div>
