@@ -325,7 +325,8 @@ export default function CompanyLanding() {
       duration: 1.4,
       easing: (t: number) => 1 - Math.pow(1 - t, 3),
       touchMultiplier: 2,
-      smoothWheel: true,
+      smoothWheel: false,
+      syncTouch: false,
     });
 
     function raf(time: number) {
