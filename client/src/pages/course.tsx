@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import Lenis from "lenis";
 import Header from "@/components/Header";
 import HeroSection from "@/components/HeroSection";
 import WhoThisCourseIsForSection from "@/components/WhoThisCourseIsForSection";
@@ -10,6 +11,19 @@ import Footer from "@/components/Footer";
 
 export default function Course() {
   useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      touchMultiplier: 1.5,
+      infinite: false,
+    });
+
+    function raf(time: number) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+    requestAnimationFrame(raf);
+
     const sections = Array.from(document.querySelectorAll<HTMLElement>("section[data-section]"));
     if (!sections.length) return;
 
@@ -31,12 +45,13 @@ export default function Course() {
       const next = cur + dir;
       if (next < 0 || next >= sections.length) return;
       locked = true;
-      sections[next].scrollIntoView({ behavior: "smooth", block: "start" });
-      setTimeout(() => { locked = false; }, 1200);
+      lenis.scrollTo(sections[next], { offset: 0, force: true, duration: 1.2 });
+      setTimeout(() => { locked = false; }, 1300);
     };
 
     const onWheel = (e: WheelEvent) => {
-      if (locked || Math.abs(e.deltaY) < 10) return;
+      if (Math.abs(e.deltaY) < 10) return;
+      if (locked) { e.preventDefault(); return; }
       e.preventDefault();
       goTo(e.deltaY > 0 ? 1 : -1);
     };
@@ -50,14 +65,15 @@ export default function Course() {
       goTo(dy < 0 ? 1 : -1);
     };
 
-    window.addEventListener("wheel", onWheel, { passive: false });
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    document.addEventListener("wheel", onWheel, { passive: false });
+    document.addEventListener("touchstart", onTouchStart, { passive: true });
+    document.addEventListener("touchend", onTouchEnd, { passive: true });
 
     return () => {
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchend", onTouchEnd);
+      lenis.destroy();
+      document.removeEventListener("wheel", onWheel);
+      document.removeEventListener("touchstart", onTouchStart);
+      document.removeEventListener("touchend", onTouchEnd);
     };
   }, []);
 
