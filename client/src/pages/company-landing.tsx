@@ -3,8 +3,6 @@ import {
   useRef,
   useEffect,
 } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import {
@@ -294,66 +292,125 @@ function hexToRgb(hex: string) {
 
 export default function CompanyLanding() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const touchStartX = useRef(0);
-  const touchDeltaX = useRef(0);
-  const isDragging = useRef(false);
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    touchStartX.current = e.touches[0].clientX;
-    touchDeltaX.current = 0;
-    isDragging.current = true;
-  };
-  const handleTouchMove = (e: React.TouchEvent) => {
-    if (!isDragging.current) return;
-    touchDeltaX.current = e.touches[0].clientX - touchStartX.current;
-  };
-  const handleTouchEnd = () => {
-    if (!isDragging.current) return;
-    isDragging.current = false;
-    if (touchDeltaX.current < -50) setActiveTestimonial((p) => Math.min(p + 1, testimonials.length - 1));
-    else if (touchDeltaX.current > 50) setActiveTestimonial((p) => Math.max(p - 1, 0));
-  };
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
+    const el = scrollContainerRef.current;
+    if (!el) return;
 
-    const sections = gsap.utils.toArray<HTMLElement>("section[data-section]");
-    if (sections.length < 2) return;
+    const updateActiveSlide = () => {
+      const slideWidth = el.children[0]?.children[0]?.clientWidth || 1;
+      const idx = Math.round(el.scrollLeft / slideWidth);
+      setActiveTestimonial(Math.min(idx, testimonials.length - 1));
+    };
 
-    const totalScroll = (sections.length - 1) * window.innerHeight;
+    el.addEventListener("scroll", updateActiveSlide, { passive: true });
+    return () => el.removeEventListener("scroll", updateActiveSlide);
+  }, []);
 
-    const st = ScrollTrigger.create({
-      trigger: sections[0].parentElement,
-      start: "top top",
-      end: () => `+=${totalScroll}`,
-      pin: true,
-      pinSpacing: false,
-      snap: {
-        snapTo: 1 / (sections.length - 1),
-        duration: 0.2,
-        delay: 0,
-        ease: "power3.out",
-      },
-      animation: gsap.to(sections, {
-        yPercent: -100 * (sections.length - 1),
-        ease: "none",
-      }),
-    });
+  useEffect(() => {
+    const DURATION = 1400;
+    let animating = false;
+    let rafId = 0;
 
-    return () => { st.kill(); ScrollTrigger.getAll().forEach(t => t.kill()); };
+    const easeInOutCubic = (t: number) =>
+      t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+    const animateTo = (target: number) => {
+      const start = window.scrollY;
+      const distance = target - start;
+      if (Math.abs(distance) < 2) return;
+      animating = true;
+      const startTime = performance.now();
+      const step = (now: number) => {
+        const progress = Math.min((now - startTime) / DURATION, 1);
+        document.documentElement.scrollTop = start + distance * easeInOutCubic(progress);
+        if (progress < 1) {
+          rafId = requestAnimationFrame(step);
+        } else {
+          animating = false;
+        }
+      };
+      rafId = requestAnimationFrame(step);
+    };
+
+    const getSections = () =>
+      Array.from(document.querySelectorAll<HTMLElement>("section.snap-start"));
+
+    const getTargetIndex = (dir: number) => {
+      const sections = getSections();
+      if (!sections.length) return -1;
+      const tops = sections.map((s) => s.offsetTop);
+      let currentIndex = 0;
+      const currentTop = window.scrollY;
+      for (let i = 0; i < tops.length; i++) {
+        if (tops[i] <= currentTop + 10) currentIndex = i;
+      }
+      const targetIndex = Math.min(Math.max(currentIndex + dir, 0), tops.length - 1);
+      if (targetIndex === currentIndex) return -1;
+      return targetIndex;
+    };
+
+    const scrollDir = (dir: number) => {
+      if (animating) return;
+      const targetIndex = getTargetIndex(dir);
+      if (targetIndex < 0) return;
+      animateTo(getSections()[targetIndex].offsetTop);
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      if (Math.abs(e.deltaY) < 4) return;
+      e.preventDefault();
+      scrollDir(e.deltaY > 0 ? 1 : -1);
+    };
+
+    let touchStartY = 0;
+    let touchStartX = 0;
+    let touchTracking = false;
+
+    const onTouchStart = (e: TouchEvent) => {
+      touchStartY = e.touches[0].clientY;
+      touchStartX = e.touches[0].clientX;
+      touchTracking = true;
+    };
+
+    const onTouchMove = (e: TouchEvent) => {
+      if (!touchTracking) return;
+      const dy = e.touches[0].clientY - touchStartY;
+      const dx = e.touches[0].clientX - touchStartX;
+      if (Math.abs(dy) > Math.abs(dx) * 2 && Math.abs(dy) > 15) {
+        touchTracking = false;
+        e.preventDefault();
+        scrollDir(dy > 0 ? -1 : 1);
+      }
+    };
+
+    const onTouchEnd = () => {
+      touchTracking = false;
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: false });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    return () => {
+      cancelAnimationFrame(rafId);
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-clip">
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <Header />
         <main className="flex-1">
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section
-          data-section
-          className="relative overflow-hidden pt-16 pb-10 md:pt-24 md:pb-12 min-h-screen flex items-center"
+          className="relative overflow-hidden pt-16 pb-10 md:pt-24 md:pb-12 min-h-[100dvh] flex items-center snap-start snap-always"
           data-testid="section-course-showcase"
         >
           <div className="absolute inset-0 bg-black/10" />
@@ -385,8 +442,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          data-section
-          className="relative bg-card/85 min-h-screen flex flex-col justify-center py-10 md:py-12"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start snap-always"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -405,8 +461,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          data-section
-          className="relative bg-background/85 min-h-screen flex flex-col justify-center py-10 md:py-12"
+          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start snap-always"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -460,8 +515,7 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          data-section
-          className="relative bg-card/85 min-h-screen flex flex-col justify-center py-10 md:py-12"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start snap-always"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -472,68 +526,28 @@ export default function CompanyLanding() {
               </h2>
             </FadeIn>
 
-            {/* Desktop: grid of all testimonials */}
-            <div className="hidden md:grid md:grid-cols-3 gap-6">
-              {testimonials.map((t, i) => {
-                const color = "#3bb5e8";
-                return (
-                  <div
-                    key={i}
-                    className="rounded-lg border border-primary/20 bg-card p-6 flex flex-col gap-3 shadow-sm transition-all duration-300 hover-elevate h-full"
-                    data-testid={`testimonial-card-${i}`}
-                  >
-                    <div className="inline-flex w-fit rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
-                      Client Review
-                    </div>
-                    <div className="flex gap-0.5" data-testid={`stars-${i}`}>
-                      {Array.from({ length: 5 }).map((_, s) => (
-                        <svg key={s} className="w-4 h-4" viewBox="0 0 24 24" fill="#f59e0b">
-                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
-                        </svg>
-                      ))}
-                    </div>
-                    <p className="text-sm leading-relaxed flex-1" style={{ color: "#64748b" }} data-testid={`testimonial-text-${i}`}>
-                      {t.comment}"
-                    </p>
-                    <div className="h-px w-full bg-primary/20" />
-                    <div className="flex items-center gap-3">
-                      {(t as any).photo ? (
-                        <img src={(t as any).photo} alt={t.name} className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2" style={{ borderColor: color }} data-testid={`testimonial-avatar-${i}`} />
-                      ) : (
-                        <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 border border-primary/30" style={{ background: "rgba(59,181,232,0.12)", color }} data-testid={`testimonial-avatar-${i}`}>
-                          {t.initials}
-                        </div>
-                      )}
-                      <div>
-                        <p className="text-sm font-semibold text-foreground" data-testid={`testimonial-name-${i}`}>{t.name}</p>
-                        <p className="text-xs" style={{ color }} data-testid={`testimonial-role-${i}`}>{t.role}</p>
-                      </div>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
-
-            {/* Mobile: carousel one at a time */}
             <div
-              ref={carouselRef}
-              className="overflow-hidden rounded-lg md:hidden"
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
+              ref={scrollContainerRef}
+              className="overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden"
+              style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
-              <div
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${activeTestimonial * 100}%)` }}
-              >
+              <div className="flex">
                 {testimonials.map((t, i) => {
                   const color = "#3bb5e8";
                   return (
-                    <div key={i} className="w-full flex-shrink-0 px-4">
-                      <div className="rounded-lg border border-primary/20 bg-card p-6 flex flex-col gap-3 shadow-sm transition-all duration-300 hover-elevate h-full" data-testid={`testimonial-card-${i}`}>
+                    <div
+                      key={i}
+                      className="w-full flex-shrink-0 snap-start px-4"
+                    >
+                      <div
+                        className="rounded-lg border border-primary/20 bg-card p-6 flex flex-col gap-3 shadow-sm transition-all duration-300 hover-elevate h-full"
+                        data-testid={`testimonial-card-${i}`}
+                      >
                         <div className="inline-flex w-fit rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
                           Client Review
                         </div>
+
+                        {/* Stars */}
                         <div className="flex gap-0.5" data-testid={`stars-${i}`}>
                           {Array.from({ length: 5 }).map((_, s) => (
                             <svg key={s} className="w-4 h-4" viewBox="0 0 24 24" fill="#f59e0b">
@@ -541,21 +555,48 @@ export default function CompanyLanding() {
                             </svg>
                           ))}
                         </div>
-                        <p className="text-sm leading-relaxed flex-1" style={{ color: "#64748b" }} data-testid={`testimonial-text-${i}`}>
+
+                        {/* Comment */}
+                        <p
+                          className="text-sm leading-relaxed flex-1"
+                          style={{ color: "#64748b" }}
+                          data-testid={`testimonial-text-${i}`}
+                        >
                           {t.comment}"
                         </p>
+
+                        {/* Separator */}
                         <div className="h-px w-full bg-primary/20" />
+
+                        {/* Author */}
                         <div className="flex items-center gap-3">
                           {(t as any).photo ? (
-                            <img src={(t as any).photo} alt={t.name} className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2" style={{ borderColor: color }} data-testid={`testimonial-avatar-${i}`} />
+                            <img
+                              src={(t as any).photo}
+                              alt={t.name}
+                              className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2"
+                              style={{ borderColor: color }}
+                              data-testid={`testimonial-avatar-${i}`}
+                            />
                           ) : (
-                            <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 border border-primary/30" style={{ background: "rgba(59,181,232,0.12)", color }} data-testid={`testimonial-avatar-${i}`}>
+                            <div
+                              className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 border border-primary/30"
+                              style={{
+                                background: "rgba(59,181,232,0.12)",
+                                color,
+                              }}
+                              data-testid={`testimonial-avatar-${i}`}
+                            >
                               {t.initials}
                             </div>
                           )}
                           <div>
-                            <p className="text-sm font-semibold text-foreground" data-testid={`testimonial-name-${i}`}>{t.name}</p>
-                            <p className="text-xs" style={{ color }} data-testid={`testimonial-role-${i}`}>{t.role}</p>
+                            <p className="text-sm font-semibold text-foreground" data-testid={`testimonial-name-${i}`}>
+                              {t.name}
+                            </p>
+                            <p className="text-xs" style={{ color }} data-testid={`testimonial-role-${i}`}>
+                              {t.role}
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -565,27 +606,31 @@ export default function CompanyLanding() {
               </div>
             </div>
 
-            {/* Pagination dots - mobile only */}
-            <div className="flex items-center justify-center gap-2 mt-6 md:hidden">
+            {/* Pagination dots */}
+            <div className="flex items-center justify-center gap-2 mt-6">
               {testimonials.map((_, i) => (
-                <button
-                  key={i}
-                  onClick={() => setActiveTestimonial(i)}
-                  className="transition-all duration-300"
-                  style={{
-                    width: activeTestimonial === i ? "24px" : "8px",
-                    height: "8px",
-                    borderRadius: "4px",
-                    background: activeTestimonial === i ? "#3bb5e8" : "rgba(59,181,232,0.25)",
-                  }}
-                  data-testid={`dot-testimonial-${i}`}
-                />
+                  <button
+                    key={i}
+                    onClick={() => {
+                      const container = scrollContainerRef.current;
+                      const slide = container?.children[0]?.children[i] as HTMLElement | undefined;
+                      slide?.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "start" });
+                    }}
+                    className="transition-all duration-300"
+                    style={{
+                      width: activeTestimonial === i ? "24px" : "8px",
+                      height: "8px",
+                      borderRadius: "4px",
+                      background: activeTestimonial === i ? "#3bb5e8" : "rgba(59,181,232,0.25)",
+                    }}
+                    data-testid={`dot-testimonial-${i}`}
+                  />
               ))}
             </div>
           </div>
         </section>
       </main>
-      <section>
+      <section className="snap-start snap-always">
         <Footer />
       </section>
     </div>
