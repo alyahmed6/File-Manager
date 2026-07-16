@@ -317,7 +317,7 @@ export default function CompanyLanding() {
   useEffect(() => {
     const lenis = new Lenis({
       duration: 1.2,
-      easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      easing: (t: number) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2,
       touchMultiplier: 1.5,
       infinite: false,
     });
@@ -349,9 +349,8 @@ export default function CompanyLanding() {
       const next = cur + dir;
       if (next < 0 || next >= sections.length) return;
       locked = true;
-      lenis.stop();
-      lenis.scrollTo(sections[next], { offset: 0, force: true, duration: 1.2 });
-      setTimeout(() => { lenis.start(); locked = false; }, 1300);
+      lenis.scrollTo(sections[next], { offset: 0, duration: 1.4 });
+      setTimeout(() => { locked = false; }, 1500);
     };
 
     const onWheel = (e: WheelEvent) => {
