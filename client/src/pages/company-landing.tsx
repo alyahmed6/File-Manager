@@ -315,10 +315,17 @@ export default function CompanyLanding() {
   };
 
   useEffect(() => {
+    const sections = Array.from(document.querySelectorAll<HTMLElement>("section[data-section]"));
+    if (!sections.length) return;
+
+    let currentIdx = 0;
+    let locked = false;
+
     const lenis = new Lenis({
-      duration: 1.2,
+      duration: 1.4,
       easing: (t: number) => 1 - Math.pow(1 - t, 3),
       touchMultiplier: 2,
+      smoothWheel: true,
     });
 
     function raf(time: number) {
@@ -327,7 +334,51 @@ export default function CompanyLanding() {
     }
     requestAnimationFrame(raf);
 
-    return () => { lenis.destroy(); };
+    const updateIndex = () => {
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      for (let i = 0; i < sections.length; i++) {
+        const dist = Math.abs(sections[i].getBoundingClientRect().top);
+        if (dist < bestDist) { bestDist = dist; bestIdx = i; }
+      }
+      currentIdx = bestIdx;
+    };
+
+    const goTo = (dir: number) => {
+      if (locked) return;
+      const target = currentIdx + dir;
+      if (target < 0 || target >= sections.length) return;
+      locked = true;
+      currentIdx = target;
+      lenis.scrollTo(sections[target], { offset: 0, duration: 1.4 });
+      setTimeout(() => { locked = false; updateIndex(); }, 1400);
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      if (locked || Math.abs(e.deltaY) < 10) return;
+      e.preventDefault();
+      goTo(e.deltaY > 0 ? 1 : -1);
+    };
+
+    let touchY = 0;
+    const onTouchStart = (e: TouchEvent) => { touchY = e.touches[0].clientY; };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (locked) return;
+      const dy = e.changedTouches[0].clientY - touchY;
+      if (Math.abs(dy) < 50) return;
+      goTo(dy < 0 ? 1 : -1);
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+
+    return () => {
+      lenis.destroy();
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
+    };
   }, []);
 
   return (
@@ -338,6 +389,7 @@ export default function CompanyLanding() {
 
         {/* ── HERO ─────────────────────────────────────────────────── */}
         <section
+          data-section
           className="relative overflow-hidden pt-16 pb-10 md:pt-24 md:pb-12 min-h-[100dvh] flex items-center"
           data-testid="section-course-showcase"
         >
@@ -370,6 +422,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
+          data-section
           className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12"
           data-testid="section-services"
         >
@@ -389,6 +442,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
+          data-section
           className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12"
           data-testid="section-course-showcase"
         >
@@ -443,6 +497,7 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
+          data-section
           className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12"
           data-testid="section-testimonials"
         >
