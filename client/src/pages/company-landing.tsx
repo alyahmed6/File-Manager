@@ -316,6 +316,8 @@ export default function CompanyLanding() {
   };
 
   useEffect(() => {
+    const root = document.documentElement;
+    root.style.scrollSnapType = "y mandatory";
     const lenis = new Lenis({
       duration: 1.4,
       easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -412,6 +414,7 @@ export default function CompanyLanding() {
     window.addEventListener("touchend", onTouchEnd, { passive: true });
 
     return () => {
+      root.style.scrollSnapType = "";
       lenis.destroy();
       window.removeEventListener("wheel", onWheel);
       window.removeEventListener("touchstart", onTouchStart);
