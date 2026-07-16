@@ -349,8 +349,9 @@ export default function CompanyLanding() {
       const next = cur + dir;
       if (next < 0 || next >= sections.length) return;
       locked = true;
+      lenis.stop();
       lenis.scrollTo(sections[next], { offset: 0, force: true, duration: 1.2 });
-      setTimeout(() => { locked = false; }, 1300);
+      setTimeout(() => { lenis.start(); locked = false; }, 1300);
     };
 
     const onWheel = (e: WheelEvent) => {
