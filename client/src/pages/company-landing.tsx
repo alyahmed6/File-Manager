@@ -324,7 +324,7 @@ export default function CompanyLanding() {
       const startTime = performance.now();
       const step = (now: number) => {
         const progress = Math.min((now - startTime) / DURATION, 1);
-        document.documentElement.scrollTop = start + distance * easeInOutCubic(progress);
+        window.scrollTo({ top: start + distance * easeInOutCubic(progress), behavior: "instant" as ScrollBehavior });
         if (progress < 1) {
           rafId = requestAnimationFrame(step);
         } else {
@@ -340,15 +340,19 @@ export default function CompanyLanding() {
     const getTargetIndex = (dir: number) => {
       const sections = getSections();
       if (!sections.length) return -1;
-      const tops = sections.map((s) => s.getBoundingClientRect().top + window.scrollY);
-      let currentIndex = 0;
-      const currentTop = window.scrollY;
-      for (let i = 0; i < tops.length; i++) {
-        if (tops[i] <= currentTop + 10) currentIndex = i;
+      let best = 0;
+      let bestDist = Infinity;
+      const center = window.innerHeight / 2;
+      for (let i = 0; i < sections.length; i++) {
+        const rect = sections[i].getBoundingClientRect();
+        const mid = rect.top + rect.height / 2;
+        const dist = Math.abs(mid - center);
+        if (dist < bestDist) { bestDist = dist; best = i; }
       }
-      const targetIndex = Math.min(Math.max(currentIndex + dir, 0), tops.length - 1);
-      if (targetIndex === currentIndex) return -1;
-      return targetIndex;
+      const target = best + dir;
+      if (target < 0 || target >= sections.length) return -1;
+      if (target === best) return -1;
+      return target;
     };
 
     const scrollDir = (dir: number) => {
