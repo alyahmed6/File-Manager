@@ -364,9 +364,33 @@ export default function CompanyLanding() {
     };
 
     const onWheel = (e: WheelEvent) => {
-      if (Math.abs(e.deltaY) < 4) return;
+      if (animating || Math.abs(e.deltaY) < 4) return;
+
+      const sections = getSections();
+      if (!sections.length) return;
+
+      const dir = e.deltaY > 0 ? 1 : -1;
+      const center = window.innerHeight / 2;
+      let best = 0;
+      let bestDist = Infinity;
+      for (let i = 0; i < sections.length; i++) {
+        const rect = sections[i].getBoundingClientRect();
+        const mid = rect.top + rect.height / 2;
+        const dist = Math.abs(mid - center);
+        if (dist < bestDist) { bestDist = dist; best = i; }
+      }
+
+      const current = sections[best];
+      const rect = current.getBoundingClientRect();
+      const hasOverflow = current.scrollHeight > current.clientHeight + 2;
+
+      if (hasOverflow) {
+        if (dir > 0 && rect.bottom > window.innerHeight + 15) return;
+        if (dir < 0 && rect.top < -15) return;
+      }
+
       e.preventDefault();
-      scrollDir(e.deltaY > 0 ? 1 : -1);
+      scrollDir(dir);
     };
 
     let touchStartY = 0;
@@ -385,9 +409,28 @@ export default function CompanyLanding() {
       const dy = e.touches[0].clientY - touchStartY;
       const dx = e.touches[0].clientX - touchStartX;
       if (Math.abs(dy) > Math.abs(dx) * 2 && Math.abs(dy) > 15) {
+        const dir = dy < 0 ? 1 : -1;
+        const sections = getSections();
+        if (!sections.length) return;
+        const center = window.innerHeight / 2;
+        let best = 0;
+        let bestDist = Infinity;
+        for (let i = 0; i < sections.length; i++) {
+          const sRect = sections[i].getBoundingClientRect();
+          const mid = sRect.top + sRect.height / 2;
+          const d = Math.abs(mid - center);
+          if (d < bestDist) { bestDist = d; best = i; }
+        }
+        const current = sections[best];
+        const rect = current.getBoundingClientRect();
+        const hasOverflow = current.scrollHeight > current.clientHeight + 2;
+        if (hasOverflow) {
+          if (dir > 0 && rect.bottom > window.innerHeight + 15) return;
+          if (dir < 0 && rect.top < -15) return;
+        }
         touchTracking = false;
         e.preventDefault();
-        scrollDir(dy > 0 ? -1 : 1);
+        scrollDir(dir);
       }
     };
 
