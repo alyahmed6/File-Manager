@@ -374,6 +374,7 @@ export default function CompanyLanding() {
     let touchTracking = false;
 
     const onTouchStart = (e: TouchEvent) => {
+      if (animating) return;
       touchStartY = e.touches[0].clientY;
       touchStartX = e.touches[0].clientX;
       touchTracking = true;
