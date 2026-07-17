@@ -328,6 +328,7 @@ export default function CompanyLanding() {
         if (progress < 1) {
           rafId = requestAnimationFrame(step);
         } else {
+          window.scrollTo({ top: target, behavior: "instant" as ScrollBehavior });
           animating = false;
         }
       };
