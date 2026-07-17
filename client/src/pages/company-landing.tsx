@@ -526,28 +526,59 @@ export default function CompanyLanding() {
               </h2>
             </FadeIn>
 
+            {/* Desktop: grid of 3 */}
+            <div className="hidden md:grid md:grid-cols-3 gap-6">
+              {testimonials.map((t, i) => {
+                const color = "#3bb5e8";
+                return (
+                  <div key={i} className="rounded-lg border border-primary/20 bg-card p-6 flex flex-col gap-3 shadow-sm transition-all duration-300 hover-elevate h-full" data-testid={`testimonial-card-${i}`}>
+                    <div className="inline-flex w-fit rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
+                      Client Review
+                    </div>
+                    <div className="flex gap-0.5" data-testid={`stars-${i}`}>
+                      {Array.from({ length: 5 }).map((_, s) => (
+                        <svg key={s} className="w-4 h-4" viewBox="0 0 24 24" fill="#f59e0b">
+                          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                        </svg>
+                      ))}
+                    </div>
+                    <p className="text-sm leading-relaxed flex-1" style={{ color: "#64748b" }} data-testid={`testimonial-text-${i}`}>
+                      {t.comment}"
+                    </p>
+                    <div className="h-px w-full bg-primary/20" />
+                    <div className="flex items-center gap-3">
+                      {(t as any).photo ? (
+                        <img src={(t as any).photo} alt={t.name} className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2" style={{ borderColor: color }} data-testid={`testimonial-avatar-${i}`} />
+                      ) : (
+                        <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 border border-primary/30" style={{ background: "rgba(59,181,232,0.12)", color }} data-testid={`testimonial-avatar-${i}`}>
+                          {t.initials}
+                        </div>
+                      )}
+                      <div>
+                        <p className="text-sm font-semibold text-foreground" data-testid={`testimonial-name-${i}`}>{t.name}</p>
+                        <p className="text-xs" style={{ color }} data-testid={`testimonial-role-${i}`}>{t.role}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* Mobile: carousel */}
             <div
               ref={scrollContainerRef}
-              className="overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden"
+              className="overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden md:hidden"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               <div className="flex">
                 {testimonials.map((t, i) => {
                   const color = "#3bb5e8";
                   return (
-                    <div
-                      key={i}
-                      className="w-full flex-shrink-0 snap-start px-4"
-                    >
-                      <div
-                        className="rounded-lg border border-primary/20 bg-card p-6 flex flex-col gap-3 shadow-sm transition-all duration-300 hover-elevate h-full"
-                        data-testid={`testimonial-card-${i}`}
-                      >
+                    <div key={i} className="w-full flex-shrink-0 snap-start px-4">
+                      <div className="rounded-lg border border-primary/20 bg-card p-6 flex flex-col gap-3 shadow-sm transition-all duration-300 hover-elevate h-full" data-testid={`testimonial-card-${i}`}>
                         <div className="inline-flex w-fit rounded-full border border-primary/20 bg-primary/10 px-3 py-1 text-xs font-semibold text-primary">
                           Client Review
                         </div>
-
-                        {/* Stars */}
                         <div className="flex gap-0.5" data-testid={`stars-${i}`}>
                           {Array.from({ length: 5 }).map((_, s) => (
                             <svg key={s} className="w-4 h-4" viewBox="0 0 24 24" fill="#f59e0b">
@@ -555,48 +586,21 @@ export default function CompanyLanding() {
                             </svg>
                           ))}
                         </div>
-
-                        {/* Comment */}
-                        <p
-                          className="text-sm leading-relaxed flex-1"
-                          style={{ color: "#64748b" }}
-                          data-testid={`testimonial-text-${i}`}
-                        >
+                        <p className="text-sm leading-relaxed flex-1" style={{ color: "#64748b" }} data-testid={`testimonial-text-${i}`}>
                           {t.comment}"
                         </p>
-
-                        {/* Separator */}
                         <div className="h-px w-full bg-primary/20" />
-
-                        {/* Author */}
                         <div className="flex items-center gap-3">
                           {(t as any).photo ? (
-                            <img
-                              src={(t as any).photo}
-                              alt={t.name}
-                              className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2"
-                              style={{ borderColor: color }}
-                              data-testid={`testimonial-avatar-${i}`}
-                            />
+                            <img src={(t as any).photo} alt={t.name} className="w-10 h-10 rounded-full object-cover flex-shrink-0 border-2" style={{ borderColor: color }} data-testid={`testimonial-avatar-${i}`} />
                           ) : (
-                            <div
-                              className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 border border-primary/30"
-                              style={{
-                                background: "rgba(59,181,232,0.12)",
-                                color,
-                              }}
-                              data-testid={`testimonial-avatar-${i}`}
-                            >
+                            <div className="w-10 h-10 rounded-full flex items-center justify-center text-sm font-bold flex-shrink-0 border border-primary/30" style={{ background: "rgba(59,181,232,0.12)", color }} data-testid={`testimonial-avatar-${i}`}>
                               {t.initials}
                             </div>
                           )}
                           <div>
-                            <p className="text-sm font-semibold text-foreground" data-testid={`testimonial-name-${i}`}>
-                              {t.name}
-                            </p>
-                            <p className="text-xs" style={{ color }} data-testid={`testimonial-role-${i}`}>
-                              {t.role}
-                            </p>
+                            <p className="text-sm font-semibold text-foreground" data-testid={`testimonial-name-${i}`}>{t.name}</p>
+                            <p className="text-xs" style={{ color }} data-testid={`testimonial-role-${i}`}>{t.role}</p>
                           </div>
                         </div>
                       </div>
@@ -606,8 +610,8 @@ export default function CompanyLanding() {
               </div>
             </div>
 
-            {/* Pagination dots */}
-            <div className="flex items-center justify-center gap-2 mt-6">
+            {/* Dots - mobile only */}
+            <div className="flex items-center justify-center gap-2 mt-6 md:hidden">
               {testimonials.map((_, i) => (
                   <button
                     key={i}
