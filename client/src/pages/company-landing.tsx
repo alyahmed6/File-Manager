@@ -315,27 +315,23 @@ export default function CompanyLanding() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-1">
-        <div className="snap-start min-h-[100dvh] flex flex-col">
-          <Header />
-          <div className="flex-1 flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-clip">
+      <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
+        <Header />
+        <main className="flex-1">
         <section
-          className="relative overflow-hidden flex-1 flex items-center"
+          className="relative overflow-hidden pt-16 pb-10 md:pt-24 md:pb-12 min-h-[100dvh] flex items-center snap-start snap-always"
           data-testid="section-course-showcase"
         >
           <div className="absolute inset-0 bg-black/10" />
-
           <div className="container relative z-10 mx-auto px-4">
             <div className="flex flex-col items-center gap-8 text-center">
-
               <h1
                 className="max-w-5xl text-4xl font-extrabold tracking-tight leading-tight md:text-6xl lg:text-7xl rounded-2xl bg-black/30 px-5 py-3 shadow-2xl ring-1 ring-white/10"
                 data-testid="text-hero-heading"
               >
                 <span className="bg-gradient-to-r from-white via-primary to-accent bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)]">The Blockchain Pulse</span>
               </h1>
-
               <div
                 className="flex w-full max-w-3xl items-center justify-center gap-3"
                 data-testid="text-hero-tagline"
@@ -346,12 +342,9 @@ export default function CompanyLanding() {
                 </p>
                 <div className="h-px w-8 shrink-0 bg-primary/50 md:w-12" />
               </div>
-
             </div>
           </div>
         </section>
-          </div>
-        </div>
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
@@ -550,6 +543,7 @@ export default function CompanyLanding() {
       <section className="snap-start snap-always">
         <Footer />
       </section>
+      </div>
     </div>
   );
 }
