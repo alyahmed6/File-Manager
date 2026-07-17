@@ -12,6 +12,7 @@ export default function Course() {
   useEffect(() => {
     const root = document.documentElement;
     root.style.scrollSnapType = "y mandatory";
+    window.scrollTo(0, 0);
     return () => {
       root.style.scrollSnapType = "";
     };
@@ -19,9 +20,11 @@ export default function Course() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <Header />
       <main className="flex-1">
-        <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><HeroSection /></div>
+        <div className="snap-start min-h-[100dvh] flex flex-col">
+          <Header />
+          <div className="flex-1 flex flex-col justify-center"><HeroSection /></div>
+        </div>
         <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><WhoThisCourseIsForSection /></div>
         <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><CourseSection /></div>
         <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><CurriculumSection /></div>
