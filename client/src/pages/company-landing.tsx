@@ -340,7 +340,7 @@ export default function CompanyLanding() {
     const getTargetIndex = (dir: number) => {
       const sections = getSections();
       if (!sections.length) return -1;
-      const tops = sections.map((s) => s.offsetTop);
+      const tops = sections.map((s) => s.getBoundingClientRect().top + window.scrollY);
       let currentIndex = 0;
       const currentTop = window.scrollY;
       for (let i = 0; i < tops.length; i++) {
@@ -355,7 +355,7 @@ export default function CompanyLanding() {
       if (animating) return;
       const targetIndex = getTargetIndex(dir);
       if (targetIndex < 0) return;
-      animateTo(getSections()[targetIndex].offsetTop);
+      animateTo(getSections()[targetIndex].getBoundingClientRect().top + window.scrollY);
     };
 
     const onWheel = (e: WheelEvent) => {
