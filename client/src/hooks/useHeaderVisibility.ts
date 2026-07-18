@@ -7,9 +7,9 @@ export function useHeaderVisibility() {
     const getThreshold = () => {
       const heroSection = document.querySelector<HTMLElement>("main section");
       if (heroSection) {
-        return heroSection.offsetTop + heroSection.offsetHeight * 0.85;
+        return heroSection.offsetTop + heroSection.offsetHeight + 200;
       }
-      return window.innerHeight;
+      return window.innerHeight * 2;
     };
 
     const handleScroll = () => {

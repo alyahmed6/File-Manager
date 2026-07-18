@@ -266,7 +266,7 @@ function RoadmapGrid() {
                         <span>{duration}</span>
                       </div>
                     </div>
-                    <p className="hidden sm:block text-xs leading-snug text-muted-foreground">
+                    <p className="block text-xs leading-snug text-muted-foreground">
                       {desc}
                     </p>
                   </div>
@@ -348,7 +348,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start snap-always"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12 snap-start snap-always"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -367,7 +367,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-4 md:py-12 snap-start snap-always"
+          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12 snap-start snap-always"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
