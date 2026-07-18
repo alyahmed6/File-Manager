@@ -318,7 +318,7 @@ export default function CompanyLanding() {
     <div className="min-h-screen flex flex-col overflow-x-clip">
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <main className="flex-1">
-        <div className="snap-start min-h-[80dvh] md:min-h-[100dvh] flex flex-col">
+        <div className="snap-start min-h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col">
           <Header />
           <section
             className="flex-1 relative overflow-hidden flex items-center"
