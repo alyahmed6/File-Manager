@@ -28,9 +28,10 @@ export default function Header() {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full transition-transform duration-100 ease-out bg-background border-b border-border/50"
+      className="sticky top-0 z-50 w-full transition-opacity duration-200 bg-background border-b border-border/50"
       style={{
-        transform: isHeaderVisible ? "translateY(0)" : "translateY(-100%)",
+        opacity: isHeaderVisible ? 1 : 0,
+        pointerEvents: isHeaderVisible ? "auto" : "none",
       }}
       data-testid="header-sticky"
     >
