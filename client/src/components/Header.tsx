@@ -1,6 +1,5 @@
 import { useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
-import { useHeaderVisibility } from "@/hooks/useHeaderVisibility";
 
 const navItems = [
   { label: "Home", href: "/" },
@@ -11,7 +10,6 @@ const navItems = [
 
 export default function Header() {
   const [location, navigate] = useLocation();
-  const isHeaderVisible = useHeaderVisibility();
 
   const isNavItemActive = (href: string) => {
     if (href === "/") return location === "/";
@@ -28,11 +26,7 @@ export default function Header() {
 
   return (
     <header
-      className="sticky top-0 z-50 w-full transition-opacity duration-200 bg-background border-b border-border/50"
-      style={{
-        opacity: isHeaderVisible ? 1 : 0,
-        pointerEvents: isHeaderVisible ? "auto" : "none",
-      }}
+      className="w-full bg-background border-b border-border/50"
       data-testid="header-sticky"
     >
       <div className="container mx-auto relative flex h-14 md:h-16 items-center justify-between gap-4 px-4">
