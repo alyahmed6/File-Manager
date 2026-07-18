@@ -245,24 +245,24 @@ function RoadmapGrid() {
             data-testid={`roadmap-item-${index + 1}`}
           >
             <Card className="h-full bg-card/50 border border-border/50 hover-elevate transition-all duration-300">
-              <CardContent className="p-3">
-                <div className="flex items-start gap-2">
+              <CardContent className="p-2 md:p-3">
+                <div className="flex items-start gap-1.5 md:gap-2">
                   <div
-                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg"
+                    className="flex h-8 w-8 md:h-10 md:w-10 shrink-0 items-center justify-center rounded-lg"
                     style={{
                       background: `rgba(${hexToRgb(color)},0.12)`,
                       border: `1px solid rgba(${hexToRgb(color)},0.35)`,
                     }}
                   >
-                    <Icon className="h-5 w-5" style={{ color }} />
+                    <Icon className="h-4 w-4 md:h-5 md:w-5" style={{ color }} />
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="flex flex-wrap items-start justify-between gap-2 mb-1">
-                      <h4 className="font-semibold text-[13px] text-foreground">
+                    <div className="flex flex-wrap items-start justify-between gap-1 md:gap-2 mb-0.5 md:mb-1">
+                      <h4 className="font-semibold text-[12px] md:text-[13px] text-foreground">
                         {title}
                       </h4>
-                      <div className="flex items-center gap-1 text-[10px] text-muted-foreground bg-muted px-2 py-0.5 rounded-full shrink-0">
-                        <Clock className="h-2.5 w-2.5" />
+                      <div className="flex items-center gap-1 text-[9px] md:text-[10px] text-muted-foreground bg-muted px-1.5 md:px-2 py-0.5 rounded-full shrink-0">
+                        <Clock className="h-2 w-2 md:h-2.5 md:w-2.5" />
                         <span>{duration}</span>
                       </div>
                     </div>
@@ -367,7 +367,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start snap-always"
+          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-center py-4 md:py-12 snap-start snap-always"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
