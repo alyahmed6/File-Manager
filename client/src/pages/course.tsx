@@ -11,7 +11,7 @@ import Footer from "@/components/Footer";
 export default function Course() {
   useEffect(() => {
     const root = document.documentElement;
-    root.style.scrollSnapType = "y mandatory";
+    root.style.scrollSnapType = "y proximity";
     window.scrollTo(0, 0);
     return () => {
       root.style.scrollSnapType = "";
