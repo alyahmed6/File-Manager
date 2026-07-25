@@ -310,7 +310,7 @@ export default function CompanyLanding() {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.style.scrollSnapType = "y proximity";
+    root.style.scrollSnapType = "y mandatory";
     return () => { root.style.scrollSnapType = ""; };
   }, []);
 
@@ -475,7 +475,7 @@ export default function CompanyLanding() {
             {/* Mobile: carousel */}
             <div
               ref={scrollContainerRef}
-              className="overflow-x-auto snap-x snap-proximity [&::-webkit-scrollbar]:hidden md:hidden"
+              className="overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden md:hidden"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
             >
               <div className="flex">
