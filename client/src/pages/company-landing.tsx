@@ -224,12 +224,11 @@ export default function CompanyLanding() {
   }, []);
 
   useEffect(() => {
+    const root = document.documentElement;
+    root.style.scrollSnapType = "y mandatory";
     window.scrollTo(0, 0);
-    requestAnimationFrame(() => {
-      document.documentElement.style.scrollSnapType = "y mandatory";
-    });
     return () => {
-      document.documentElement.style.scrollSnapType = "";
+      root.style.scrollSnapType = "";
     };
   }, []);
 
@@ -241,7 +240,6 @@ export default function CompanyLanding() {
             className="flex-1 relative flex items-center"
             data-testid="section-course-showcase"
           >
-            <div className="absolute inset-0 bg-black/10" />
             <div className="container relative z-10 mx-auto px-4">
               <div className="flex flex-col items-center gap-8 text-center">
                 <h1
