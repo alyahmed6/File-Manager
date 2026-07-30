@@ -3,9 +3,7 @@ import {
   useRef,
   useEffect,
 } from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-gsap.registerPlugin(ScrollTrigger);
+import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Boxes,
@@ -125,32 +123,17 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 /* ─── SERVICES GRID ─────────────────────────────────────────────────── */
 
 function ServicesGrid() {
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const cards = gridRef.current?.children;
-      if (cards) {
-        gsap.from(cards, {
-          scrollTrigger: {
-            trigger: gridRef.current,
-            start: "top 75%",
-            toggleActions: "play none none none",
-          },
-          opacity: 0,
-          x: (i: number) => i === 0 ? -60 : 60,
-          duration: 0.85,
-          ease: "power3.out",
-          stagger: 0.15,
-        });
-      }
-    });
-    return () => ctx.revert();
-  }, []);
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-80px" });
 
   return (
-    <div ref={gridRef} className="grid md:grid-cols-2 gap-6">
-      <div>
+    <div ref={ref} className="grid md:grid-cols-2 gap-6">
+      {/* Left: Incubation */}
+      <motion.div
+        initial={{ opacity: 0, x: -60 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+      >
         <Card className="h-full hover-elevate transition-all duration-300 border-primary/40 bg-gradient-to-br from-background to-primary/5">
           <CardContent className="p-8">
             <div className="flex items-start gap-4 mb-6">
@@ -176,8 +159,11 @@ function ServicesGrid() {
             </p>
             <ul className="space-y-3">
               {incubationItems.map(({ label, Icon }) => (
-                <li
+                <motion.li
                   key={label}
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
                   className="flex items-center gap-3 text-sm group cursor-default"
                   data-testid={`item-incubation-${label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
@@ -186,14 +172,19 @@ function ServicesGrid() {
                     {label}
                   </span>
                   <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-primary/60" />
-                </li>
+                </motion.li>
               ))}
             </ul>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
 
-      <div>
+      {/* Right: Blockchain */}
+      <motion.div
+        initial={{ opacity: 0, x: 60 }}
+        animate={inView ? { opacity: 1, x: 0 } : {}}
+        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+      >
         <Card className="h-full hover-elevate transition-all duration-300 border-accent/40 bg-gradient-to-br from-background to-accent/5">
           <CardContent className="p-8">
             <div className="flex items-start gap-4 mb-6">
@@ -212,8 +203,11 @@ function ServicesGrid() {
             </p>
             <ul className="space-y-3">
               {blockchainItems.map(({ label, Icon }) => (
-                <li
+                <motion.li
                   key={label}
+                  initial={{ opacity: 0, x: 10 }}
+                  animate={inView ? { opacity: 1, x: 0 } : {}}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
                   className="flex items-center gap-3 text-sm group cursor-default"
                   data-testid={`item-blockchain-${label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
@@ -222,12 +216,12 @@ function ServicesGrid() {
                     {label}
                   </span>
                   <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-accent/60" />
-                </li>
+                </motion.li>
               ))}
             </ul>
           </CardContent>
         </Card>
-      </div>
+      </motion.div>
     </div>
   );
 }
@@ -235,36 +229,19 @@ function ServicesGrid() {
 /* ─── ROADMAP GRID ──────────────────────────────────────────────────── */
 
 function RoadmapGrid() {
-  const gridRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const items = gridRef.current?.children;
-      if (items) {
-        gsap.from(items, {
-          scrollTrigger: {
-            trigger: gridRef.current,
-            start: "top 75%",
-            toggleActions: "play none none none",
-          },
-          opacity: 0,
-          y: 36,
-          duration: 0.72,
-          ease: "power3.out",
-          stagger: 0.07,
-        });
-      }
-    });
-    return () => ctx.revert();
-  }, []);
+  const ref = useRef<HTMLDivElement>(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
 
   return (
-    <div ref={gridRef} className="grid grid-cols-2 gap-3 max-w-3xl mx-auto">
+    <div ref={ref} className="grid grid-cols-2 gap-3 max-w-3xl mx-auto">
       {roadmapModules.map(({ title, desc, Icon, duration }, index) => {
         const color = moduleColors[index % moduleColors.length];
         return (
-          <div
+          <motion.div
             key={title}
+            initial={{ opacity: 0, y: 36 }}
+            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
+            transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: index * 0.07 }}
             data-testid={`roadmap-item-${index + 1}`}
           >
             <Card className="h-full bg-card/50 border border-border/50 hover-elevate transition-all duration-300">
@@ -296,7 +273,7 @@ function RoadmapGrid() {
                 </div>
               </CardContent>
             </Card>
-          </div>
+          </motion.div>
         );
       })}
     </div>
@@ -316,8 +293,6 @@ function hexToRgb(hex: string) {
 export default function CompanyLanding() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
-  const ctaRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const el = scrollContainerRef.current;
@@ -340,35 +315,6 @@ export default function CompanyLanding() {
     return () => {
       root.style.scrollSnapType = "";
     };
-  }, []);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(headingRef.current, {
-        scrollTrigger: {
-          trigger: headingRef.current,
-          start: "top 75%",
-          toggleActions: "play none none none",
-        },
-        opacity: 0,
-        y: 32,
-        duration: 0.7,
-        ease: "power3.out",
-      });
-      gsap.from(ctaRef.current, {
-        scrollTrigger: {
-          trigger: ctaRef.current,
-          start: "top 80%",
-          toggleActions: "play none none none",
-        },
-        opacity: 0,
-        y: 32,
-        duration: 0.7,
-        ease: "power3.out",
-        delay: 0.15,
-      });
-    });
-    return () => ctx.revert();
   }, []);
 
   return (
@@ -430,9 +376,12 @@ export default function CompanyLanding() {
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
-            <div
+            <motion.div
               className="text-center mb-4 md:mb-6"
-              ref={headingRef}
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.15 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
             >
               <SectionLabel>Upcoming Program</SectionLabel>
               <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground" data-testid="text-course-showcase-heading">
@@ -441,14 +390,17 @@ export default function CompanyLanding() {
               <p className="text-base max-w-xl mx-auto mb-5" style={{ color: "#64748b" }}>
                 Learn blockchain fundamentals, Bitcoin architecture, Ethereum architecture, smart contracts and more.
               </p>
-            </div>
+            </motion.div>
 
             <RoadmapGrid />
 
             {/* CTA banner */}
-            <div
+            <motion.div
               className="mt-4"
-              ref={ctaRef}
+              initial={{ opacity: 0, y: 32 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-60px" }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
             >
               <div
                 className="flex items-center gap-4 rounded-2xl px-6 py-4 max-w-3xl mx-auto"
@@ -468,7 +420,7 @@ export default function CompanyLanding() {
                   <span style={{ color: "#3bb5e8" }}>your complete journey into Web3 starts here.</span>
                 </p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </section>
 
