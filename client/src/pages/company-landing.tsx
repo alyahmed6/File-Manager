@@ -225,11 +225,47 @@ export default function CompanyLanding() {
   }, []);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.style.scrollSnapType = "y mandatory";
     window.scrollTo(0, 0);
+    const sections = Array.from(document.querySelectorAll("[data-section]"));
+    let isAnimating = false;
+
+    const goToSection = (direction: number) => {
+      if (isAnimating) return;
+      const current = sections.findIndex(
+        (s) => s.getBoundingClientRect().top >= -50 && s.getBoundingClientRect().top < window.innerHeight / 2
+      );
+      if (current === -1) return;
+      const next = Math.max(0, Math.min(current + direction, sections.length - 1));
+      if (next === current) return;
+      isAnimating = true;
+      sections[next].scrollIntoView({ behavior: "smooth" });
+      setTimeout(() => { isAnimating = false; }, 600);
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      e.preventDefault();
+      goToSection(e.deltaY > 0 ? 1 : -1);
+    };
+
+    let touchY = 0;
+    let touchTarget: EventTarget | null = null;
+    const onTouchStart = (e: TouchEvent) => {
+      touchY = e.touches[0].clientY;
+      touchTarget = e.target;
+    };
+    const onTouchEnd = (e: TouchEvent) => {
+      if (touchTarget && (touchTarget as HTMLElement).closest("[data-horizontal-scroll]")) return;
+      const diff = touchY - e.changedTouches[0].clientY;
+      if (Math.abs(diff) > 40) goToSection(diff > 0 ? 1 : -1);
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
     return () => {
-      root.style.scrollSnapType = "";
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchend", onTouchEnd);
     };
   }, []);
 
@@ -237,7 +273,7 @@ export default function CompanyLanding() {
     <div className="min-h-screen flex flex-col overflow-x-clip">
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <main className="flex-1">
-        <div className="snap-start min-h-[100dvh] flex flex-col">
+        <div className="min-h-[100dvh] flex flex-col" data-section>
           <Header />
           <section
             className="flex-1 relative flex items-center"
@@ -269,8 +305,8 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12 snap-start"
-          data-testid="section-services"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12"
+          data-section data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
             <FadeIn className="text-center mb-4 md:mb-6">
@@ -288,8 +324,8 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12 snap-start"
-          data-testid="section-course-showcase"
+          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12"
+          data-section data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
             <motion.div
@@ -342,8 +378,8 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start"
-          data-testid="section-testimonials"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12"
+          data-section data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
             <FadeIn className="text-center mb-8 md:mb-12">
@@ -396,6 +432,7 @@ export default function CompanyLanding() {
               ref={scrollContainerRef}
               className="overflow-x-auto snap-x snap-mandatory [&::-webkit-scrollbar]:hidden md:hidden"
               style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
+              data-horizontal-scroll
             >
               <div className="flex">
                 {testimonials.map((t, i) => {
@@ -461,7 +498,7 @@ export default function CompanyLanding() {
           </div>
         </section>
       </main>
-      <section className="snap-start">
+      <section data-section>
         <Footer />
       </section>
       </div>
