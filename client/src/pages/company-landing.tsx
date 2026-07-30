@@ -331,7 +331,7 @@ export default function CompanyLanding() {
         <div className="snap-start min-h-[100dvh] flex flex-col md:py-0">
           <Header />
           <section
-            className="flex-1 relative flex items-center pt-16 pb-16 md:py-0"
+            className="flex-1 relative flex items-center pt-24 pb-24 md:py-0"
             data-testid="section-course-showcase"
           >
             <div className="container relative z-10 mx-auto px-4">
