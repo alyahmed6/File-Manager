@@ -331,7 +331,7 @@ export default function CompanyLanding() {
         <div className="snap-start min-h-[100dvh] flex flex-col md:py-0">
           <Header />
           <section
-            className="flex-1 relative flex items-center py-6 md:py-0"
+            className="flex-1 relative flex items-center py-16 md:py-0"
             data-testid="section-course-showcase"
           >
             <div className="container relative z-10 mx-auto px-4">
@@ -359,7 +359,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-start pt-6 pb-6 md:pt-12 md:pb-4 md:py-12 snap-start"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-start pt-16 pb-16 md:pt-12 md:pb-4 md:py-12 snap-start"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -378,7 +378,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-start pt-6 pb-6 md:pt-12 md:pb-4 md:py-12 snap-start"
+          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-start pt-16 pb-16 md:pt-12 md:pb-4 md:py-12 snap-start"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -432,7 +432,7 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-6 md:py-10 md:py-12 snap-start"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-16 md:py-10 md:py-12 snap-start"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
