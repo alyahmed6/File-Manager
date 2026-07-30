@@ -234,9 +234,8 @@ export default function CompanyLanding() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-clip">
-      <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
-        <main className="flex-1">
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1">
         <div className="snap-start min-h-[100dvh] flex flex-col py-4 md:py-8">
           <Header />
           <section
@@ -461,9 +460,8 @@ export default function CompanyLanding() {
           </div>
         </section>
       </main>
-      <section className="snap-start">
+      <div className="snap-start">
         <Footer />
-      </section>
       </div>
     </div>
   );
