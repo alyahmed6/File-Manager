@@ -285,4 +285,8 @@
   .border.hover-elevate:not(.no-hover-interaction-elevate)::after {
     inset: -1px;
   }
+
+  .pb-16 {
+    padding-bottom: 7rem;
+  }
 }
