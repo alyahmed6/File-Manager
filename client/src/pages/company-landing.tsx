@@ -309,31 +309,29 @@ export default function CompanyLanding() {
   }, []);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.style.scrollSnapType = "none";
-    window.scrollTo(0, 0);
-    requestAnimationFrame(() => {
-      root.style.scrollSnapType = "y mandatory";
-    });
-    return () => {
-      root.style.scrollSnapType = "";
-    };
-  }, []);
-
-  useEffect(() => {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
+    const root = document.documentElement;
+    root.style.scrollSnapType = "none";
+    window.scrollTo(0, 0);
+    const timer = setTimeout(() => {
+      root.style.scrollSnapType = "y mandatory";
+    }, 800);
+    return () => {
+      clearTimeout(timer);
+      root.style.scrollSnapType = "";
+    };
   }, []);
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-clip">
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <main className="flex-1">
-        <div className="snap-start min-h-[100dvh] flex flex-col py-4 md:py-0">
+        <div className="snap-start min-h-[100dvh] flex flex-col md:py-0">
           <Header />
           <section
-            className="flex-1 relative flex items-center"
+            className="flex-1 relative flex items-center py-6 md:py-0"
             data-testid="section-course-showcase"
           >
             <div className="container relative z-10 mx-auto px-4">
@@ -361,7 +359,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-start pt-4 pb-4 md:pt-12 md:pb-4 md:py-12 snap-start"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-start pt-6 pb-6 md:pt-12 md:pb-4 md:py-12 snap-start"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -380,7 +378,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-start pt-4 pb-4 md:pt-12 md:pb-4 md:py-12 snap-start"
+          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-start pt-6 pb-6 md:pt-12 md:pb-4 md:py-12 snap-start"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -434,7 +432,7 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-4 md:py-10 md:py-12 snap-start"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-6 md:py-10 md:py-12 snap-start"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
