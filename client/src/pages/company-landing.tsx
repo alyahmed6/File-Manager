@@ -225,19 +225,14 @@ export default function CompanyLanding() {
   }, []);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.style.scrollSnapType = "y mandatory";
     window.scrollTo(0, 0);
-    return () => {
-      root.style.scrollSnapType = "";
-    };
   }, []);
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-clip">
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <main className="flex-1">
-        <div className="snap-start min-h-[100dvh] flex flex-col">
+        <div className="min-h-[100dvh] flex flex-col">
           <Header />
           <section
             className="flex-1 relative flex items-center"
@@ -269,7 +264,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12 snap-start"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -288,7 +283,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12 snap-start"
+          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -342,7 +337,7 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -461,7 +456,7 @@ export default function CompanyLanding() {
           </div>
         </section>
       </main>
-      <section className="snap-start">
+      <section>
         <Footer />
       </section>
       </div>
