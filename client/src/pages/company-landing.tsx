@@ -234,10 +234,9 @@ export default function CompanyLanding() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col overflow-x-clip">
       <main className="flex-1">
         <div className="snap-start min-h-[100dvh] flex flex-col py-4 md:py-8">
-          <Header />
           <section
             className="flex-1 relative flex items-center"
             data-testid="section-course-showcase"
