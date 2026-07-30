@@ -3,7 +3,7 @@ import {
   useRef,
   useEffect,
 } from "react";
-import { motion, useInView } from "framer-motion";
+
 import { Card, CardContent } from "@/components/ui/card";
 import {
   Boxes,
@@ -123,17 +123,9 @@ function SectionLabel({ children }: { children: React.ReactNode }) {
 /* ─── SERVICES GRID ─────────────────────────────────────────────────── */
 
 function ServicesGrid() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-
   return (
-    <div ref={ref} className="grid md:grid-cols-2 gap-6">
-      {/* Left: Incubation */}
-      <motion.div
-        initial={{ opacity: 0, x: -60 }}
-        animate={inView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
-      >
+    <div className="grid md:grid-cols-2 gap-6">
+      <div>
         <Card className="h-full hover-elevate transition-all duration-300 border-primary/40 bg-gradient-to-br from-background to-primary/5">
           <CardContent className="p-8">
             <div className="flex items-start gap-4 mb-6">
@@ -159,11 +151,8 @@ function ServicesGrid() {
             </p>
             <ul className="space-y-3">
               {incubationItems.map(({ label, Icon }) => (
-                <motion.li
+                <li
                   key={label}
-                  initial={{ opacity: 0, x: -10 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
                   className="flex items-center gap-3 text-sm group cursor-default"
                   data-testid={`item-incubation-${label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
@@ -172,19 +161,14 @@ function ServicesGrid() {
                     {label}
                   </span>
                   <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-primary/60" />
-                </motion.li>
+                </li>
               ))}
             </ul>
           </CardContent>
         </Card>
-      </motion.div>
+      </div>
 
-      {/* Right: Blockchain */}
-      <motion.div
-        initial={{ opacity: 0, x: 60 }}
-        animate={inView ? { opacity: 1, x: 0 } : {}}
-        transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
-      >
+      <div>
         <Card className="h-full hover-elevate transition-all duration-300 border-accent/40 bg-gradient-to-br from-background to-accent/5">
           <CardContent className="p-8">
             <div className="flex items-start gap-4 mb-6">
@@ -203,11 +187,8 @@ function ServicesGrid() {
             </p>
             <ul className="space-y-3">
               {blockchainItems.map(({ label, Icon }) => (
-                <motion.li
+                <li
                   key={label}
-                  initial={{ opacity: 0, x: 10 }}
-                  animate={inView ? { opacity: 1, x: 0 } : {}}
-                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
                   className="flex items-center gap-3 text-sm group cursor-default"
                   data-testid={`item-blockchain-${label.toLowerCase().replace(/\s+/g, "-")}`}
                 >
@@ -216,12 +197,12 @@ function ServicesGrid() {
                     {label}
                   </span>
                   <span className="w-1.5 h-1.5 rounded-full flex-shrink-0 bg-accent/60" />
-                </motion.li>
+                </li>
               ))}
             </ul>
           </CardContent>
         </Card>
-      </motion.div>
+      </div>
     </div>
   );
 }
@@ -229,19 +210,13 @@ function ServicesGrid() {
 /* ─── ROADMAP GRID ──────────────────────────────────────────────────── */
 
 function RoadmapGrid() {
-  const ref = useRef<HTMLDivElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-60px" });
-
   return (
-    <div ref={ref} className="grid grid-cols-2 gap-3 max-w-3xl mx-auto">
+    <div className="grid grid-cols-2 gap-3 max-w-3xl mx-auto">
       {roadmapModules.map(({ title, desc, Icon, duration }, index) => {
         const color = moduleColors[index % moduleColors.length];
         return (
-          <motion.div
+          <div
             key={title}
-            initial={{ opacity: 0, y: 36 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 36 }}
-            transition={{ duration: 0.72, ease: [0.22, 1, 0.36, 1], delay: index * 0.07 }}
             data-testid={`roadmap-item-${index + 1}`}
           >
             <Card className="h-full bg-card/50 border border-border/50 hover-elevate transition-all duration-300">
@@ -273,7 +248,7 @@ function RoadmapGrid() {
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
+          </div>
         );
       })}
     </div>
@@ -318,9 +293,8 @@ export default function CompanyLanding() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-clip">
-      <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
-        <main className="flex-1">
+    <div className="min-h-screen flex flex-col">
+      <main className="flex-1">
         <div className="snap-start min-h-[100dvh] flex flex-col">
           <Header />
           <section
@@ -353,7 +327,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12 snap-start"
+          className="snap-start min-h-[100dvh] flex flex-col justify-center bg-card/85"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -372,17 +346,11 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12 snap-start"
+          className="snap-start min-h-[100dvh] flex flex-col justify-center bg-background/85"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
-            <motion.div
-              className="text-center mb-4 md:mb-6"
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, amount: 0.15 }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            >
+            <div className="text-center mb-4 md:mb-6">
               <SectionLabel>Upcoming Program</SectionLabel>
               <h2 className="text-3xl md:text-5xl font-bold mb-4 text-foreground" data-testid="text-course-showcase-heading">
                 Web3 & Blockchain Program
@@ -390,18 +358,12 @@ export default function CompanyLanding() {
               <p className="text-base max-w-xl mx-auto mb-5" style={{ color: "#64748b" }}>
                 Learn blockchain fundamentals, Bitcoin architecture, Ethereum architecture, smart contracts and more.
               </p>
-            </motion.div>
+            </div>
 
             <RoadmapGrid />
 
             {/* CTA banner */}
-            <motion.div
-              className="mt-4"
-              initial={{ opacity: 0, y: 32 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-60px" }}
-              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1], delay: 0.15 }}
-            >
+            <div className="mt-4">
               <div
                 className="flex items-center gap-4 rounded-2xl px-6 py-4 max-w-3xl mx-auto"
                 style={{
@@ -420,13 +382,13 @@ export default function CompanyLanding() {
                   <span style={{ color: "#3bb5e8" }}>your complete journey into Web3 starts here.</span>
                 </p>
               </div>
-            </motion.div>
+            </div>
           </div>
         </section>
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start"
+          className="snap-start min-h-[100dvh] flex flex-col justify-center bg-card/85"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -545,9 +507,8 @@ export default function CompanyLanding() {
           </div>
         </section>
       </main>
-      <section className="snap-start">
+      <div className="snap-start">
         <Footer />
-      </section>
       </div>
     </div>
   );
