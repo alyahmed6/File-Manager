@@ -6,7 +6,6 @@ import {
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Clock, GraduationCap } from "lucide-react";
-import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import {
   moduleColors,
