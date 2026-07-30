@@ -224,11 +224,12 @@ export default function CompanyLanding() {
   }, []);
 
   useEffect(() => {
-    const root = document.documentElement;
-    root.style.scrollSnapType = "y mandatory";
     window.scrollTo(0, 0);
+    requestAnimationFrame(() => {
+      document.documentElement.style.scrollSnapType = "y mandatory";
+    });
     return () => {
-      root.style.scrollSnapType = "";
+      document.documentElement.style.scrollSnapType = "";
     };
   }, []);
 
