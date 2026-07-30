@@ -337,7 +337,7 @@ export default function CompanyLanding() {
             <div className="container relative z-10 mx-auto px-4">
               <div className="flex flex-col items-center gap-8 text-center">
                 <h1
-                  className="max-w-5xl text-4xl font-extrabold tracking-tight leading-tight md:text-6xl lg:text-7xl text-foreground"
+                  className="max-w-5xl text-4xl font-extrabold tracking-tight leading-tight md:text-6xl lg:text-7xl text-foreground bg-black/30"
                   data-testid="text-hero-heading"
                 >
                   <span className="bg-gradient-to-r from-white via-primary to-accent bg-clip-text text-transparent">The Blockchain Pulse</span>
