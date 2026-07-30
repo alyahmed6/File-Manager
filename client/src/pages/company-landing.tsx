@@ -310,7 +310,7 @@ export default function CompanyLanding() {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.style.scrollSnapType = "y mandatory";
+    root.style.scrollSnapType = "y proximity";
     window.scrollTo(0, 0);
     return () => {
       root.style.scrollSnapType = "";
@@ -318,7 +318,7 @@ export default function CompanyLanding() {
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col overflow-x-clip">
+    <div className="min-h-screen flex flex-col">
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <main className="flex-1">
         <div className="snap-start min-h-[100dvh] flex flex-col">
