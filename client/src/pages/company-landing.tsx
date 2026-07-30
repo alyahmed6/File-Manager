@@ -235,19 +235,19 @@ export default function CompanyLanding() {
   return (
     <div className="min-h-screen flex flex-col overflow-x-clip">
       <main className="flex-1">
-        <div className="snap-start min-h-[100dvh] flex flex-col py-4 md:py-8">
+        <div className="snap-start min-h-[100dvh] flex flex-col justify-center">
           <section
             className="flex-1 relative flex items-center"
             data-testid="section-course-showcase"
           >
             <div className="container relative z-10 mx-auto px-4">
-              <div className="flex flex-col items-center gap-8 text-center">
-                <h1
-                  className="max-w-5xl text-4xl font-extrabold tracking-tight leading-tight md:text-6xl lg:text-7xl rounded-2xl bg-black/30 px-5 py-3 shadow-2xl ring-1 ring-white/10"
-                  data-testid="text-hero-heading"
-                >
-                  <span className="bg-gradient-to-r from-white via-primary to-accent bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(0,0,0,0.65)]">The Blockchain Pulse</span>
-                </h1>
+              <div className="flex flex-col items-center gap-4 text-center">
+                 <h1
+                   className="max-w-5xl text-2xl font-bold tracking-tight md:text-4xl lg:text-5xl text-foreground"
+                   data-testid="text-hero-heading"
+                 >
+                   The Blockchain Pulse
+                 </h1>
                 <div
                   className="flex w-full max-w-3xl items-center justify-center gap-3"
                   data-testid="text-hero-tagline"
