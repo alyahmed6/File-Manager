@@ -5,16 +5,100 @@ import {
 } from "react";
 import { motion, useInView } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
-import { Clock, GraduationCap } from "lucide-react";
+import {
+  Boxes,
+  BrainCircuit,
+  CandlestickChart,
+  Layers,
+  Tag,
+  Scale,
+  BarChart2,
+  TrendingUp,
+  Users,
+  Target,
+  GraduationCap,
+  Rocket,
+  Wifi,
+  Search,
+  BookOpen,
+  Box,
+  DollarSign,
+  Megaphone,
+  MessageSquare,
+  Clock,
+} from "lucide-react";
+import { SiEthereum, SiBitcoin } from "react-icons/si";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import {
-  moduleColors,
-  roadmapModules,
-  testimonials,
-  incubationItems,
-  blockchainItems,
-} from "./company-landing-data";
+import qasimPhoto from "@assets/QAsim_1780246728761.jpeg";
+import salmanPhoto from "@assets/Screenshot_2026-05-31_220657_1780247305242.png";
+
+/* ─── DATA ──────────────────────────────────────────────────────────── */
+
+const moduleColors = [
+  "#3bb5e8",
+  "#8b5cf6",
+  "#f59e0b",
+  "#06b6d4",
+  "#ec4899",
+  "#6366f1",
+  "#14b8a6",
+  "#f43f5e",
+];
+
+const roadmapModules = [
+  { title: "Blockchain Fundamentals", desc: "Distributed ledgers, consensus mechanisms, and how blockchains work", Icon: Boxes, duration: "~1h" },
+  { title: "Ethereum & Smart Contracts", desc: "Accounts, gas, the EVM, and Ethereum's core architecture", Icon: SiEthereum, duration: "~1h" },
+  { title: "Bitcoin", desc: "Satoshi, history, core architecture and future", Icon: SiBitcoin, duration: "~1h" },
+  { title: "DeFi & Layer 2s", desc: "Protocols, liquidity pools, and blockchain scaling solutions", Icon: Layers, duration: "~1h" },
+  { title: "Tokenization", desc: "Asset digitization and real-world use cases", Icon: Tag, duration: "~1h" },
+  { title: "AI in Blockchains", desc: "Integrating machine learning with on-chain data and systems", Icon: BrainCircuit, duration: "~1h" },
+  { title: "Stablecoins", desc: "Mechanisms, risks, and the evolving stablecoin landscape", Icon: Scale, duration: "~1h" },
+  { title: "Exchange Tutorials", desc: "CEX vs DEX, trading mechanics, and navigating order books", Icon: CandlestickChart, duration: "~1h" },
+];
+
+const testimonials = [
+  {
+    initials: "SA",
+    photo: salmanPhoto,
+    name: "Salman Ali",
+    role: "Freelancer",
+    comment: "The incubation environment helped me grow from a beginner freelancer into a professional service provider.",
+  },
+  {
+    initials: "MH",
+    name: "Matloob Hussain",
+    role: "Startup Founder",
+    comment: "The Blockchain Pulse delivered excellent environment and services with great professionalism and communication.",
+  },
+  {
+    initials: "QA",
+    photo: qasimPhoto,
+    name: "Qasim Ali",
+    role: "Bookkeeper & Financial Assistant",
+    comment: "Professional environment, reliable support, and excellent communication throughout the work.",
+  },
+];
+
+const incubationItems = [
+  { label: "Freelancer Growth", Icon: TrendingUp },
+  { label: "Mentorship & Guidance", Icon: Users },
+  { label: "Supportive Freelancer Ecosystem", Icon: Users },
+  { label: "Growth-Focused Environment", Icon: Target },
+  { label: "Skill Development", Icon: GraduationCap },
+  { label: "Startup Support", Icon: Rocket },
+  { label: "Reliable Power & High-Speed Internet", Icon: Wifi },
+];
+
+const blockchainItems = [
+  { label: "In-Depth Analysis for Web3 Projects", Icon: Search },
+  { label: "Discord Moderation", Icon: MessageSquare },
+  { label: "Web3 Education", Icon: BookOpen },
+  { label: "Blockchain Consulting", Icon: Box },
+  { label: "Crypto Research", Icon: BarChart2 },
+  { label: "Crypto Finance", Icon: DollarSign },
+  { label: "Research/News Updates on Socials", Icon: Megaphone },
+];
 
 /* ─── FADE IN ───────────────────────────────────────────────────────── */
 
@@ -235,7 +319,8 @@ export default function CompanyLanding() {
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-clip">
-      <main className="flex-1">
+      <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
+        <main className="flex-1">
         <div className="snap-start min-h-[100dvh] flex flex-col">
           <Header />
           <section
@@ -460,8 +545,9 @@ export default function CompanyLanding() {
           </div>
         </section>
       </main>
-      <div className="snap-start">
+      <section className="snap-start">
         <Footer />
+      </section>
       </div>
     </div>
   );
