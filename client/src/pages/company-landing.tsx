@@ -310,11 +310,20 @@ export default function CompanyLanding() {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.style.scrollSnapType = "y mandatory";
+    root.style.scrollSnapType = "none";
     window.scrollTo(0, 0);
+    requestAnimationFrame(() => {
+      root.style.scrollSnapType = "y mandatory";
+    });
     return () => {
       root.style.scrollSnapType = "";
     };
+  }, []);
+
+  useEffect(() => {
+    if ("scrollRestoration" in window.history) {
+      window.history.scrollRestoration = "manual";
+    }
   }, []);
 
   return (
