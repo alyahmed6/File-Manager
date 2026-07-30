@@ -59,22 +59,12 @@
           hideHint();
           document.removeEventListener('touchstart',tryPlay,true);
           document.removeEventListener('click',tryPlay,true);
-          window.removeEventListener('scroll',tryPlay,true);
-          window.removeEventListener('touchmove',tryPlay,true);
         }).catch(function(){});
       }
       v.play().then(hideHint).catch(function(){});
       if(window.innerWidth<768){
         document.addEventListener('touchstart',tryPlay,true);
         document.addEventListener('click',tryPlay,true);
-        window.addEventListener('scroll',tryPlay,true);
-        window.addEventListener('touchmove',tryPlay,true);
-        // Best-effort: nudge the page to fire a scroll event on visit
-        setTimeout(function(){
-          window.scrollTo(0,1);
-          window.scrollTo(0,0);
-          tryPlay();
-        },300);
       }
     })();
     </script>

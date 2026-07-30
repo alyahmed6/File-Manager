@@ -310,18 +310,25 @@ export default function CompanyLanding() {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.style.scrollSnapType = "y mandatory";
-    return () => { root.style.scrollSnapType = ""; };
+    const applySnap = () => {
+      root.style.scrollSnapType = window.innerWidth >= 768 ? "y mandatory" : "";
+    };
+    applySnap();
+    window.addEventListener("resize", applySnap, { passive: true });
+    return () => {
+      root.style.scrollSnapType = "";
+      window.removeEventListener("resize", applySnap);
+    };
   }, []);
 
   return (
     <div className="min-h-screen flex flex-col overflow-x-clip">
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <main className="flex-1">
-        <div className="snap-start min-h-[100dvh] max-h-[100dvh] overflow-hidden flex flex-col">
+        <div className="md:snap-start min-h-[100dvh] flex flex-col">
           <Header />
           <section
-            className="flex-1 relative overflow-hidden flex items-center"
+            className="flex-1 relative flex items-center"
             data-testid="section-course-showcase"
           >
             <div className="absolute inset-0 bg-black/10" />
@@ -350,7 +357,7 @@ export default function CompanyLanding() {
 
         {/* ── SERVICES ─────────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12 snap-start snap-always"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12 md:snap-start md:snap-always"
           data-testid="section-services"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -369,7 +376,7 @@ export default function CompanyLanding() {
 
         {/* ── WEB3 COURSE ──────────────────────────────────────────── */}
         <section
-          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12 snap-start snap-always"
+          className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-start pt-12 pb-4 md:py-12 md:snap-start md:snap-always"
           data-testid="section-course-showcase"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -423,7 +430,7 @@ export default function CompanyLanding() {
 
         {/* ── TESTIMONIALS ─────────────────────────────────────────── */}
         <section
-          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 snap-start snap-always"
+          className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center py-10 md:py-12 md:snap-start md:snap-always"
           data-testid="section-testimonials"
         >
           <div className="container mx-auto px-4 max-w-5xl">
@@ -542,7 +549,7 @@ export default function CompanyLanding() {
           </div>
         </section>
       </main>
-      <section className="snap-start snap-always">
+      <section className="md:snap-start md:snap-always">
         <Footer />
       </section>
       </div>
