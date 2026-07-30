@@ -314,13 +314,78 @@ export default function CompanyLanding() {
     }
     const root = document.documentElement;
     root.style.scrollSnapType = "none";
+    root.style.scrollBehavior = "smooth";
     window.scrollTo(0, 0);
-    const timer = setTimeout(() => {
-      root.style.scrollSnapType = "y mandatory";
-    }, 800);
+
+    let isFirstScroll = true;
+    let snapTimer: ReturnType<typeof setTimeout>;
+
+    const slowScroll = (target: number, cb?: () => void) => {
+      const start = window.scrollY;
+      const distance = target - start;
+      const duration = 1200;
+      const startTime = performance.now();
+
+      const ease = (t: number) =>
+        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+      const animate = (now: number) => {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        window.scrollTo(0, start + distance * ease(progress));
+        if (progress < 1) {
+          requestAnimationFrame(animate);
+        } else {
+          cb?.();
+        }
+      };
+      requestAnimationFrame(animate);
+    };
+
+    const enableSnap = () => { root.style.scrollSnapType = "y mandatory"; };
+
+    const onFirstScroll = () => {
+      if (!isFirstScroll) return;
+      isFirstScroll = false;
+      clearTimeout(snapTimer);
+      root.style.scrollSnapType = "none";
+      slowScroll(window.innerHeight, enableSnap);
+    };
+
+    const onWheel = (e: WheelEvent) => {
+      if (!isFirstScroll || e.deltaY <= 0) return;
+      e.preventDefault();
+      onFirstScroll();
+    };
+
+    const onTouchStart = (e: TouchEvent) => {
+      if (!isFirstScroll) return;
+      const touch = e.touches[0];
+      if (!touch) return;
+      const startY = touch.clientY;
+      const onTouchMove = (e: TouchEvent) => {
+        const dy = startY - e.touches[0].clientY;
+        if (dy > 20) onFirstScroll();
+      };
+      const onTouchEnd = () => {
+        window.removeEventListener("touchmove", onTouchMove);
+        window.removeEventListener("touchend", onTouchEnd);
+      };
+      window.addEventListener("touchmove", onTouchMove, { passive: true });
+      window.addEventListener("touchend", onTouchEnd, { passive: true });
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: false });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+
+    snapTimer = setTimeout(enableSnap, 800);
+
     return () => {
-      clearTimeout(timer);
+      clearTimeout(snapTimer);
       root.style.scrollSnapType = "";
+      root.style.scrollBehavior = "";
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
     };
   }, []);
 
