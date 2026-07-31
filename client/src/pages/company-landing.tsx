@@ -314,78 +314,13 @@ export default function CompanyLanding() {
     }
     const root = document.documentElement;
     root.style.scrollSnapType = "none";
-    root.style.scrollBehavior = "smooth";
     window.scrollTo(0, 0);
-
-    let isFirstScroll = true;
-    let snapTimer: ReturnType<typeof setTimeout>;
-
-    const slowScroll = (target: number, cb?: () => void) => {
-      const start = window.scrollY;
-      const distance = target - start;
-      const duration = 1200;
-      const startTime = performance.now();
-
-      const ease = (t: number) =>
-        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-      const animate = (now: number) => {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        window.scrollTo(0, start + distance * ease(progress));
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        } else {
-          cb?.();
-        }
-      };
-      requestAnimationFrame(animate);
-    };
-
-    const enableSnap = () => { root.style.scrollSnapType = "y mandatory"; };
-
-    const onFirstScroll = () => {
-      if (!isFirstScroll) return;
-      isFirstScroll = false;
-      clearTimeout(snapTimer);
-      root.style.scrollSnapType = "none";
-      slowScroll(window.innerHeight, enableSnap);
-    };
-
-    const onWheel = (e: WheelEvent) => {
-      if (!isFirstScroll || e.deltaY <= 0) return;
-      e.preventDefault();
-      onFirstScroll();
-    };
-
-    const onTouchStart = (e: TouchEvent) => {
-      if (!isFirstScroll) return;
-      const touch = e.touches[0];
-      if (!touch) return;
-      const startY = touch.clientY;
-      const onTouchMove = (e: TouchEvent) => {
-        const dy = startY - e.touches[0].clientY;
-        if (dy > 20) onFirstScroll();
-      };
-      const onTouchEnd = () => {
-        window.removeEventListener("touchmove", onTouchMove);
-        window.removeEventListener("touchend", onTouchEnd);
-      };
-      window.addEventListener("touchmove", onTouchMove, { passive: true });
-      window.addEventListener("touchend", onTouchEnd, { passive: true });
-    };
-
-    window.addEventListener("wheel", onWheel, { passive: false });
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-
-    snapTimer = setTimeout(enableSnap, 800);
-
+    const timer = setTimeout(() => {
+      root.style.scrollSnapType = "y mandatory";
+    }, 800);
     return () => {
-      clearTimeout(snapTimer);
+      clearTimeout(timer);
       root.style.scrollSnapType = "";
-      root.style.scrollBehavior = "";
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
     };
   }, []);
 
@@ -393,7 +328,7 @@ export default function CompanyLanding() {
     <div className="min-h-screen flex flex-col overflow-x-clip">
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <main className="flex-1">
-        <div className="snap-start min-h-[80dvh] md:min-h-[100dvh] flex flex-col md:py-0">
+        <div className="snap-start min-h-[80dvh] md:h-[100dvh] flex flex-col md:py-0">
           <Header />
           <section
             className="flex-1 relative flex items-center pt-56 pb-56 md:py-0"
