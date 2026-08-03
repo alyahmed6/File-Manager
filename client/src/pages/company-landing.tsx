@@ -312,100 +312,15 @@ export default function CompanyLanding() {
     if ("scrollRestoration" in window.history) {
       window.history.scrollRestoration = "manual";
     }
+    const root = document.documentElement;
+    root.style.scrollSnapType = "none";
     window.scrollTo(0, 0);
-
-    let isAnimating = false;
-    let lastEvent = 0;
-
-    const getSections = () =>
-      Array.from(document.querySelectorAll("[data-scroll-section]")) as HTMLElement[];
-
-    const smoothScrollTo = (target: number, duration = 900) => {
-      isAnimating = true;
-      const start = window.scrollY;
-      const distance = target - start;
-      const startTime = performance.now();
-
-      const ease = (t: number) =>
-        t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
-
-      const animate = (now: number) => {
-        const elapsed = now - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        window.scrollTo(0, start + distance * ease(progress));
-        if (progress < 1) {
-          requestAnimationFrame(animate);
-        } else {
-          isAnimating = false;
-        }
-      };
-      requestAnimationFrame(animate);
-    };
-
-    const scrollToSection = (dir: 1 | -1) => {
-      const sections = getSections();
-      if (!sections.length) return;
-      const current = window.scrollY + window.innerHeight / 2;
-      let next: HTMLElement | null = null;
-
-      if (dir === 1) {
-        for (const s of sections) {
-          if (s.offsetTop > current - 80) {
-            next = s;
-            break;
-          }
-        }
-      } else {
-        for (let i = sections.length - 1; i >= 0; i--) {
-          if (sections[i].offsetTop < current - 80) {
-            next = sections[i];
-            break;
-          }
-        }
-      }
-      if (next) smoothScrollTo(next.offsetTop);
-    };
-
-    const onWheel = (e: WheelEvent) => {
-      const now = Date.now();
-      if (now - lastEvent < 250 || isAnimating) return;
-      lastEvent = now;
-      e.preventDefault();
-      scrollToSection(e.deltaY > 0 ? 1 : -1);
-    };
-
-    const onTouchStart = (e: TouchEvent) => {
-      const touch = e.touches[0];
-      if (!touch) return;
-      let startY = touch.clientY;
-      let startX = touch.clientX;
-
-      const onTouchMove = (e: TouchEvent) => {
-        const dy = startY - e.touches[0].clientY;
-        const dx = startX - e.touches[0].clientX;
-        if (Math.abs(dy) < 10) return;
-        if (Math.abs(dx) > Math.abs(dy) * 1.2) return;
-        e.preventDefault();
-        if (Math.abs(dy) > 40 && !isAnimating) {
-          startY = e.touches[0].clientY;
-          startX = e.touches[0].clientX;
-          scrollToSection(dy > 0 ? 1 : -1);
-        }
-      };
-      const onTouchEnd = () => {
-        window.removeEventListener("touchmove", onTouchMove);
-        window.removeEventListener("touchend", onTouchEnd);
-      };
-      window.addEventListener("touchmove", onTouchMove, { passive: false });
-      window.addEventListener("touchend", onTouchEnd, { passive: true });
-    };
-
-    window.addEventListener("wheel", onWheel, { passive: false });
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-
+    const timer = setTimeout(() => {
+      root.style.scrollSnapType = "y mandatory";
+    }, 800);
     return () => {
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
+      clearTimeout(timer);
+      root.style.scrollSnapType = "";
     };
   }, []);
 
@@ -413,7 +328,7 @@ export default function CompanyLanding() {
     <div className="min-h-screen flex flex-col overflow-x-clip">
       <div className="relative flex flex-col min-h-screen" style={{ zIndex: 3 }}>
         <main className="flex-1">
-        <div className="snap-start min-h-[80dvh] md:h-[100dvh] flex flex-col md:py-0" data-scroll-section>
+        <div className="snap-start min-h-[80dvh] md:h-[100dvh] flex flex-col md:py-0">
           <Header />
           <section
             className="flex-1 relative flex items-center pt-56 pb-56 md:py-0"
@@ -446,7 +361,6 @@ export default function CompanyLanding() {
         <section
           className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-start pt-16 pb-16 md:pt-12 md:pb-4 md:py-12 snap-start"
           data-testid="section-services"
-          data-scroll-section
         >
           <div className="container mx-auto px-4 max-w-5xl">
             <FadeIn className="text-center mb-4 md:mb-6">
@@ -466,7 +380,6 @@ export default function CompanyLanding() {
         <section
           className="relative bg-background/85 min-h-[100dvh] flex flex-col justify-start pt-16 pb-16 md:pt-12 md:pb-4 md:py-12 snap-start"
           data-testid="section-course-showcase"
-          data-scroll-section
         >
           <div className="container mx-auto px-4 max-w-5xl">
             <motion.div
@@ -521,7 +434,6 @@ export default function CompanyLanding() {
         <section
           className="relative bg-card/85 min-h-[100dvh] flex flex-col justify-center pt-16 pb-16 md:py-10 md:py-12 snap-start"
           data-testid="section-testimonials"
-          data-scroll-section
         >
           <div className="container mx-auto px-4 max-w-5xl">
             <FadeIn className="text-center mb-8 md:mb-12">
@@ -639,7 +551,7 @@ export default function CompanyLanding() {
           </div>
         </section>
       </main>
-      <section className="snap-start" data-scroll-section>
+      <section className="snap-start">
         <Footer />
       </section>
       </div>
