@@ -10,28 +10,56 @@ import Footer from "@/components/Footer";
 
 export default function Course() {
   useEffect(() => {
-    const root = document.documentElement;
-    root.style.scrollSnapType = "y mandatory";
     window.scrollTo(0, 0);
-    return () => {
-      root.style.scrollSnapType = "";
-    };
   }, []);
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div
+      className="h-screen flex flex-col overflow-y-auto snap-y snap-mandatory scroll-smooth"
+      style={{ overscrollBehaviorY: "contain", touchAction: "pan-y" }}
+    >
       <main className="flex-1">
-        <div className="snap-start min-h-[100dvh] flex flex-col">
+        <div
+          className="snap-start h-screen flex flex-col overflow-hidden"
+          style={{ scrollSnapStop: "always" }}
+        >
           <Header />
           <div className="flex-1 flex flex-col justify-center"><HeroSection /></div>
         </div>
-        <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><WhoThisCourseIsForSection /></div>
-        <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><CourseSection /></div>
-        <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><CurriculumSection /></div>
-        <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><PricingSection /></div>
-        <div className="snap-start min-h-[100dvh] flex flex-col justify-center"><FAQSection /></div>
+        <div
+          className="snap-start h-screen flex flex-col overflow-hidden justify-center"
+          style={{ scrollSnapStop: "always" }}
+        >
+          <WhoThisCourseIsForSection />
+        </div>
+        <div
+          className="snap-start h-screen flex flex-col overflow-hidden justify-center"
+          style={{ scrollSnapStop: "always" }}
+        >
+          <CourseSection />
+        </div>
+        <div
+          className="snap-start h-screen flex flex-col overflow-hidden justify-center"
+          style={{ scrollSnapStop: "always" }}
+        >
+          <CurriculumSection />
+        </div>
+        <div
+          className="snap-start h-screen flex flex-col overflow-hidden justify-center"
+          style={{ scrollSnapStop: "always" }}
+        >
+          <PricingSection />
+        </div>
+        <div
+          className="snap-start h-screen flex flex-col overflow-hidden justify-center"
+          style={{ scrollSnapStop: "always" }}
+        >
+          <FAQSection />
+        </div>
       </main>
-      <div className="snap-start"><Footer /></div>
+      <div className="snap-start" style={{ scrollSnapStop: "always" }}>
+        <Footer />
+      </div>
     </div>
   );
 }
